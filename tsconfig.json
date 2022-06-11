@@ -8,6 +8,7 @@
         "sourceMap": true,
         "strict": true,
         "allowJs": true,
+        "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
 
         "noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,

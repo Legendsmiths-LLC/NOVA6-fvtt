@@ -3,8 +3,17 @@
  */
 import { ActorDataNOVA6 } from "./ActorTypes";
 
+import defaultItems from "../../../system/data/en/default.json";
+
 export class NOVA6Actor extends Actor {
 
+    /** @override */
+    _onCreate(data, options, userId) {
+        super._onCreate(data, options, userId);
+
+        // Create default aspects
+        this.createEmbeddedDocuments('Item', defaultItems.content.aspects);
+    }
 }
 
 declare global {
