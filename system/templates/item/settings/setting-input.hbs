@@ -1,0 +1,18 @@
+<div class="nova6-setting">
+    <header class="nova6-headline">
+        <h3 class="nova6-headline__text">{{localize headline}}</h3>
+    </header>
+
+    <label for="{{ fieldName }}">
+        <input
+            type="text"
+            class="nova6-text-input"
+            name="{{ fieldName }}"
+            value="{{ field }}"
+            {{#if placeholder }}placeholder="{{ localize placeholder}}"{{/if}}
+            {{#if dtype }}data-dtype="{{ dtype }}"{{/if}}
+        />
+
+        {{#if help}}<span class="nova6-text-input__setting-label">{{localize help}}</span>{{/if}}
+    </label>
+</div>

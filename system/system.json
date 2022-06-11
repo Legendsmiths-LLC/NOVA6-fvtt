@@ -1,0 +1,21 @@
+{
+    "name": "nova6",
+    "title": "NOVA6",
+    "description": "The official NOVA6 system for FoundryVTT",
+    "version": "0.0.1",
+    "author": "Patrick Bauer (Daddi#2333)",
+    "scripts": ["system.js"],
+    "styles": [],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "languages/en.json"
+        }
+    ],
+    "minimumCoreVersion": "9",
+    "compatibleCoreVersion": "9",
+    "url": "https://github.com/anvil-vtt/NOVA6",
+    "manifest": "https://github.com/anvil-vtt/NOVA6/releases/latest/download/system.json",
+    "download": "https://github.com/anvil-vtt/NOVA6/releases/latest/download/nova6.zip"
+}

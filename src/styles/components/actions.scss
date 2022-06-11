@@ -1,0 +1,107 @@
+.nova6-actions {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    text-shadow: 1px 1px 2px $shadow-color;
+    pointer-events: none;
+    z-index: 4;
+
+    &--automation-item {
+        right: $component-padding * 2;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .nova6-actions__icon {
+            font-size: 14px;
+        }
+    }
+
+    &--headline,
+    &--setting,
+    &--skill {
+        right: 15px;
+        padding: 0 10px 0 50px;
+        top: 0;
+        background: transparent;
+    }
+
+    &--item {
+        top: -10px;
+    }
+
+    &--item,
+    &--section-heading {
+        right: 0;
+        padding-left: 50px;
+        font-size: 18px;
+    }
+
+    &--section-heading {
+        top: 5px;
+    }
+
+    &--skill {
+        right: 0;
+    }
+
+    &--setting {
+        padding-left: 10px;
+        cursor: pointer;
+        pointer-events: initial;
+    }
+
+    &--skill-secondary {
+        left: -15px;
+        top: 20px;
+        gap: 0;
+        font-size: 16px;
+        color: $nova6-primary-color;
+        text-shadow: 1px -1px 1px $sheet-background;
+    }
+
+    &__icon {
+        cursor: pointer;
+        opacity: 0;
+
+        &--no-hide {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        &--move {
+            cursor: move;
+        }
+
+        &--reverse {
+            transform: rotate(180deg);
+            text-shadow: -1px -1px 2px #a0a0a0;
+        }
+
+        &--secondary {
+            font-family: "Fate Icons", sans-serif;
+        }
+    }
+
+    &__text {
+        font-size: 12px;
+    }
+}
+
+.nova6-js-edit-mode {
+    .nova6-actions--headline,
+    .nova6-actions--skill {
+        background: linear-gradient(90deg, rgba(47, 53, 66, 0) 0%, #2f3542 33%, #2f3542 100%);
+    }
+
+    .nova6-actions--item,
+    .nova6-actions--section-heading {
+        background: linear-gradient(90deg, transparentize($sheet-background, 1) 0%, $sheet-background 33%, $sheet-background 100%);
+    }
+
+    .nova6-actions__icon {
+        opacity: 1;
+        pointer-events: all;
+    }
+}

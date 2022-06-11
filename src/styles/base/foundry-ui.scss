@@ -1,0 +1,13 @@
+.app {
+    color: $light-text-color;
+}
+
+.window-app .window-content,
+#chat-log .message,
+#chat-form textarea,
+#chat-controls div.roll-type-select select,
+.sidebar-tab .directory-header .header-search input,
+#chat-form .cm-s-easymde {
+    background: $sheet-background;
+    color: var(--nova6-primary-text-color, $primary-text-color);
+}

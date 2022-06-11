@@ -1,0 +1,26 @@
+<form autocomplete="off" class="nova6-u-full-height {{cssClass}}">
+    <div class="nova6-desk">
+        {{!--HEADER--}}
+        <div class="nova6-header">
+            <div class="nova6-header__name">
+                <label class="nova6-header__label">
+                    {{#if isOwnedBy}}
+                        {{ isOwnedBy }}
+                    {{else}}
+                        {{localize label}}
+                    {{/if}}
+                </label>
+
+                <div class="nova6-header__title">
+                    {{localize title}}
+                </div>
+            </div>
+
+            {{#if centerPartial}}
+                {{> centerPartial }}
+            {{/if}}
+
+            {{> "systems/nova6/templates/components/header-logo.hbs"}}
+        </div>
+
+        <div class="nova6-desk__content nova6-desk__content--app">

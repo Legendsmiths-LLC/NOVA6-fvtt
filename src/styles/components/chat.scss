@@ -1,0 +1,25 @@
+.nova6-chat {
+    font-size: 24px;
+    text-align: center;
+}
+
+.nova6-chat__headline-container {
+    position: relative;
+    width: 70%;
+    margin: $component-padding auto;
+}
+
+.nova6-roll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $nova6-primary-color;
+}
+
+.nova6-dice {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-bottom: $component-padding * 2;
+    font-family: "Fate Icons", sans-serif;
+}

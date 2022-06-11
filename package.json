@@ -1,0 +1,56 @@
+{
+    "name": "nova6",
+    "version": "1.0.0",
+    "description": "NOVA6 is the official NOVA6 game system for FoundryVTT",
+    "private": true,
+    "scripts": {
+        "build": "webpack",
+        "build:production": "webpack --env mode=production",
+        "start": "webpack serve"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/anvil-vtt/NOVA6.git"
+    },
+    "author": "Patrick Bauer (Daddi#2333)",
+    "license": "MIT",
+    "devDependencies": {
+        "@league-of-foundry-developers/foundry-vtt-types": "^9.269.0",
+        "@types/webpack-env": "^1.17.0",
+        "@typescript-eslint/eslint-plugin": "^5.27.1",
+        "@typescript-eslint/parser": "^5.27.1",
+        "autoprefixer": "^10.4.7",
+        "clean-webpack-plugin": "^4.0.0",
+        "copy-webpack-plugin": "^11.0.0",
+        "css-loader": "^6.7.1",
+        "eslint": "^8.17.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-webpack-plugin": "^3.1.1",
+        "glob": "^8.0.3",
+        "node-sass-glob-importer": "^5.3.2",
+        "null-loader": "^4.0.1",
+        "postcss-loader": "^7.0.0",
+        "prettier": "^2.6.2",
+        "raw-loader": "^4.0.2",
+        "sass": "^1.52.3",
+        "sass-loader": "^13.0.0",
+        "source-map-loader": "^3.0.1",
+        "string-replace-loader": "^3.1.0",
+        "style-loader": "^3.3.1",
+        "terser-webpack-plugin": "^5.3.3",
+        "ts-loader": "^9.3.0",
+        "typescript": "^4.7.3",
+        "webpack": "^5.73.0",
+        "webpack-cli": "^4.9.2",
+        "webpack-dev-server": "^4.9.2",
+        "webpack-import-glob-loader": "^1.6.3"
+    },
+    "browserslist": [
+        "defaults",
+        "not ie < 11",
+        "last 2 versions",
+        "> 1%",
+        "iOS 7",
+        "last 3 iOS versions"
+    ]
+}

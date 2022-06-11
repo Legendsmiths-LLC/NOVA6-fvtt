@@ -1,0 +1,40 @@
+<header class="nova6-header">
+    <div class="nova6-header__name">
+        <label class="nova6-header__label" for="name">
+            {{#if isToken}}Token-{{/if}}{{localize "NOVA.Sheet.Name"}}
+        </label>
+
+        <input
+            class="nova6-text-input nova6-text-input--header"
+            name="name"
+            type="text"
+            value="{{actor.name}}"
+        >
+    </div>
+
+    <div class="nova6-header__plot-points">
+        <label class="nova6-header__label nova6-header__label--center" for="name">
+            {{localize "NOVA.Sheet.PlotPoints"}}
+        </label>
+
+        <div class="nova6-header__plot-points-wrapper">
+            <input
+                class="nova6-text-input nova6-text-input--fp"
+                name="data.plotPoints.current"
+                type="text"
+                value="{{data.plotPoints.current}}"
+            >
+
+            <span class="nova6-header__plot-points-divider"> / </span>
+
+            <input
+                class="nova6-text-input nova6-text-input--fp"
+                name="data.plotPoints.refresh"
+                type="text"
+                value="{{data.plotPoints.refresh}}"
+            >
+        </div>
+    </div>
+
+    {{> "systems/nova6/templates/components/header-logo.hbs"}}
+</header>

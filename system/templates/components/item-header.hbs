@@ -1,0 +1,29 @@
+<form autocomplete="off" class="nova6-u-full-height {{cssClass}}">
+    <div class="nova6-desk">
+        {{!--HEADER--}}
+        <div class="nova6-header">
+            <div class="nova6-header__combine">
+                {{#if isOwnedBy}}
+                    <div></div>
+                {{else}}
+                    <div class="nova6-header__image">
+                        <img alt="{{item.name}}" data-edit="img" src="{{item.img}}"/>
+                    </div>
+                {{/if}}
+
+                <div class="nova6-header__name">
+                    <label class="nova6-header__label">
+                        {{#if isOwnedBy}}
+                            {{isOwnedBy}}
+                        {{else}}
+                            {{localize "NOVA.Global.BaseItem"}}
+                        {{/if}}
+                    </label>
+                    <div class="nova6-header__title">{{localize title}}</div>
+                </div>
+            </div>
+
+            {{> "systems/nova6/templates/components/header-logo.hbs"}}
+        </div>
+
+        <div class="nova6-desk__content">

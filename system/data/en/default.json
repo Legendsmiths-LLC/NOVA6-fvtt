@@ -1,0 +1,35 @@
+{
+    "name": "Default",
+    "content": {
+        "aspects": [
+            {
+                "name": "Occupation",
+                "type": "aspect",
+                "data": {
+                    "label": "Occupation"
+                }
+            },
+            {
+                "name": "Background",
+                "type": "aspect",
+                "data": {
+                    "label": "Background"
+                }
+            },
+            {
+                "name": "Stability",
+                "type": "aspect",
+                "data": {
+                    "label": "Stability"
+                }
+            },
+            {
+                "name": "Trouble",
+                "type": "aspect",
+                "data": {
+                    "label": "Trouble"
+                }
+            }
+        ]
+    }
+}

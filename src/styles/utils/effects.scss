@@ -1,0 +1,7 @@
+.nova6-u-delete {
+    transition: color 0.2s;
+
+    &:hover {
+        color: $caution-color;
+    }
+}

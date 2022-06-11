@@ -1,0 +1,29 @@
+{
+    "Actor": {
+        "types": ["character"],
+        "templates": {},
+        "character": {
+            "biography": "",
+            "level": "1",
+            "plotPoints": {
+                "current": 3,
+                "refresh": 3
+            },
+            "setbacks": 0
+        }
+    },
+    "Item": {
+        "types": ["aspect"],
+        "templates": {
+            "base": {
+                "description": ""
+            }
+        },
+        "aspect": {
+            "templates": ["base"],
+            "text": "",
+            "label": "",
+            "invoked": false
+        }
+    }
+}

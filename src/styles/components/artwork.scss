@@ -1,0 +1,21 @@
+.nova6-artwork {
+    position: relative;
+    padding: $component-padding;
+
+    &__image {
+        vertical-align: bottom;
+        width: 100%;
+    }
+
+    &__wrapper {
+        position: relative;
+
+        &::before {
+            @include cutout-top-left(26px);
+        }
+
+        &::after {
+            @include cutout-bottom-right(26px);
+        }
+    }
+}

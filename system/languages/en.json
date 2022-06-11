@@ -1,0 +1,45 @@
+{
+    "NOVA6": "NOVA6",
+    "NOVA": {
+        "name": "NOVA6",
+        "Global": {
+            "Actions": {
+                "Configure": "Configure",
+                "Delete": "Delete",
+                "Duplicate": "Duplicate",
+                "Sort": "Sort"
+            },
+            "BaseItem": "Base item"
+        },
+        "Sheet": {
+            "Name": "Name",
+            "Description": "Description",
+            "PlotPoints": "Plot Points",
+            "Aspects": "Aspects",
+            "Artwork": "Artwork",
+            "Tabs": {
+                "Base": "Base",
+                "Bio": "Bio"
+            },
+            "Buttons": {
+                "EditMode": "Edit Mode"
+            }
+        },
+        "Item": {
+            "Aspect": {
+                "EditItem": "Edit Aspect",
+                "Value": "Text",
+                "Description": "Description",
+                "Label": "Label"
+            }
+        },
+        "Dialog": {
+            "ReferenceRemove": "Remove reference",
+            "ReferenceRemoveText": "Do you really want to <strong>permanently</strong> remove this reference?",
+            "DocumentDelete": "Delete",
+            "DocumentDeleteText": "Do you really want to <strong>permanently</strong> delete this entity?",
+            "Confirm": "Confirm",
+            "Cancel": "Cancel"
+        }
+    }
+}

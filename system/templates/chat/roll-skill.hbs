@@ -1,0 +1,13 @@
+<div class="nova6-chat">
+    <header class="nova6-headline nova6-headline--chat">
+        <h3 class="nova6-headline__text">{{ skill.name }}</h3>
+    </header>
+
+    <div class="nova6-roll">
+        <div class="nova6-dice">
+            {{#each dice as |die dieIndex|}}
+                <div>{{ die.face }}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>

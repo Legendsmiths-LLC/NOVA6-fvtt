@@ -1,0 +1,54 @@
+.nova6-tabs-navigation {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    font-size: 13px;
+    font-weight: bold;
+    color: $nova6-primary-color;
+    text-transform: uppercase;
+    border-bottom: 2px solid $nova6-primary-color;
+
+    &__item {
+        position: relative;
+        padding: 5px 20px 5px 15px;
+
+        &.active,
+        &:hover {
+            background: $nova6-primary-color;
+            color: var(--nova6-light-text-color, $light-text-color);
+        }
+
+        &::after {
+            @include cutout-top-right;
+        }
+    }
+}
+
+.nova6-vertical-tabs-navigation {
+    display: flex;
+    flex-direction: column;
+    padding: $component-padding * 2 0;
+
+    &__item {
+        color: $nova6-primary-color;
+        padding: $component-padding;
+        text-transform: uppercase;
+        margin-bottom: $component-padding * 2;
+        font-size: 13px;
+        opacity: 0.3;
+        width: 175px;
+        border: 1px solid transparent;
+        transition: opacity 0.3s, background-color 0s;
+
+        &.active,
+        &:hover {
+            font-weight: bold;
+            background: $sheet-background;
+            border: 1px solid $nova6-primary-color;
+            border-right: 0;
+            opacity: 1;
+            z-index: 1;
+            box-shadow: 0 3px 0 0 $nova6-primary-color;
+        }
+    }
+}

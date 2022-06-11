@@ -1,0 +1,88 @@
+.nova6-text-input,
+input[type="text"].nova6-text-input {
+    display: flex;
+    flex-direction: column-reverse;
+    min-height: 24px;
+    padding: 3px 0 3px $component-padding * 0.5;
+    background: transparent;
+    border-radius: 3px;
+    border: none;
+    border-bottom: 1px solid $nova6-primary-color;
+
+    &::placeholder {
+        color: $nova6-primary-color;
+        opacity: 0.3;
+    }
+
+    &:focus ~ .nova6-actions--item {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    &--fp {
+        width: 40px;
+        text-align: center;
+    }
+
+    &--fp,
+    &--header {
+        height: 25px;
+        padding: 0;
+        color: inherit;
+        border: 0;
+    }
+
+    &__icon {
+        position: absolute;
+        left: -4px;
+        top: 0;
+        transform: translate(-60%, -40%);
+        font-weight: 900;
+        font-size: 24px;
+        color: $nova6-primary-color;
+        text-shadow: 1px 1px 1px $sheet-background;
+    }
+
+    &__label {
+        padding-left: $component-padding * 0.5;
+        font-size: 8px;
+        letter-spacing: 3px;
+        color: $nova6-primary-color;
+        text-transform: uppercase;
+        white-space: nowrap;
+
+        &:empty::before {
+            content: "\a0";
+        }
+    }
+
+    &__setting-label {
+        font-size: 10px;
+        padding-left: $component-padding * 0.5;
+    }
+}
+
+input[type="number"].nova6-text-input--headline {
+    position: absolute;
+    right: 10px;
+    width: initial;
+    margin: 0;
+    padding: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--nova6-light-text-color, $light-text-color);
+    text-transform: uppercase;
+    text-align: center;
+    border: none;
+}
+
+.nova6__input--icon {
+    padding-left: $component-padding;
+}
+
+[contentEditable="true"]:empty:not(:focus):before {
+    content: attr(data-placeholder);
+    font-style: italic;
+    opacity: 0.3;
+    pointer-events: none;
+}

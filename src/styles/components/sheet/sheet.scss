@@ -1,0 +1,36 @@
+.nova6-sheet {
+    font-family: $primary-font;
+
+    &--app {
+        min-width: 500px;
+    }
+
+    &--item {
+        min-width: 300px;
+    }
+
+    .window-header a {
+        margin-left: $component-padding;
+    }
+
+    .window-content {
+        padding: 0;
+        background: $sheet-background;
+        overflow-y: hidden;
+    }
+
+    a:hover {
+        text-shadow: none;
+    }
+
+    img {
+        border: 0;
+    }
+
+    textarea {
+        background: transparent;
+        border: 0;
+        width: auto;
+        height: auto;
+    }
+}

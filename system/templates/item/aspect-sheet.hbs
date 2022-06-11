@@ -1,0 +1,21 @@
+{{> "systems/nova6/templates/components/item-header.hbs" title="NOVA.Item.Aspect.EditItem" item=item}}
+
+{{> "systems/nova6/templates/item/settings/setting-input.hbs"
+    headline = "NOVA.Item.Aspect.Value"
+    fieldName = "data.value"
+    field = data.value
+}}
+
+{{> "systems/nova6/templates/item/settings/setting-input.hbs"
+    headline = "NOVA.Item.Aspect.Label"
+    fieldName = "data.label"
+    field = data.label
+}}
+
+{{> "systems/nova6/templates/item/settings/setting-editor.hbs"
+    headline = "NOVA.Item.Aspect.Description"
+    fieldName = "data.description"
+    field = data.description
+}}
+
+{{> "systems/nova6/templates/components/item-footer.hbs"}}

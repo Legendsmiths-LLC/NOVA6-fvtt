@@ -1,0 +1,21 @@
+.nova6-tab-content {
+    flex-grow: 1;
+    flex-direction: column;
+    height: 100%;
+    padding: $component-padding 0;
+
+    &--bio {
+        .editor {
+            height: 100%;
+        }
+    }
+
+    &[data-tab].active {
+        display: flex;
+    }
+}
+
+.nova6-vertical-tabs-content {
+    border-left: 1px solid rgba(0, 0, 0, 1);
+    margin-left: -1px;
+}
