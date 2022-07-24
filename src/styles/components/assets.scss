@@ -1,0 +1,35 @@
+.nova6-assets {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-gap: $component-padding;
+}
+
+.nova6-asset {
+    display: contents;
+
+    > div {
+        position: relative;
+    }
+
+    &__name {
+        font-weight: bold;
+        padding-right: $component-padding * 2;
+        max-width: 25%;
+    }
+
+    &__description {
+        flex-grow: 1;
+
+        p {
+            margin: 0 0 $component-padding 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &--disabled {
+        opacity: 0.3;
+    }
+}

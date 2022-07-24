@@ -20,15 +20,21 @@
 
     &--headline,
     &--setting,
-    &--skill {
-        right: 15px;
+    &--skill,
+    &--talent,
+    &--asset {
+        right: 0;
         padding: 0 10px 0 50px;
         top: 0;
         background: transparent;
     }
 
+    &--active {
+        pointer-events: auto;
+    }
+
     &--item {
-        top: -10px;
+        top: 0;
     }
 
     &--item,
@@ -92,12 +98,18 @@
 .nova6-js-edit-mode {
     .nova6-actions--headline,
     .nova6-actions--skill {
-        background: linear-gradient(90deg, rgba(47, 53, 66, 0) 0%, #2f3542 33%, #2f3542 100%);
+        //background: linear-gradient(90deg, rgba(47, 53, 66, 0) 0%, #2f3542 33%, #2f3542 100%);
     }
 
     .nova6-actions--item,
     .nova6-actions--section-heading {
-        background: linear-gradient(90deg, transparentize($sheet-background, 1) 0%, $sheet-background 33%, $sheet-background 100%);
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparentize($sheet-background, 1) 0%,
+            $sheet-background 33%,
+            $sheet-background 100%
+        );
     }
 
     .nova6-actions__icon {

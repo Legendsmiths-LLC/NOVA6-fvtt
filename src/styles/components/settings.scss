@@ -20,4 +20,11 @@
     &__text div {
         min-height: 200px;
     }
+
+    &__columns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
 }

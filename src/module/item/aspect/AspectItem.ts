@@ -7,13 +7,10 @@ export class AspectItem extends BaseItem {
     static activateActorSheetListeners(html, sheet) {
         super.activateActorSheetListeners(html, sheet);
 
-        // Check or uncheck a single box
+        html.find(".nova6-js-aspect-checkbox").click((e) => this._onAspectInvokeToggle.call(this, e, sheet));
         html.find(".nova6-js-aspect-input").on("blur", (e) => this._onAspectTextChange.call(this, e, sheet));
     }
 
-    /**
-     * Adds ascpect specific actorsheet data
-     */
     static getActorSheetData(sheetData) {
         sheetData.aspects = sheetData.items.filter((item: ItemData) => item.type === "aspect");
 
@@ -24,6 +21,19 @@ export class AspectItem extends BaseItem {
      * EVENT HANDLER
      *************************/
 
+    static _onAspectInvokeToggle(e, sheet) {
+        e.preventDefault();
+
+        const dataset = e.currentTarget.dataset;
+        const item = sheet.actor.items.get(dataset.itemId);
+
+        if (item) {
+            item.update({
+                "data.invoked": !item.data.data.invoked
+            });
+        }
+    }
+
     static _onAspectTextChange(e, sheet) {
         e.preventDefault();
 
@@ -32,13 +42,13 @@ export class AspectItem extends BaseItem {
         const input = $(e.currentTarget).html();
 
         // Check if the value of the input field changed
-        if (item.data.data.value === input) {
+        if (item.data.data.text === input) {
             return;
         }
 
         if (item) {
             item.update({
-                "data.value": input,
+                "data.text": input
             });
         }
     }

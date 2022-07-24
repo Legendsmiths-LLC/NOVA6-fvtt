@@ -5,7 +5,7 @@ input[type="text"].nova6-text-input {
     min-height: 24px;
     padding: 3px 0 3px $component-padding * 0.5;
     background: transparent;
-    border-radius: 3px;
+    border-radius: 0px;
     border: none;
     border-bottom: 1px solid $nova6-primary-color;
 
@@ -45,7 +45,7 @@ input[type="text"].nova6-text-input {
 
     &__label {
         padding-left: $component-padding * 0.5;
-        font-size: 8px;
+        font-size: 6px;
         letter-spacing: 3px;
         color: $nova6-primary-color;
         text-transform: uppercase;

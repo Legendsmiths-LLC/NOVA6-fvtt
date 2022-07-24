@@ -1,0 +1,21 @@
+<div class="nova6-setting">
+    {{#if headline}}
+        <header class="nova6-headline">
+            <h3 class="nova6-headline__text">{{localize headline}}</h3>
+        </header>
+    {{/if}}
+
+
+    <label class="nova6-checkbox">
+        <input
+            class="nova6-js-checkbox nova6-checkbox__input"
+            type="checkbox"
+            data-name="{{ fieldName }}"
+            {{#if field}}checked="checked"{{/if}}
+        >
+
+        <i class="nova6-checkbox__icon fa fa-check"></i>
+    </label>
+
+    <span class="nova6-checkbox__text">{{localize label}}</span>
+</div>

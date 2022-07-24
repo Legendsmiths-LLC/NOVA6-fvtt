@@ -5,7 +5,6 @@
 import { ItemData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
 
 export class CharacterSheet extends ActorSheet {
-
     /**
      * Defines the default options for all NOVA6 actor sheets.
      * This consists of things like css classes, the sheet type and the tab configuration.
@@ -74,9 +73,14 @@ export class CharacterSheet extends ActorSheet {
         data.items = this.actor.items.map((i) => i.data);
         data.items.sort((a: ItemData, b: ItemData) => (a.sort || 0) - (b.sort || 0));
 
-        // Allow every item type to add data to the actorsheet
+        // Allow every item type to add data to the actor sheet
         for (const itemType in CONFIG.NOVA6.itemClasses) {
             data = CONFIG.NOVA6.itemClasses[itemType].getActorSheetData(data, this);
+        }
+
+        // Custom sheet listeners for every SheetComponent
+        for (const sheetComponent in CONFIG.NOVA6.sheetComponents.actor) {
+            data = CONFIG.NOVA6.sheetComponents.actor[sheetComponent].getSheetData(data, this);
         }
 
         return data;
@@ -96,14 +100,12 @@ export class CharacterSheet extends ActorSheet {
 
         if (this.options.editable && canConfigure) {
             // noinspection JSUnusedGlobalSymbols
-            buttons.unshift(
-                {
-                    class: "nova6-toggle-edit-mode",
-                    label: game.i18n.localize("NOVA.Sheet.Buttons.EditMode"),
-                    icon: "fas fa-edit",
-                    onclick: (e: JQuery.ClickEvent) => this._onToggleEditMode(e),
-                }
-            );
+            buttons.unshift({
+                class: "nova6-toggle-edit-mode",
+                label: game.i18n.localize("NOVA.Sheet.Buttons.EditMode"),
+                icon: "fas fa-edit",
+                onclick: (e: JQuery.ClickEvent) => this._onToggleEditMode(e),
+            });
         }
 
         return buttons;
@@ -121,5 +123,33 @@ export class CharacterSheet extends ActorSheet {
         const html = app.find(".window-content");
 
         html.toggleClass("nova6-js-edit-mode");
+    }
+
+    /**
+     * Saves and restores the focus of a child element
+     * This is needed because FVTT only handles this for inputs that belong to the form itself
+     *
+     * @param force
+     * @param options
+     */
+    async _render(force, options) {
+        // Identify the focused element and save its caret position
+        const focusedElement: string = this.element.find(":focus").data("focus-id");
+        const selection = window.getSelection();
+        const position = selection?.focusOffset ?? 0;
+
+        // Render the application
+        await super._render(force, options);
+
+        // Restore focus and caret position
+        if (focusedElement) {
+            const element = this.element.find(`[data-focus-id=${focusedElement}]`)[0];
+            const range = document.createRange();
+            range.setStart(element.childNodes[0], position);
+            range.collapse(true);
+            selection?.removeAllRanges();
+            selection?.addRange(range);
+            element.focus();
+        }
     }
 }

@@ -1,8 +1,8 @@
 // Spacing
-$component-padding: 10px;
+$component-padding: 5px;
 
 // Colors
-$primary-color: rgba(47, 53, 66, 1);
+$primary-color: rgb(64, 73, 91);
 
 $sheet-background: rgb(225, 226, 231);
 $message-background: transparentize($primary-color, 0.7);
@@ -19,5 +19,4 @@ $primary-font: "Montserrat", sans-serif;
 // Custom Property Hooks
 $nova6-header-color: var(--nova6-header-color, $primary-color);
 $nova6-header-text-color: var(--nova6-header-text-color, $light-text-color);
-
 $nova6-primary-color: var(--nova6-primary-color, $primary-color);

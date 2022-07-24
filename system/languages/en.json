@@ -15,8 +15,38 @@
             "Name": "Name",
             "Description": "Description",
             "PlotPoints": "Plot Points",
+            "Setbacks": "Setbacks",
             "Aspects": "Aspects",
+            "Skills": "Skills",
+            "Stress": "Stress",
+            "Assets": "Assets",
+            "Load": "Load Level",
+            "Talents": "Talents",
+            "Level": "Level",
+            "Notes": "Notes",
             "Artwork": "Artwork",
+            "LoadLevel": {
+                "0": {
+                    "name": "Unprepared",
+                    "description": "Survival daily (-1d)"
+                },
+                "1": {
+                    "name": "Basic",
+                    "description": "Survival daily, Gear Test (-1d)"
+                },
+                "2": {
+                    "name": "Light",
+                    "description": "Burdened (-1d), Survival daily, Gear Test (0d)"
+                },
+                "3": {
+                    "name": "Medium",
+                    "description": "Burdened (-2d), Survival weekly, Gear Test (1d)"
+                },
+                "4": {
+                    "name": "Heavy",
+                    "description": "Burdened (-3d), Survival monthly, Gear Test (1d)"
+                }
+            },
             "Tabs": {
                 "Base": "Base",
                 "Bio": "Bio"
@@ -31,6 +61,46 @@
                 "Value": "Text",
                 "Description": "Description",
                 "Label": "Label"
+            },
+            "Skill": {
+                "EditItem": "Edit Skill",
+                "Name": "Name",
+                "Rank": "Rank",
+                "SkillTalents": "Skill Talents",
+                "Focused": "Focused",
+                "Practiced": "Practiced",
+                "Specialized": "Specialized",
+                "FocusedShort": "F",
+                "PracticedShort": "P",
+                "SpecializedShort": "S",
+                "Description": "Description",
+                "NoPerks": "No perks",
+                "Perks": "Perks",
+                "Perk1": "Perk 1",
+                "Perk2": "Perk 2",
+                "Perk3": "Perk 3",
+                "Perk4": "Perk 4",
+                "Perk5": "Perk 5",
+                "Perk6": "Perk 6",
+                "Perk7": "Perk 7",
+                "Perk8": "Perk 8",
+                "Perk9": "Perk 9"
+            },
+            "Talent": {
+                "EditItem": "Edit Talent",
+                "Name": "Name",
+                "Description": "Description",
+                "NoDescription": "No description"
+            },
+            "Asset": {
+                "EditItem": "Edit Asset",
+                "Name": "Name",
+                "Description": "Description",
+                "NoDescription": "No description"
+            },
+            "Stress": {
+                "Physical": "Physical",
+                "Mental": "Mental"
             }
         },
         "Dialog": {

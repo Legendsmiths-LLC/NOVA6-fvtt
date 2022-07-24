@@ -1,15 +1,36 @@
 <header class="nova6-header">
-    <div class="nova6-header__name">
-        <label class="nova6-header__label" for="name">
-            {{#if isToken}}Token-{{/if}}{{localize "NOVA.Sheet.Name"}}
+
+    <div class="nova6-header__columns">
+        {{> "systems/nova6/templates/components/artwork.hbs"}}
+
+        <div class="nova6-header__name">
+            <label class="nova6-header__label" for="name">
+                {{#if isToken}}Token-{{/if}}{{localize "NOVA.Sheet.Name"}}
+            </label>
+
+            <input
+                class="nova6-text-input nova6-text-input--header"
+                name="name"
+                type="text"
+                value="{{actor.name}}"
+            >
+        </div>
+    </div>
+
+
+    <div class="nova6-header__setbacks">
+        <label class="nova6-header__label nova6-header__label--center" for="name">
+            {{localize "NOVA.Sheet.Level"}}
         </label>
 
-        <input
-            class="nova6-text-input nova6-text-input--header"
-            name="name"
-            type="text"
-            value="{{actor.name}}"
-        >
+        <div class="nova6-header__setbacks-wrapper">
+            <input
+                class="nova6-text-input nova6-text-input--fp"
+                name="data.level"
+                type="text"
+                value="{{data.level}}"
+            >
+        </div>
     </div>
 
     <div class="nova6-header__plot-points">
@@ -32,6 +53,22 @@
                 name="data.plotPoints.refresh"
                 type="text"
                 value="{{data.plotPoints.refresh}}"
+            >
+        </div>
+    </div>
+
+
+    <div class="nova6-header__setbacks">
+        <label class="nova6-header__label nova6-header__label--center" for="name">
+            {{localize "NOVA.Sheet.Setbacks"}}
+        </label>
+
+        <div class="nova6-header__setbacks-wrapper">
+            <input
+                class="nova6-text-input nova6-text-input--fp"
+                name="data.setbacks"
+                type="text"
+                value="{{data.setbacks}}"
             >
         </div>
     </div>

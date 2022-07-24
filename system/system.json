@@ -2,7 +2,7 @@
     "name": "nova6",
     "title": "NOVA6",
     "description": "The official FoundryVTT game system for the NOVA6 TTRPG from Legendsmiths, LLC",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "Patrick Bauer (Daddi#2333)",
     "scripts": ["system.js"],
     "styles": [],

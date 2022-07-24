@@ -30,6 +30,50 @@
                     "label": "Trouble"
                 }
             }
+        ],
+        "skills": [
+            {
+                "name": "Fight",
+                "type": "skill",
+                "data": {
+                    "name": "Fight"
+                }
+            },
+            {
+                "name": "Interact",
+                "type": "skill",
+                "data": {
+                    "name": "Interact"
+                }
+            },
+            {
+                "name": "Move",
+                "type": "skill",
+                "data": {
+                    "name": "Move"
+                }
+            },
+            {
+                "name": "Physique",
+                "type": "skill",
+                "data": {
+                    "name": "Physique"
+                }
+            },
+            {
+                "name": "Resolve",
+                "type": "skill",
+                "data": {
+                    "name": "Resolve"
+                }
+            }
+        ],
+        "stress": [
+            {
+                "name": "Stress",
+                "type": "stress",
+                "data": {}
+            }
         ]
     }
 }

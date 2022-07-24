@@ -1,0 +1,44 @@
+.nova6-skills {
+    display: grid;
+    grid-template-columns: min-content 1fr min-content ;
+    grid-gap: $component-padding;
+    align-items: center;
+}
+
+.nova6-skill {
+    display: contents;
+    
+    > div {
+        position: relative;
+    }
+
+    &__perks {
+        padding: 0 $component-padding;
+    }
+
+    &__perks--disabled {
+        opacity: 0.2;
+    }
+
+    &__flags {
+        padding: $component-padding;
+        display: flex;
+        gap: $component-padding;
+    }
+
+    &__flag {
+        content: " ";
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        border: 1px solid $nova6-primary-color;
+        font-size: 12px;
+
+        &--disabled {
+            opacity: 0.3;
+        }
+    }
+}
+

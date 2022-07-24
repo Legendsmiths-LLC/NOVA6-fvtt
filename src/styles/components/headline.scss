@@ -4,6 +4,10 @@
     color: var(--nova6-light-text-color, $light-text-color);
     background: $nova6-primary-color;
 
+    &--no-margin {
+        margin-bottom: 0;
+    }
+
     &::before {
         @include cutout-top-left;
     }
@@ -14,6 +18,11 @@
 
     &--center {
         text-align: center;
+    }
+
+    &--skill {
+        margin-bottom: 0;
+        padding-right: 15px;
     }
 
     &--chat {
@@ -57,11 +66,9 @@
         white-space: nowrap;
 
         &--skill {
-            left: initial;
-            right: 100%;
             font-size: 24px;
             text-shadow: 1px 1px 1px $sheet-background;
-            transform: translate(15px, -7px);
+            transform: translate(-15px, -7px);
         }
 
         &--negative {

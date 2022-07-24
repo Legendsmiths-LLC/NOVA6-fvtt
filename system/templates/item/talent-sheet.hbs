@@ -1,0 +1,15 @@
+{{> "systems/nova6/templates/components/item-header.hbs" title="NOVA.Item.Talent.EditItem" item=item}}
+
+{{> "systems/nova6/templates/item/settings/setting-input.hbs"
+    headline = "NOVA.Item.Talent.Name"
+    fieldName = "name"
+    field = item.name
+}}
+
+{{> "systems/nova6/templates/item/settings/setting-editor.hbs"
+    headline = "NOVA.Item.Talent.Description"
+    fieldName = "data.description"
+    field = data.description
+}}
+
+{{> "systems/nova6/templates/components/item-footer.hbs"}}

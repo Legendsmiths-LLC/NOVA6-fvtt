@@ -1,8 +1,8 @@
 import { NOVA6ItemData } from "./ItemTypes";
 
 export class NOVA6Item extends Item {
-    prepareData() {
-        super.prepareData();
+    prepareDerivedData() {
+        super.prepareDerivedData();
 
         // Let every itemType prepare itself
         if (this.actor?.data) {

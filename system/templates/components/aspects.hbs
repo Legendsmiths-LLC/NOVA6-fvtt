@@ -1,23 +1,41 @@
 {{#each aspects as |aspect aspectIndex|}}
     <div class="nova6-js-sortable nova6-item" data-item-id="{{aspect._id}}">
         <div class="nova6-u-pos-relative">
-            <div
-                class="nova6-js-aspect-input nova6-text-input"
-                data-placeholder="{{aspect.data.label}}"
-                contenteditable="true"
-                data-item-id="{{aspect._id}}"
-                data-focus-id="aspect-name-{{aspect._id}}"
-            >
-                {{{aspect.data.value}}}
-            </div>
+            <div class="nova6-aspects__wrapper">
+                <div class="nova6-aspects__status">
+                    <label
+                        class="nova6-js-aspect-checkbox nova6-checkbox"
+                        data-item-id="{{aspect._id}}"
+                    >
+                        <input
+                            class="nova6-checkbox__input"
+                            type="checkbox"
+                            {{#if aspect.data.invoked}}checked="checked"{{/if}}
+                        >
 
-            <div class="nova6-actions nova6-actions--item">
-                <i class="nova6-js-item-sort nova6-actions__icon fa fa-sort"></i>
-                <i class="nova6-js-aspect-settings nova6-actions__icon fa fa-cog" data-item="{{aspect._id}}"></i>
-                <i class="nova6-js-aspect-delete nova6-actions__icon nova6-u-delete fa fa-trash" data-item="{{aspect._id}}"></i>
-            </div>
+                        <i class="nova6-checkbox__icon fa fa-check"></i>
+                    </label>
+                </div>
+                <div class="nova6-aspects__content">
+                    <div
+                        class="nova6-js-aspect-input nova6-text-input"
+                        data-placeholder="{{aspect.data.label}}"
+                        contenteditable="true"
+                        data-item-id="{{aspect._id}}"
+                        data-focus-id="aspect-name-{{aspect._id}}"
+                    >
+                        {{{aspect.data.text}}}
+                    </div>
 
-            <label class="nova6-text-input__label">{{aspect.data.label}}</label>
+                    <div class="nova6-actions nova6-actions--item">
+                        <i class="nova6-js-item-sort nova6-actions__icon fa fa-sort"></i>
+                        <i class="nova6-js-aspect-settings nova6-actions__icon fa fa-cog" data-item="{{aspect._id}}"></i>
+                        <i class="nova6-js-aspect-delete nova6-actions__icon nova6-u-delete fa fa-trash" data-item="{{aspect._id}}"></i>
+                    </div>
+
+                    <label class="nova6-text-input__label">{{aspect.data.label}}</label>
+                </div>
+            </div>
         </div>
     </div>
 {{/each}}

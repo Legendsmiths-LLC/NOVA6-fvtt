@@ -3,17 +3,19 @@
         "types": ["character"],
         "templates": {},
         "character": {
-            "biography": "",
             "level": "1",
             "plotPoints": {
                 "current": 3,
                 "refresh": 3
             },
-            "setbacks": 0
+            "setbacks": 0,
+            "load": 0,
+            "backstory": "",
+            "notes": ""
         }
     },
     "Item": {
-        "types": ["aspect"],
+        "types": ["aspect", "skill", "talent", "stress", "asset"],
         "templates": {
             "base": {
                 "description": ""
@@ -24,6 +26,37 @@
             "text": "",
             "label": "",
             "invoked": false
+        },
+        "skill": {
+            "templates": ["base"],
+            "rank": 0,
+            "focused": false,
+            "practiced": false,
+            "specialized": false,
+            "perk1": "",
+            "perk2": "",
+            "perk3": "",
+            "perk4": "",
+            "perk5": "",
+            "perk6": "",
+            "perk7": "",
+            "perk8": "",
+            "perk9": ""
+        },
+        "talent": {
+            "templates": ["base"]
+        },
+        "stress": {
+            "numPhysicalStressed": 3,
+            "numPhysicalStaggered": 2,
+            "numPhysicalIncapacitated": 1,
+            "numMentalStressed": 3,
+            "numMentalStaggered": 2,
+            "numMentalIncapacitated": 1,
+            "status": {}
+        },
+        "asset": {
+            "templates": ["base"]
         }
     }
 }

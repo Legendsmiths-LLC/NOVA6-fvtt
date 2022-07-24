@@ -5,10 +5,15 @@
     height: 100%;
 
     &__aspects,
-    &__consequences {
+    &__consequences,
+    &__talents,
+    &__load,
+    &__stress,
+    &__assets,
+    &__skills, {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 2px;
         padding: 10px;
 
         &--inline {
@@ -27,7 +32,7 @@
 
         &--actor-sheet {
             display: grid;
-            grid-template-columns: 4fr 1fr;
+            grid-template-columns: 3fr 2fr;
         }
 
         &--group {
@@ -48,16 +53,13 @@
     }
 
     &__sidebar {
-        min-width: 240px;
         box-shadow: 12px 0 15px 0 $nova6-primary-color;
     }
 
     &__tabloid {
-        min-width: 650px;
-        display: grid;
-        grid-template-columns: 55% 1fr;
-        grid-template-rows: min-content min-content 1fr min-content;
-        grid-template-areas: "messages messages" "aspects consequences" "tabs tabs" "copyright copyright";
+        display: flex;
+        flex-direction: column;
+        flex-gap: $component-padding;
     }
 
     &__tabs {

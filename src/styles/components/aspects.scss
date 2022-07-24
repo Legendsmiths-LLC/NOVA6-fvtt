@@ -1,0 +1,19 @@
+.nova6-aspects {
+    &__wrapper {
+        display: flex;
+    }
+
+    &__content {
+        flex-grow: 1;
+
+        .nova6-text-input {
+            margin-bottom: -5px;
+        }
+    }
+
+    &__status {
+        width: 30px;
+        padding-top: 5px;
+        flex-shrink: 0;
+    }
+}

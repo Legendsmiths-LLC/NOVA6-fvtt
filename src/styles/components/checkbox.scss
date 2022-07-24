@@ -1,8 +1,9 @@
 .nova6-checkbox {
     position: relative;
-    width: 30px;
-    height: 30px;
-    font-size: 24px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    font-size: 12px;
     border: 2px solid $nova6-primary-color;
     color: $nova6-primary-color;
     cursor: pointer;
@@ -21,6 +22,7 @@
         width: 100%;
         text-align: center;
         opacity: 0;
+        padding-top: 3px;
     }
 
     &__input {

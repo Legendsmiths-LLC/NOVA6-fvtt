@@ -1,7 +1,9 @@
 <div class="nova6-setting">
-    <header class="nova6-headline">
-        <h3 class="nova6-headline__text">{{localize headline}}</h3>
-    </header>
+    {{#if headline}}
+        <header class="nova6-headline">
+            <h3 class="nova6-headline__text">{{localize headline}}</h3>
+        </header>
+    {{/if}}
 
     <label for="{{ fieldName }}">
         <input

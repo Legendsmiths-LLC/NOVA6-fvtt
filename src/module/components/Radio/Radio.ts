@@ -1,19 +1,19 @@
 import { BaseComponent } from "../BaseComponent";
 
 /**
- * Radio component for actor- and itemsheets.
+ * Radio component for actor- and item sheets.
  * Allows the user to change between multiple choices.
  */
 export class Radio extends BaseComponent {
     /**
      * Adds a click listener to every .nova6-js-radio-button element.
-     * The name of the field, the value of the field and more a loaded via datasets.
+     * The name of the field, the value of the field and more are loaded via datasets.
      *
      * @param html
      *   The html of the inner part of the rendered sheet.
      *
      * @param sheet
-     *   The actor- or itemsheet to be referenced inside the handler.
+     *   The actor- or item sheet to be referenced inside the handler.
      */
     static activateListeners(html, sheet) {
         html.find(".nova6-js-radio-button").click((e) => this._onSettingsRadio.call(this, e, sheet));

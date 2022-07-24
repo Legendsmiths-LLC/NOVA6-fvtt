@@ -1,0 +1,15 @@
+.nova6-stress {
+    display: grid;
+    grid-template-columns: min-content min-content min-content min-content;
+    grid-template-rows: min-content min-content min-content;
+    grid-gap: $component-padding * 2;
+
+    > div {
+        display: contents;
+    }
+
+    &__boxes {
+        display: flex;
+        gap: 2px;
+    }
+}
