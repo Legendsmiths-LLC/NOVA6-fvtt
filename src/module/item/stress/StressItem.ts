@@ -3,15 +3,28 @@ import { ItemData } from "@league-of-foundry-developers/foundry-vtt-types/src/fo
 
 const stressTypes = ["Physical", "Mental"];
 const stressSeverities = ["Stressed", "Staggered", "Incapacitated"];
+const stressDurations = ["B", "Q", "S", "T", "L", "LL", "E", "P"];
 
 export class StressItem extends BaseItem {
     static documentName = "stress";
+
+    static activateActorSheetListeners(html, sheet) {
+        super.activateActorSheetListeners(html, sheet);
+
+        // html.find(".nova6-js-stress-checkbox").click((e) => this._onStressBoxChange.call(this, e, sheet));
+        html.find(".nova6-stress__selector div").click((e) => this._onStressBoxChange.call(this, e, sheet));
+    }
 
     static getActorSheetData(sheetData) {
         sheetData.stresses = sheetData.items.filter((item: ItemData) => item.type === "stress");
 
         sheetData.stressTypes = stressTypes;
         sheetData.stressSeverities = stressSeverities;
+
+        sheetData.stressDurations = stressDurations.map((duration) => ({
+            duration,
+            label: game.i18n.localize(`NOVA.Item.Stress.Durations.${duration}`),
+        }));
 
         return sheetData;
     }
@@ -37,10 +50,26 @@ export class StressItem extends BaseItem {
     }
 
     static getSheetData(sheetData, _item) {
+        sheetData.availableBoxes = [...Array(5).keys()].map((i) => i + 1);
+
         return sheetData;
     }
 
     /*************************
      * EVENT HANDLER
      *************************/
+
+    private static _onStressBoxChange(e, sheet) {
+        e.preventDefault();
+
+        const dataset = e.currentTarget.parentElement.dataset;
+        const duration = e.currentTarget.dataset.duration;
+        const item = sheet.actor.items.get(dataset.item);
+
+        if (item) {
+            item.update({
+                [`data.status.${dataset.type}.${dataset.severity}.${dataset.index}`]: duration,
+            });
+        }
+    }
 }

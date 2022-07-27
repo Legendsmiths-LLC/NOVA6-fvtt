@@ -1,0 +1,69 @@
+{{> "systems/nova6/templates/components/item-header.hbs" title="NOVA.Item.Stress.EditItem" item=item}}
+
+<div class="nova6-setting">
+    <header class="nova6-headline nova6-headline--no-margin">
+        <h3 class="nova6-headline__text">{{localize "NOVA.Item.Stress.BoxCountPhysical"}}</h3>
+    </header>
+</div>
+
+<div class="nova6-setting__columns">
+    {{> "systems/nova6/templates/item/settings/setting-rank.hbs"
+        headline = "NOVA.Item.Stress.Stressed"
+        fieldName = "data.numPhysicalStressed"
+        field = data.numPhysicalStressed
+        dtype = "Number"
+        radioItems = availableBoxes
+    }}
+
+    {{> "systems/nova6/templates/item/settings/setting-rank.hbs"
+        headline = "NOVA.Item.Stress.Staggered"
+        fieldName = "data.numPhysicalStaggered"
+        field = data.numPhysicalStaggered
+        dtype = "Number"
+        radioItems = availableBoxes
+    }}
+
+    {{> "systems/nova6/templates/item/settings/setting-rank.hbs"
+        headline = "NOVA.Item.Stress.Incapacitated"
+        fieldName = "data.numPhysicalIncapacitated"
+        field = data.numPhysicalIncapacitated
+        dtype = "Number"
+        radioItems = availableBoxes
+    }}
+</div>
+
+
+<div class="nova6-setting">
+    <header class="nova6-headline nova6-headline--no-margin">
+        <h3 class="nova6-headline__text">{{localize "NOVA.Item.Stress.BoxCountMental"}}</h3>
+    </header>
+</div>
+
+<div class="nova6-setting__columns">
+    {{> "systems/nova6/templates/item/settings/setting-rank.hbs"
+        headline = "NOVA.Item.Stress.Stressed"
+        fieldName = "data.numMentalStressed"
+        field = data.numMentalStressed
+        dtype = "Number"
+        radioItems = availableBoxes
+    }}
+
+    {{> "systems/nova6/templates/item/settings/setting-rank.hbs"
+        headline = "NOVA.Item.Stress.Staggered"
+        fieldName = "data.numMentalStaggered"
+        field = data.numMentalStaggered
+        dtype = "Number"
+        radioItems = availableBoxes
+    }}
+
+    {{> "systems/nova6/templates/item/settings/setting-rank.hbs"
+        headline = "NOVA.Item.Stress.Incapacitated"
+        fieldName = "data.numMentalIncapacitated"
+        field = data.numMentalIncapacitated
+        dtype = "Number"
+        radioItems = availableBoxes
+    }}
+</div>
+
+
+{{> "systems/nova6/templates/components/item-footer.hbs"}}

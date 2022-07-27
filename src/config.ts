@@ -35,7 +35,7 @@ export const NOVA6: Nova6Config = {
         skill: SkillItem,
         stress: StressItem,
         talent: TalentItem,
-        Asset: AssetItem,
+        asset: AssetItem,
     },
     sheetComponents: {
         actor: {

@@ -99,8 +99,24 @@
                 "NoDescription": "No description"
             },
             "Stress": {
+                "EditItem": "Edit Stress Settings",
                 "Physical": "Physical",
-                "Mental": "Mental"
+                "Mental": "Mental",
+                "Stressed": "Stressed",
+                "Staggered": "Staggered",
+                "Incapacitated": "Incapacitated",
+                "BoxCountPhysical": "Number of boxes for physical stress",
+                "BoxCountMental": "Number of boxes for mental stress",
+                "Durations": {
+                    "B": "Brief",
+                    "Q": "Quick",
+                    "S": "Scene",
+                    "T": "Temporary",
+                    "L": "Lasting",
+                    "LL": "Long Lasting",
+                    "E": "Enduring",
+                    "P": "Permanent"
+                }
             }
         },
         "Dialog": {

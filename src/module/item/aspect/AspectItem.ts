@@ -29,7 +29,7 @@ export class AspectItem extends BaseItem {
 
         if (item) {
             item.update({
-                "data.invoked": !item.data.data.invoked
+                "data.invoked": !item.data.data.invoked,
             });
         }
     }
@@ -48,7 +48,7 @@ export class AspectItem extends BaseItem {
 
         if (item) {
             item.update({
-                "data.text": input
+                "data.text": input,
             });
         }
     }

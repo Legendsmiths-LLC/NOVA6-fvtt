@@ -1,27 +1,68 @@
+{{#*inline "duration_selector"}}
+    <div class="nova6-stress__selector"
+         data-item="{{stress._id}}"
+         data-type="{{stressType}}"
+         data-severity="{{stressSeverity}}"
+         data-index="{{boxIndex}}"
+    >
+        <span></span>
+        {{#each @root.stressDurations as |stressDuration|}}
+            <div data-duration="{{stressDuration.duration}}">{{stressDuration.label}}</div>
+        {{/each}}
+    </div>
+{{/inline}}
+
 {{#each stresses as |stress stressIndex|}}
     <div class="nova6-stress">
         {{#each @root.stressTypes as |stressType|}}
-            <div class="nova6-stress__{{stressType}}">
+            {{#if (eq @index 1)}}
+                <div class="nova6-stress__conditions nova6-stress--contents">
+                    <div>&nbsp;</div>
+                    <div class="{{#if @root.actor.data.conditions.stressed}}nova6-stress__condition--active{{/if}}">
+                        {{localize "NOVA.Item.Stress.Stressed"}}
+                    </div>
+                    <div class="{{#if @root.actor.data.conditions.staggered}}nova6-stress__condition--active{{/if}}">
+                        {{localize "NOVA.Item.Stress.Staggered"}}
+                    </div>
+                    <div class="{{#if @root.actor.data.conditions.incapacitated}}nova6-stress__condition--active{{/if}}">
+                        {{localize "NOVA.Item.Stress.Incapacitated"}}
+                    </div>
+                </div>
+            {{/if}}
+            <div class="nova6-stress__{{stressType}} nova6-stress--contents">
                 <span>{{localize (lookup (concat "NOVA.Item.Stress." stressType) 'string')}}</span>
                 {{#each @root.stressSeverities as |stressSeverity|}}
                     <div class="nova6-stress__boxes">
                         {{#each (lookup (lookup stress.data stressType) stressSeverity) as |box boxIndex|}}
-                                <label class="nova6-checkbox">
-                                    <input
-                                        class="nova6-js-checkbox nova6-checkbox__input"
-                                        type="checkbox"
-                                        data-item="{{stress._id}}"
-                                        data-type="{{stressType}}"
-                                        data-severity="{{stressSeverity}}"
-                                        data-index="{{boxIndex}}"
-                                        {{#if box.status}}checked="checked"{{/if}}
-                                    >
-                                    <i class="nova6-checkbox__icon fa fa-check"></i>
-                                </label>
+                            <label class="nova6-checkbox">
+                                <input
+                                    class="nova6-js-stress-checkbox nova6-checkbox__input"
+                                    type="checkbox"
+                                    {{#if box.status}}checked="checked"{{/if}}
+                                >
+                                <i class="nova6-checkbox__icon nova6-checkbox__icon--status-{{box.status}}"></i>
+                                {{> duration_selector stress=stress stressType=stressType stressSeverity=stressSeverity boxIndex=boxIndex}}
+                            </label>
                         {{/each}}
+
+                        <!--{{#if @last}}
+                            <label class="nova6-checkbox nova6-stress__extra">
+                                <input
+                                    class="nova6-js-stress-checkbox nova6-checkbox__input"
+                                    type="checkbox"
+                                    {{#if box.status}}checked="checked"{{/if}}
+                                >
+                                <i class="nova6-checkbox__icon fa fa-check"></i>
+                                {{> duration_selector stress=stress stressType=stressType stressSeverity=stressSeverity boxIndex=boxIndex}}
+                            </label>
+                        {{/if}}-->
                     </div>
                 {{/each}}
             </div>
         {{/each}}
+
+        <div class="nova6-actions nova6-actions--item">
+            <i class="nova6-js-stress-settings nova6-actions__icon fa fa-cog" data-item="{{stress._id}}"></i>
+        </div>
     </div>
 {{/each}}

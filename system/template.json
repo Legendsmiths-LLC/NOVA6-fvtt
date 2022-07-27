@@ -11,7 +11,12 @@
             "setbacks": 0,
             "load": 0,
             "backstory": "",
-            "notes": ""
+            "notes": "",
+            "conditions":{
+                "stressed": false,
+                "staggered": false,
+                "incapacitated": false
+            }
         }
     },
     "Item": {

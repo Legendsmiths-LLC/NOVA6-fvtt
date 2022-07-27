@@ -1,15 +1,114 @@
 .nova6-stress {
+    position: relative;
     display: grid;
     grid-template-columns: min-content min-content min-content min-content;
     grid-template-rows: min-content min-content min-content;
     grid-gap: $component-padding * 2;
+    justify-items: center;
 
-    > div {
+    > .nova6-stress--contents {
         display: contents;
     }
 
     &__boxes {
         display: flex;
         gap: 2px;
+    }
+
+    &__extra {
+        margin-left: $component-padding * 2;
+    }
+
+    &__conditions div {
+        text-transform: uppercase;
+        font-size: 10px;
+
+        &:first-letter {
+            font-size: 12px;
+        }
+    }
+
+    .nova6-checkbox:hover {
+        position: relative;
+
+        .nova6-stress__selector {
+            display: block;
+        }
+    }
+
+    &__selector {
+        z-index: 15;
+        position: absolute;
+        background: $sheet-background;
+        display: none;
+        border: 1px solid $primary-color;
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%, 5px);
+
+        div {
+            padding: $component-padding $component-padding * 2;
+            text-align: center;
+            z-index: 25;
+            white-space: nowrap;
+            position: relative;
+
+            &:hover {
+                background: $primary-color;
+                color: $sheet-background;
+            }
+        }
+
+        span {
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: -1px;
+            height: 10px;
+            width: 10px;
+            background: $sheet-background;
+            z-index: 20;
+
+            border-left: 1px solid $primary-color;
+            border-top: 1px solid $primary-color;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+    }
+
+    .nova6-checkbox__icon {
+        position: relative;
+        font-style: normal;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        padding-top: 1px;
+    }
+
+    .nova6-checkbox__icon::before {
+        font-weight: bold;
+    }
+    .nova6-checkbox__icon--status-B::before {
+        content: "B";
+    }
+    .nova6-checkbox__icon--status-Q::before {
+        content: "Q";
+    }
+    .nova6-checkbox__icon--status-S::before {
+        content: "S";
+    }
+    .nova6-checkbox__icon--status-T::before {
+        content: "T";
+    }
+    .nova6-checkbox__icon--status-L::before {
+        content: "L";
+    }
+    .nova6-checkbox__icon--status-LL::before {
+        content: "LL";
+    }
+    .nova6-checkbox__icon--status-E::before {
+        content: "E";
+    }
+    .nova6-checkbox__icon--status-P::before {
+        content: "P";
     }
 }
