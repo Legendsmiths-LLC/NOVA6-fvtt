@@ -10,6 +10,7 @@ import { StressItem } from "./module/item/stress/StressItem";
 import { TalentItem } from "./module/item/talent/TalentItem";
 import { AssetItem } from "./module/item/asset/AssetItem";
 import { LoadLevel } from "./module/components/LoadLevel/LoadLevel";
+import { Counter } from "./module/components/Counter/Counter";
 
 export interface Nova6Config {
     itemClasses: {
@@ -41,6 +42,7 @@ export const NOVA6: Nova6Config = {
         actor: {
             sortable: Sortable,
             loadLevel: LoadLevel,
+            counter: Counter,
         },
         item: {
             radio: Radio,

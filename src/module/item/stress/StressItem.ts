@@ -11,7 +11,7 @@ export class StressItem extends BaseItem {
     static activateActorSheetListeners(html, sheet) {
         super.activateActorSheetListeners(html, sheet);
 
-        // html.find(".nova6-js-stress-checkbox").click((e) => this._onStressBoxChange.call(this, e, sheet));
+        html.find(".nova6-js-stress-checkbox").click((e) => this._onStressBoxClear.call(this, e, sheet));
         html.find(".nova6-stress__selector div").click((e) => this._onStressBoxChange.call(this, e, sheet));
     }
 
@@ -59,6 +59,21 @@ export class StressItem extends BaseItem {
      * EVENT HANDLER
      *************************/
 
+    private static _onStressBoxClear(e, sheet) {
+        e.preventDefault();
+
+        const dataset = e.currentTarget.dataset;
+        const item = sheet.actor.items.get(dataset.item);
+
+        if (item) {
+            item.update({
+                [`data.status.${dataset.type}.${dataset.severity}.${dataset.index}`]: "C",
+            }).then(() => {
+                this._updateConditions(item, sheet);
+            });
+        }
+    }
+
     private static _onStressBoxChange(e, sheet) {
         e.preventDefault();
 
@@ -69,7 +84,30 @@ export class StressItem extends BaseItem {
         if (item) {
             item.update({
                 [`data.status.${dataset.type}.${dataset.severity}.${dataset.index}`]: duration,
+            }).then(() => {
+                this._updateConditions(item, sheet);
             });
         }
+    }
+
+    private static _updateConditions(item, sheet) {
+        const status = item.data.data.status;
+
+        stressSeverities.forEach((severity) => {
+            let isActive = false;
+
+            stressTypes.forEach((type) => {
+                const stress = Object.values(status[type]?.[severity] ?? {});
+                const numStress = stress.filter((status) => status !== "C").length;
+
+                if (numStress >= item.data.data[`num${type}${severity}`]) {
+                    isActive = true;
+                }
+            });
+
+            sheet.actor.update({
+                [`data.conditions.${severity.toLowerCase()}`]: isActive,
+            });
+        });
     }
 }

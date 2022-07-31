@@ -38,6 +38,10 @@
                                 <input
                                     class="nova6-js-stress-checkbox nova6-checkbox__input"
                                     type="checkbox"
+                                    data-item="{{stress._id}}"
+                                    data-type="{{stressType}}"
+                                    data-severity="{{stressSeverity}}"
+                                    data-index="{{boxIndex}}"
                                     {{#if box.status}}checked="checked"{{/if}}
                                 >
                                 <i class="nova6-checkbox__icon nova6-checkbox__icon--status-{{box.status}}"></i>

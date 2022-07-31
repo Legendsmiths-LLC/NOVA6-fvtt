@@ -39,6 +39,11 @@
         </label>
 
         <div class="nova6-header__plot-points-wrapper">
+            <span
+                class="nova6-js-decrement nova6-header__action"
+                data-name="data.plotPoints.current"
+            >-</span>
+
             <input
                 class="nova6-text-input nova6-text-input--fp"
                 name="data.plotPoints.current"
@@ -54,6 +59,11 @@
                 type="text"
                 value="{{data.plotPoints.refresh}}"
             >
+
+            <span
+                class="nova6-js-increment nova6-header__action"
+                data-name="data.plotPoints.current"
+            >+</span>
         </div>
     </div>
 
@@ -64,12 +74,22 @@
         </label>
 
         <div class="nova6-header__setbacks-wrapper">
+            <span
+                class="nova6-js-decrement nova6-header__action"
+                data-name="data.setbacks"
+            >-</span>
             <input
                 class="nova6-text-input nova6-text-input--fp"
                 name="data.setbacks"
                 type="text"
                 value="{{data.setbacks}}"
             >
+
+            <span
+                class="nova6-js-increment nova6-header__action"
+                data-name="data.setbacks"
+            >+</span>
+
         </div>
     </div>
 

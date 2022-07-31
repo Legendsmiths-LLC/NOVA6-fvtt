@@ -74,6 +74,38 @@
                 "type": "stress",
                 "data": {}
             }
+        ],
+        "talents": [
+            {
+                "name": "Talent",
+                "type": "talent",
+                "data": {}
+            },
+            {
+                "name": "Talent",
+                "type": "talent",
+                "data": {}
+            }, {
+                "name": "Talent",
+                "type": "talent",
+                "data": {}
+            }
+        ],
+        "assets": [
+            {
+                "name": "Asset",
+                "type": "asset",
+                "data": {}
+            },
+            {
+                "name": "Asset",
+                "type": "asset",
+                "data": {}
+            }, {
+                "name": "Asset",
+                "type": "asset",
+                "data": {}
+            }
         ]
     }
 }

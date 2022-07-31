@@ -68,11 +68,26 @@
     &__plot-points-wrapper {
         display: flex;
         justify-content: center;
+        align-items: center;
+    }
+
+    &__action {
+        font-family: "Fate Icons", sans-serif;
+        font-size: 10px;
+
+        &:first-child {
+            transform: translateX($component-padding);
+        }
+
+        &:last-child {
+            transform: translateX(-$component-padding);
+        }
     }
 
     &__setbacks-wrapper {
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     &__plot-points-divider {

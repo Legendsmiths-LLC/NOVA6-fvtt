@@ -48,6 +48,11 @@
     font-weight: 900;
 }
 
+@font-face {
+    font-family: "Fate Icons";
+    src: url("/systems/nova6/assets/fonts/fate_icons.ttf");
+}
+
 #chat-log {
     font-family: $primary-font;
 }

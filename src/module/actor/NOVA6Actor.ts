@@ -6,19 +6,13 @@ import { ActorDataNOVA6 } from "./ActorTypes";
 import defaultItems from "../../../system/data/en/default.json";
 
 export class NOVA6Actor extends Actor {
-
     /** @override */
     _onCreate(data, options, userId) {
         super._onCreate(data, options, userId);
 
-        // Create default aspects
-        this.createEmbeddedDocuments('Item', defaultItems.content.aspects);
-
-        // Create default skills
-        this.createEmbeddedDocuments('Item', defaultItems.content.skills);
-
-        // Create default stress track
-        this.createEmbeddedDocuments('Item', defaultItems.content.stress);
+        for (const itemType in defaultItems.content) {
+            this.createEmbeddedDocuments("Item", defaultItems.content[itemType]);
+        }
     }
 }
 

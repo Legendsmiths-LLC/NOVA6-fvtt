@@ -19,6 +19,10 @@
         margin-left: $component-padding * 2;
     }
 
+    &__condition--active {
+        font-weight: bold;
+    }
+
     &__conditions div {
         text-transform: uppercase;
         font-size: 10px;
