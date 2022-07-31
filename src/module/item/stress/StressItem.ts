@@ -3,7 +3,7 @@ import { ItemData } from "@league-of-foundry-developers/foundry-vtt-types/src/fo
 
 const stressTypes = ["Physical", "Mental"];
 const stressSeverities = ["Stressed", "Staggered", "Incapacitated"];
-const stressDurations = ["B", "Q", "S", "T", "L", "LL", "E", "P"];
+const stressDurations = ["C", "B", "Q", "S", "T", "L", "LL", "E", "P"];
 
 export class StressItem extends BaseItem {
     static documentName = "stress";

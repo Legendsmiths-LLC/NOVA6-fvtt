@@ -108,6 +108,7 @@
                 "BoxCountPhysical": "Number of boxes for physical stress",
                 "BoxCountMental": "Number of boxes for mental stress",
                 "Durations": {
+                    "C": "Clear",
                     "B": "Brief",
                     "Q": "Quick",
                     "S": "Scene",
