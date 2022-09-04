@@ -120,6 +120,30 @@
                 }
             }
         },
+        "Apps": {
+            "RollSkill": {
+                "Title": "Roll skill",
+                "Bonus": "Bonus dice",
+                "Penalty": "Penalty dice",
+                "Perks": "Available Perks",
+                "NoPerk": "Don't use a perk",
+                "RollButton": "Roll!",
+                "Description": "You're ready to roll. You can choose to trade up to {number} dice for Stunt Points.",
+                "Error": "You have to many dice. Trade at least {number} dice for Stunt Points to get you total to 7 dice or lower.",
+                "Calculator": {
+                    "Bonus": "Bonus",
+                    "Penalty": "Penalty",
+                    "Perks": "Perk",
+                    "Base": "Base",
+                    "Rank": "Rank",
+                    "Total": "Total",
+                    "SP": "SPx2",
+                    "up": "You're <span>up!</span>",
+                    "down": "You're <span>down!</span>",
+                    "even": "You're <span>even!</span>"
+                }
+            }
+        },
         "Dialog": {
             "ReferenceRemove": "Remove reference",
             "ReferenceRemoveText": "Do you really want to <strong>permanently</strong> remove this reference?",

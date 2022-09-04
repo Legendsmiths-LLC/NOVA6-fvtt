@@ -1,15 +1,19 @@
 .nova6-skills {
     display: grid;
-    grid-template-columns: min-content 1fr min-content ;
+    grid-template-columns: min-content 1fr min-content;
     grid-gap: $component-padding;
     align-items: center;
 }
 
 .nova6-skill {
     display: contents;
-    
+
     > div {
         position: relative;
+    }
+
+    .nova6-headline--skill {
+        cursor: pointer;
     }
 
     &__perks {
@@ -41,4 +45,3 @@
         }
     }
 }
-

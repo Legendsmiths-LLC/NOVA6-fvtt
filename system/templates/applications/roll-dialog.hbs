@@ -1,0 +1,158 @@
+<form autocomplete="off" class="nova6-u-full-height {{cssClass}}">
+    <div class="nova6-desk">
+        <div class="nova6-header">
+            <div class="nova6-header__name">
+                <label class="nova6-header__label">
+                    {{skill.name}}
+                </label>
+                <div class="nova6-header__title">{{localize "NOVA.Apps.RollSkill.Title"}}</div>
+            </div>
+
+            {{> "systems/nova6/templates/components/header-logo.hbs"}}
+        </div>
+
+        <div class="nova6-desk__content">
+            <div class="nova6-setting">
+                <header class="nova6-headline">
+                    <h3 class="nova6-headline__text">{{localize "NOVA.Apps.RollSkill.Bonus"}}</h3>
+                </header>
+
+                <div class="nova6-slider">
+                    <input
+                        class="nova6-js-setting-range-value nova6-slider__label"
+                        type="text"
+                        value="{{rollData.bonus}}"
+                    />
+
+                    <input
+                        type="range"
+                        class="nova6-js-setting-range-slider"
+                        name="bonus"
+                        data-dtype="Number"
+                        value="{{rollData.bonus}}"
+                        min="0"
+                        max="10"
+                    />
+                </div>
+            </div>
+
+            <div class="nova6-setting">
+                <header class="nova6-headline">
+                    <h3 class="nova6-headline__text">{{localize "NOVA.Apps.RollSkill.Penalty"}}</h3>
+                </header>
+
+                <div class="nova6-slider">
+                    <input
+                        class="nova6-js-setting-range-value nova6-slider__label"
+                        type="text"
+                        value="{{rollData.penalty}}"
+                    />
+
+                    <input
+                        type="range"
+                        class="nova6-js-setting-range-slider"
+                        name="penalty"
+                        data-dtype="Number"
+                        value="{{rollData.penalty}}"
+                        min="0"
+                        max="10"
+                    />
+                </div>
+            </div>
+
+            {{#if (gte perks.length 2)}}
+                <div class="nova6-setting">
+                    <header class="nova6-headline">
+                        <h3 class="nova6-headline__text">{{localize "NOVA.Apps.RollSkill.Perks"}}</h3>
+                    </header>
+
+                    <div class="nova6-roll-dialog__perks">
+                       {{#each perks as |perk perkIndex|}}
+                            <label>
+                                <input type="radio" name="perk" data-dtype="Number" value="{{perkIndex}}" {{#if perk.active}}checked{{/if}} />
+                                <span>{{perk.name}}</span>
+                            </label>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/if}}
+
+
+            {{#if (lte rollData.numberOfDice 7)}}
+                <div class="nova6-roll-dialog__description">
+                    {{localize "NOVA.Apps.RollSkill.Description" number=rollData.availableTradeDice}}
+                </div>
+            {{else}}
+                <div class="nova6-roll-dialog__description nova6-roll-dialog__description--error">
+                    {{localize "NOVA.Apps.RollSkill.Error" number=rollData.forceTradeDice}}
+                </div>
+            {{/if}}
+
+            <div class="nova6-setting nova6-roll-dialog__calculator">
+                <div>
+                    <span class="nova6-roll-dialog__status nova6-roll-dialog__status--{{rollData.status}}">
+                        <div>{{{localize (lookup (concat "NOVA.Apps.RollSkill.Calculator." rollData.status) 'string')}}}</div>
+                    </span>
+                </div>
+
+                <div class="nova6-roll-dialog__dicelabel">
+                    <span>{{rollData.baseDice}}</span>
+                    <div>{{localize "NOVA.Apps.RollSkill.Calculator.Base"}}</div>
+                </div>
+
+                <div class="nova6-roll-dialog__calculator--operator">+</div>
+
+                <div class="nova6-roll-dialog__dicelabel">
+                    <span>{{rollData.rank}}</span>
+                    <div>{{localize "NOVA.Apps.RollSkill.Calculator.Rank"}}</div>
+                </div>
+
+                <div class="nova6-roll-dialog__calculator--operator">+</div>
+
+                <div class="nova6-roll-dialog__dicelabel">
+                    <span>{{rollData.bonus}}</span>
+                    <div>{{localize "NOVA.Apps.RollSkill.Calculator.Bonus"}}</div>
+                </div>
+
+                <div class="nova6-roll-dialog__calculator--operator">+</div>
+
+                <div class="nova6-roll-dialog__dicelabel">
+                    <span>{{rollData.activePerk}}</span>
+                    <div>{{localize "NOVA.Apps.RollSkill.Calculator.Perks"}}</div>
+                </div>
+
+                <div class="nova6-roll-dialog__calculator--operator">+</div>
+
+                <div class="nova6-roll-dialog__dicelabel">
+                    <span>{{rollData.penalty}}</span>
+                    <div>{{localize "NOVA.Apps.RollSkill.Calculator.Penalty"}}</div>
+                </div>
+
+                <div class="nova6-roll-dialog__calculator--operator">-</div>
+
+                <div class="nova6-roll-dialog__sp-selector">
+                    <div class="nova6-roll-dialog__dicelabel">
+                        <span>{{rollData.usedTradeDice}}</span>
+                        <div>{{localize "NOVA.Apps.RollSkill.Calculator.SP"}}</div>
+                    </div>
+
+                    <div class="nova6-roll-dialog__sp-selector__buttons">
+                        <div class="nova6-js-sp-increment {{#if (eq rollData.usedTradeDice rollData.availableTradeDice)}}button--disabled{{/if}}">+</div>
+                        <div class="nova6-js-sp-decrement {{#if (eq rollData.usedTradeDice 0)}}button--disabled{{/if}}">-</div>
+                    </div>
+                </div>
+
+                <div class="nova6-roll-dialog__calculator--operator">=</div>
+
+                <div class="nova6-roll-dialog__dicelabel">
+                    <span><strong>{{rollData.numberOfDice}}</strong></span>
+                    <div>{{localize "NOVA.Apps.RollSkill.Calculator.Total"}}</div>
+                </div>
+
+                <div class="nova6-js-execute-roll nova6-headline {{#if (gt rollData.numberOfDice 7)}}nova6-headline--disabled{{/if}}">
+                    <h3 class="nova6-headline__text">{{localize "NOVA.Apps.RollSkill.RollButton"}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -7,7 +7,7 @@ import defaultItems from "../../../system/data/en/default.json";
 
 export class NOVA6Actor extends Actor {
     /** @override */
-    _onCreate(data, options, userId) {
+    protected _onCreate(data, options, userId) {
         super._onCreate(data, options, userId);
 
         for (const itemType in defaultItems.content) {

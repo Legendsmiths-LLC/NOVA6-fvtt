@@ -1,0 +1,112 @@
+.nova6-roll-dialog {
+    &__perks {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: $component-padding * 2;
+
+            span {
+                padding: $component-padding * 2 0;
+                line-height: 12px;
+            }
+        }
+    }
+
+    &__description {
+        border-top: 1px solid $nova6-primary-color;
+        padding: $component-padding * 2;
+        padding-bottom: 0;
+        font-size: 10px;
+        text-transform: uppercase;
+
+        &--error {
+            color: $caution-color;
+        }
+    }
+
+    &__calculator {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .nova6-roll-dialog__dicelabel {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+
+            > div {
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+        }
+
+        &--operator {
+            font-size: 20px;
+        }
+
+        .nova6-headline {
+            margin: 0;
+            white-space: break-spaces;
+            width: 60px;
+            text-align: center;
+            align-self: stretch;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            &--disabled {
+                opacity: 0.5;
+                pointer-events: none;
+            }
+        }
+    }
+
+    &__sp-selector {
+        display: flex;
+        gap: $component-padding;
+
+        &__buttons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 3px 0;
+
+            font-family: "Fate Icons", sans-serif;
+            font-size: 10px;
+
+            .button--disabled {
+                opacity: 0.5;
+                pointer-events: none;
+            }
+        }
+    }
+
+    &__status {
+        text-align: center;
+
+        &--up {
+            span {
+                color: $success-color;
+            }
+        }
+
+        &--down {
+            span {
+                color: $caution-color;
+            }
+        }
+
+        span {
+            text-transform: uppercase;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+            font-size: 14px;
+        }
+    }
+}
