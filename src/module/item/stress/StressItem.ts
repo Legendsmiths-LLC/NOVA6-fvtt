@@ -29,22 +29,22 @@ export class StressItem extends BaseItem {
         return sheetData;
     }
 
-    static prepareItemData(data, item) {
+    static prepareItemData(item) {
         stressTypes.forEach((type) => {
-            data.data[type] = {};
+            item.system[type] = {};
 
             stressSeverities.forEach((severity) => {
-                data.data[type][severity] = StressItem.createAndFillBoxes(item, type, severity);
+                item.system[type][severity] = StressItem.createAndFillBoxes(item, type, severity);
             });
         });
 
-        return data;
+        return item;
     }
 
     private static createAndFillBoxes(item, type: string, severity: string) {
-        return [...Array(item.data.data[`num${type}${severity}`]).keys()].map((i) => {
+        return [...Array(item.system[`num${type}${severity}`]).keys()].map((i) => {
             return {
-                status: item.data.data.status?.[type]?.[severity]?.[i] ?? 0,
+                status: item.system.status?.[type]?.[severity]?.[i] ?? 0,
             };
         });
     }
@@ -67,7 +67,7 @@ export class StressItem extends BaseItem {
 
         if (item) {
             item.update({
-                [`data.status.${dataset.type}.${dataset.severity}.${dataset.index}`]: "C",
+                [`system.status.${dataset.type}.${dataset.severity}.${dataset.index}`]: "C",
             }).then(() => {
                 this._updateConditions(item, sheet);
             });
@@ -83,7 +83,7 @@ export class StressItem extends BaseItem {
 
         if (item) {
             item.update({
-                [`data.status.${dataset.type}.${dataset.severity}.${dataset.index}`]: duration,
+                [`system.status.${dataset.type}.${dataset.severity}.${dataset.index}`]: duration,
             }).then(() => {
                 this._updateConditions(item, sheet);
             });
@@ -91,7 +91,7 @@ export class StressItem extends BaseItem {
     }
 
     private static _updateConditions(item, sheet) {
-        const status = item.data.data.status;
+        const status = item.system.status;
 
         stressSeverities.forEach((severity) => {
             let isActive = false;
@@ -100,13 +100,13 @@ export class StressItem extends BaseItem {
                 const stress = Object.values(status[type]?.[severity] ?? {});
                 const numStress = stress.filter((status) => status !== "C").length;
 
-                if (numStress >= item.data.data[`num${type}${severity}`]) {
+                if (numStress >= item.system[`num${type}${severity}`]) {
                     isActive = true;
                 }
             });
 
             sheet.actor.update({
-                [`data.conditions.${severity.toLowerCase()}`]: isActive,
+                [`system.conditions.${severity.toLowerCase()}`]: isActive,
             });
         });
     }

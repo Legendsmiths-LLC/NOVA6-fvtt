@@ -12,7 +12,7 @@ export class Counter extends BaseComponent {
         const field = e.currentTarget.dataset.name;
 
         if (field) {
-            const newValue = Number(getProperty(sheet.actor.data, field)) + (doDecrement ? -1 : 1);
+            const newValue = Number(getProperty(sheet.object, field)) + (doDecrement ? -1 : 1);
 
             sheet.actor.update({
                 [field]: newValue,

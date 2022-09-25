@@ -56,7 +56,7 @@ export class CharacterSheet extends ActorSheet {
      *
      * returns {Object}
      */
-    getData() {
+    async getData() {
         // Basic fields and flags
         let data: any = {
             owner: this.actor.isOwner,
@@ -68,10 +68,16 @@ export class CharacterSheet extends ActorSheet {
         };
 
         // Add actor, actor data and item
-        data.actor = duplicate(this.actor.data);
-        data.data = data.actor.data;
-        data.items = this.actor.items.map((item) => item.data);
+        data.actor = duplicate(this.actor);
+        data.system = data.actor.system;
+        data.items = this.actor.items.map((item) => item);
         data.items.sort((a: ItemData, b: ItemData) => (a.sort || 0) - (b.sort || 0));
+
+        //WYSIWYG fields
+        // @ts-ignore
+        data.enrichedBackstory = await TextEditor.enrichHTML(this.object.system.backstory, { async: true });
+        // @ts-ignore
+        data.enrichedNotes = await TextEditor.enrichHTML(this.object.system.notes, { async: true });
 
         // Allow every item type to add data to the actor sheet
         for (const itemType in CONFIG.NOVA6.itemClasses) {

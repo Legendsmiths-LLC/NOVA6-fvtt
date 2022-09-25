@@ -3,8 +3,8 @@
         <div class="nova6-item nova6-js-sortable nova6-talent" data-item-id="{{talent._id}}">
             <div class="nova6-talent__name">{{{talent.name}}}</div>
             <div class="nova6-talent__description">
-                {{#if talent.data.description}}
-                    <span>{{{talent.data.description}}}</span>
+                {{#if talent.system.description}}
+                    <span>{{{talent.system.description}}}</span>
                 {{else}}
                     <span class="nova6-talent--disabled">{{localize "NOVA.Item.Talent.NoDescription"}}</span>
                 {{/if}}
@@ -12,7 +12,10 @@
                 <div class="nova6-actions nova6-js-sortable nova6-actions--item nova6-actions--talent">
                     <i class="nova6-js-item-sort nova6-actions__icon fa fa-sort"></i>
                     <i class="nova6-js-talent-settings nova6-actions__icon fa fa-cog" data-item="{{talent._id}}"></i>
-                    <i class="nova6-js-talent-delete nova6-actions__icon nova6-u-delete fa fa-trash" data-item="{{talent._id}}"></i>
+                    <i
+                        class="nova6-js-talent-delete nova6-actions__icon nova6-u-delete fa fa-trash"
+                        data-item="{{talent._id}}"
+                    ></i>
                 </div>
             </div>
         </div>

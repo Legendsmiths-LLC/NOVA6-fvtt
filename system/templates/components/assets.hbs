@@ -3,8 +3,8 @@
         <div class="nova6-item nova6-js-sortable nova6-asset" data-item-id="{{asset._id}}">
             <div class="nova6-asset__name">{{{asset.name}}}</div>
             <div class="nova6-asset__description">
-                {{#if asset.data.description}}
-                    <span>{{{asset.data.description}}}</span>
+                {{#if asset.system.description}}
+                    <span>{{{asset.system.description}}}</span>
                 {{else}}
                     <span class="nova6-asset--disabled">{{localize "NOVA.Item.Asset.NoDescription"}}</span>
                 {{/if}}
@@ -12,7 +12,10 @@
                 <div class="nova6-actions nova6-js-sortable nova6-actions--item nova6-actions--asset">
                     <i class="nova6-js-item-sort nova6-actions__icon fa fa-sort"></i>
                     <i class="nova6-js-asset-settings nova6-actions__icon fa fa-cog" data-item="{{asset._id}}"></i>
-                    <i class="nova6-js-asset-delete nova6-actions__icon nova6-u-delete fa fa-trash" data-item="{{asset._id}}"></i>
+                    <i
+                        class="nova6-js-asset-delete nova6-actions__icon nova6-u-delete fa fa-trash"
+                        data-item="{{asset._id}}"
+                    ></i>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@ import { BaseComponent } from "../BaseComponent";
 export class LoadLevel extends BaseComponent {
     static getSheetData(sheetData, sheet) {
         sheetData.loadLevelDescription = game.i18n.localize(
-            `NOVA.Sheet.LoadLevel.${sheet.actor.data.data.load}.description`
+            `NOVA.Sheet.LoadLevel.${sheet.actor.system.load}.description`
         );
 
         sheetData.loadChoices = {

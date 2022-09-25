@@ -96,8 +96,8 @@
                     <header class="nova6-headline">
                         <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Load"}}</h2>
                         <div class="nova6-actions nova6-actions--headline">
-                            <select name="data.load" class="nova6-actions__icon nova6-u-select">
-                                {{selectOptions loadChoices selected=data.load}}
+                            <select name="system.load" class="nova6-actions__icon nova6-u-select">
+                                {{selectOptions loadChoices selected=system.load}}
                             </select>
                         </div>
                     </header>
@@ -106,13 +106,13 @@
                 </section>
 
                 {{!--Notes--}}
-                <!--<section class="nova6-desk__load">
+                <section class="nova6-desk__load">
                     <header class="nova6-headline">
                         <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Notes"}}</h2>
                     </header>
 
                     {{> "systems/nova6/templates/components/notes.hbs"}}
-                </section>-->
+                </section>
             </section>
         </div>
     </div>

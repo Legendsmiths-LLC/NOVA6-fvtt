@@ -6,7 +6,7 @@ interface AspectData {
 
 export interface AspectItemData {
     type: "aspect";
-    data: AspectData;
+    system: AspectData;
 }
 
 export interface SkillData {
@@ -29,7 +29,7 @@ export interface SkillData {
 
 export interface SkillItemData {
     type: "skill";
-    data: SkillData;
+    system: SkillData;
 }
 
 interface TalentData {
@@ -39,7 +39,7 @@ interface TalentData {
 
 export interface TalentItemData {
     type: "talent";
-    data: TalentData;
+    system: TalentData;
 }
 
 interface AssetData {
@@ -49,7 +49,7 @@ interface AssetData {
 
 export interface AssetItemData {
     type: "asset";
-    data: AssetData;
+    system: AssetData;
 }
 
 interface StressData {
@@ -75,7 +75,7 @@ interface StressData {
 
 export interface StressItemData {
     type: "stress";
-    data: StressData;
+    system: StressData;
 }
 
 export type NOVA6ItemData = AspectItemData | SkillItemData | TalentItemData | AssetItemData | StressItemData;

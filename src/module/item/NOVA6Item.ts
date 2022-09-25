@@ -1,13 +1,16 @@
 import { NOVA6ItemData } from "./ItemTypes";
 
 export class NOVA6Item extends Item {
-    prepareDerivedData() {
-        super.prepareDerivedData();
+    prepareData() {
+        super.prepareData();
 
         // Let every itemType prepare itself
-        if (this.actor?.data) {
-            if (CONFIG.NOVA6.itemClasses[this.data.type]) {
-                CONFIG.NOVA6.itemClasses[this.data.type].prepareItemData(this.data, this);
+        // @ts-ignore
+        if (this.actor?.system) {
+            // @ts-ignore
+            if (CONFIG.NOVA6.itemClasses[this.type]) {
+                // @ts-ignore
+                CONFIG.NOVA6.itemClasses[this.type].prepareItemData(this);
             }
         }
     }

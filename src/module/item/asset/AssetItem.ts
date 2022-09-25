@@ -10,7 +10,10 @@ export class AssetItem extends BaseItem {
         return sheetData;
     }
 
-    static getSheetData(sheetData, _item) {
+    static async getSheetData(sheetData, itemSheet) {
+        // @ts-ignore
+        sheetData.enrichedDescription = await TextEditor.enrichHTML(itemSheet.item.system.description, { async: true });
+
         return sheetData;
     }
 

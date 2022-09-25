@@ -11,18 +11,18 @@ export class SkillItem extends BaseItem {
             .filter((item: ItemData) => item.type === "skill")
             .map((item: SkillItemData) => {
                 const perkData = [
-                    item.data.perk1,
-                    item.data.perk2,
-                    item.data.perk3,
-                    item.data.perk4,
-                    item.data.perk5,
-                    item.data.perk6,
-                    item.data.perk7,
-                    item.data.perk8,
-                    item.data.perk9,
+                    item.system.perk1,
+                    item.system.perk2,
+                    item.system.perk3,
+                    item.system.perk4,
+                    item.system.perk5,
+                    item.system.perk6,
+                    item.system.perk7,
+                    item.system.perk8,
+                    item.system.perk9,
                 ];
 
-                item.data.perks = perkData.filter((perk) => perk !== "").join(", ");
+                item.system.perks = perkData.filter((perk) => perk !== "").join(", ");
 
                 return item;
             });
@@ -50,7 +50,8 @@ export class SkillItem extends BaseItem {
         e.preventDefault();
 
         const skillId = e.currentTarget.parentNode.dataset.itemId;
-        const skill = sheet.actor.items.get(skillId)?.data as SkillItemData;
+        // @ts-ignore
+        const skill = sheet.actor.items.get(skillId)?.system as SkillItemData;
 
         if (skill) {
             new RollDialog(sheet.actor, skill).render(true);

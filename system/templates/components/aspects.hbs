@@ -10,7 +10,7 @@
                         <input
                             class="nova6-checkbox__input"
                             type="checkbox"
-                            {{#if aspect.data.invoked}}checked="checked"{{/if}}
+                            {{#if aspect.system.invoked}}checked="checked"{{/if}}
                         >
 
                         <i class="nova6-checkbox__icon fa fa-check"></i>
@@ -19,12 +19,12 @@
                 <div class="nova6-aspects__content">
                     <div
                         class="nova6-js-aspect-input nova6-text-input"
-                        data-placeholder="{{aspect.data.label}}"
+                        data-placeholder="{{aspect.system.label}}"
                         contenteditable="true"
                         data-item-id="{{aspect._id}}"
                         data-focus-id="aspect-name-{{aspect._id}}"
                     >
-                        {{{aspect.data.text}}}
+                        {{{aspect.system.text}}}
                     </div>
 
                     <div class="nova6-actions nova6-actions--item">
@@ -33,7 +33,7 @@
                         <i class="nova6-js-aspect-delete nova6-actions__icon nova6-u-delete fa fa-trash" data-item="{{aspect._id}}"></i>
                     </div>
 
-                    <label class="nova6-text-input__label">{{aspect.data.label}}</label>
+                    <label class="nova6-text-input__label">{{aspect.system.label}}</label>
                 </div>
             </div>
         </div>

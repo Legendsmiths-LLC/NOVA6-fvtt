@@ -5,30 +5,30 @@
             <div class="nova6-headline nova6-headline--skill">
                 <h3 class="nova6-headline__text">{{skill.name}}</h3>
 
-                {{#unless skill.data.isNeutral}}
+                {{#unless skill.system.isNeutral}}
                     <span class="nova6-headline__icon nova6-headline__icon--skill">
-                        {{skill.data.rank}}
+                        {{skill.system.rank}}
                     </span>
                 {{/unless}}
 
             </div>
 
             <div class="nova6-skill__perks">
-                {{#if skill.data.perks}}
-                    <span>{{skill.data.perks}}</span>
+                {{#if skill.system.perks}}
+                    <span>{{skill.system.perks}}</span>
                 {{else}}
                     <span class="nova6-skill__perks--disabled">{{localize "NOVA.Item.Skill.NoPerks"}}</span>
                 {{/if}}
             </div>
 
             <div class="nova6-skill__flags">
-                <div title="{{localize "NOVA.Item.Skill.Focused"}}" class="nova6-skill__flag nova6-skill__flag--focused {{#unless skill.data.focused}}nova6-skill__flag--disabled{{/unless}}">
+                <div title="{{localize "NOVA.Item.Skill.Focused"}}" class="nova6-skill__flag nova6-skill__flag--focused {{#unless skill.system.focused}}nova6-skill__flag--disabled{{/unless}}">
                     {{localize "NOVA.Item.Skill.FocusedShort"}}
                 </div>
-                <div title="{{localize "NOVA.Item.Skill.Practiced"}}" class="nova6-skill__flag nova6-skill__flag--practiced {{#unless skill.data.practiced}}nova6-skill__flag--disabled{{/unless}}">
+                <div title="{{localize "NOVA.Item.Skill.Practiced"}}" class="nova6-skill__flag nova6-skill__flag--practiced {{#unless skill.system.practiced}}nova6-skill__flag--disabled{{/unless}}">
                     {{localize "NOVA.Item.Skill.PracticedShort"}}
                 </div>
-                <div title="{{localize "NOVA.Item.Skill.Specialized"}}" class="nova6-skill__flag nova6-skill__flag--specialized {{#unless skill.data.specialized}}nova6-skill__flag--disabled{{/unless}}">
+                <div title="{{localize "NOVA.Item.Skill.Specialized"}}" class="nova6-skill__flag nova6-skill__flag--specialized {{#unless skill.system.specialized}}nova6-skill__flag--disabled{{/unless}}">
                     {{localize "NOVA.Item.Skill.SpecializedShort"}}
                 </div>
 
@@ -51,7 +51,7 @@
                         <input
                             class="nova6-checkbox__input"
                             type="checkbox"
-                            {{#if skill.data.invoked}}checked="checked"{{/if}}
+                            {{#if skill.system.invoked}}checked="checked"{{/if}}
                         >
 
                         <i class="nova6-checkbox__icon fa fa-check"></i>
@@ -60,12 +60,12 @@
                 <div class="nova6-skills__content">
                     <div
                         class="nova6-js-skill-input nova6-text-input"
-                        data-placeholder="{{skill.data.label}}"
+                        data-placeholder="{{skill.system.label}}"
                         contenteditable="true"
                         data-item-id="{{skill._id}}"
                         data-focus-id="skill-name-{{skill._id}}"
                     >
-                        {{{skill.data.text}}}
+                        {{{skill.system.text}}}
                     </div>
 
                     <div class="nova6-actions nova6-actions--item">
@@ -74,7 +74,7 @@
                         <i class="nova6-js-skill-delete nova6-actions__icon nova6-u-delete fa fa-trash" data-item="{{skill._id}}"></i>
                     </div>
 
-                    <label class="nova6-text-input__label">{{skill.data.label}}</label>
+                    <label class="nova6-text-input__label">{{skill.system.label}}</label>
                 </div>
             </div>
         </div>-->

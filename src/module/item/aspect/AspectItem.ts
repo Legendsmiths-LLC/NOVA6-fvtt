@@ -17,6 +17,13 @@ export class AspectItem extends BaseItem {
         return sheetData;
     }
 
+    static async getSheetData(sheetData, itemSheet) {
+        // @ts-ignore
+        sheetData.enrichedDescription = await TextEditor.enrichHTML(itemSheet.item.system.description, { async: true });
+
+        return sheetData;
+    }
+
     /*************************
      * EVENT HANDLER
      *************************/
@@ -29,7 +36,7 @@ export class AspectItem extends BaseItem {
 
         if (item) {
             item.update({
-                "data.invoked": !item.data.data.invoked,
+                "system.invoked": !item.system.invoked,
             });
         }
     }
@@ -42,13 +49,13 @@ export class AspectItem extends BaseItem {
         const input = $(e.currentTarget).html();
 
         // Check if the value of the input field changed
-        if (item.data.data.text === input) {
+        if (item.system.text === input) {
             return;
         }
 
         if (item) {
             item.update({
-                "data.text": input,
+                "system.text": input,
             });
         }
     }

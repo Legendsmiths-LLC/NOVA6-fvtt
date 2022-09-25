@@ -18,13 +18,13 @@
             {{#if (eq @index 1)}}
                 <div class="nova6-stress__conditions nova6-stress--contents">
                     <div>&nbsp;</div>
-                    <div class="{{#if @root.actor.data.conditions.stressed}}nova6-stress__condition--active{{/if}}">
+                    <div class="{{#if @root.actor.system.conditions.stressed}}nova6-stress__condition--active{{/if}}">
                         {{localize "NOVA.Item.Stress.Stressed"}}
                     </div>
-                    <div class="{{#if @root.actor.data.conditions.staggered}}nova6-stress__condition--active{{/if}}">
+                    <div class="{{#if @root.actor.system.conditions.staggered}}nova6-stress__condition--active{{/if}}">
                         {{localize "NOVA.Item.Stress.Staggered"}}
                     </div>
-                    <div class="{{#if @root.actor.data.conditions.incapacitated}}nova6-stress__condition--active{{/if}}">
+                    <div class="{{#if @root.actor.system.conditions.incapacitated}}nova6-stress__condition--active{{/if}}">
                         {{localize "NOVA.Item.Stress.Incapacitated"}}
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <span>{{localize (lookup (concat "NOVA.Item.Stress." stressType) 'string')}}</span>
                 {{#each @root.stressSeverities as |stressSeverity|}}
                     <div class="nova6-stress__boxes">
-                        {{#each (lookup (lookup stress.data stressType) stressSeverity) as |box boxIndex|}}
+                        {{#each (lookup (lookup stress.system stressType) stressSeverity) as |box boxIndex|}}
                             <label class="nova6-checkbox">
                                 <input
                                     class="nova6-js-stress-checkbox nova6-checkbox__input"

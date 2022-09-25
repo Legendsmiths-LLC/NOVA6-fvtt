@@ -36,7 +36,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     constructor(actor: NOVA6Actor, skillData: SkillItemData, options?: Partial<ApplicationOptions>) {
         const rollData: RollData = {
             baseDice: RollDialog.baseDice,
-            rank: skillData.data.rank,
+            rank: skillData.system.rank,
             bonus: 0,
             penalty: 0,
             status: "even",
@@ -60,7 +60,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
 
         this.perks = [
             defaultPerk,
-            ...Object.entries(this.skill.data)
+            ...Object.entries(this.skill.system)
                 .filter(([key, value]) => key.startsWith("perk") && value.trim().length)
                 .map(([_key, value]) => ({ name: value, active: false })),
         ];

@@ -5,8 +5,8 @@ export abstract class BaseItem {
      * Allows each item to prepare its data before its rendered.
      * This can be used to add additional information right before rendering.
      */
-    static prepareItemData(itemData, _itemDocument) {
-        return itemData;
+    static prepareItemData(item) {
+        return item;
     }
 
     /**
@@ -15,7 +15,9 @@ export abstract class BaseItem {
      */
     static activateActorSheetListeners(html, sheet) {
         if (!this.documentName) {
-            throw new Error("A subclass of the BaseItem must provide an documentName field or implement their own _onItemAdd() method.");
+            throw new Error(
+                "A subclass of the BaseItem must provide an documentName field or implement their own _onItemAdd() method."
+            );
         }
 
         html.find(`.nova6-js-${this.documentName}-add`).click((e) => this._onItemAdd.call(this, e, sheet));
@@ -56,7 +58,9 @@ export abstract class BaseItem {
         e.stopPropagation();
 
         if (!this.documentName) {
-            throw new Error("A subclass of the BaseItem must provide an documentName field or implement their own _onItemAdd() method.");
+            throw new Error(
+                "A subclass of the BaseItem must provide an documentName field or implement their own _onItemAdd() method."
+            );
         }
 
         const itemData = {

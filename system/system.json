@@ -1,9 +1,15 @@
 {
-    "name": "nova6",
+    "id": "nova6",
     "title": "NOVA6",
     "description": "The official FoundryVTT game system for the NOVA6 TTRPG from Legendsmiths, LLC",
-    "version": "0.0.7",
-    "author": "Patrick Bauer (Daddi#2333)",
+    "version": "0.0.8",
+    "authors": [
+        {
+            "name": "Patrick Bauer",
+            "discord": "Daddi#2333",
+            "flags": {}
+        }
+    ],
     "scripts": ["system.js"],
     "styles": [],
     "languages": [
@@ -13,8 +19,10 @@
             "path": "languages/en.json"
         }
     ],
-    "minimumCoreVersion": "9",
-    "compatibleCoreVersion": "9",
+    "compatibility": {
+        "minimum": "10",
+        "verified": "10"
+    },
     "url": "https://github.com/anvil-vtt/NOVA6",
     "manifest": "https://github.com/anvil-vtt/NOVA6/releases/latest/download/system.json",
     "download": "https://github.com/anvil-vtt/NOVA6/releases/latest/download/nova6.zip"
