@@ -1,7 +1,6 @@
 .nova6-tabs-navigation {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-around;
     font-size: 13px;
     font-weight: bold;
     color: $nova6-primary-color;
@@ -11,6 +10,8 @@
     &__item {
         position: relative;
         padding: 5px 20px 5px 15px;
+        flex-grow: 1;
+        text-align: center;
 
         &.active,
         &:hover {

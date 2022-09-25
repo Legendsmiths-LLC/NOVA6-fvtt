@@ -3,117 +3,114 @@
         {{!--HEADER--}}
         {{> "systems/nova6/templates/components/header.hbs"}}
 
-        <div class="nova6-desk__content nova6-desk__content--actor-sheet">
-            <div class="nova6-desk__tabloid">
-                {{!--Aspects--}}
-                <section class="nova6-desk__aspects">
-                    <header class="nova6-headline">
-                        <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Aspects"}}</h2>
-                        <div class="nova6-actions nova6-actions--headline">
-                            <i class="nova6-js-aspect-add nova6-actions__icon fa fa-plus"></i>
-                        </div>
-                    </header>
+        {{!--TABS--}}
+        <nav class="nova6-desk__tabs nova6-js-tabs-navigation nova6-tabs-navigation">
+            <a class="nova6-tabs-navigation__item" data-tab="base">
+                {{~localize "NOVA.Sheet.Tabs.Base"~}}
+            </a>
+            <a class="nova6-tabs-navigation__item" data-tab="backstory">
+                {{~localize "NOVA.Sheet.Tabs.Backstory"~}}
+            </a>
+            <a class="nova6-tabs-navigation__item" data-tab="notes">
+                {{~localize "NOVA.Sheet.Tabs.Notes"~}}
+            </a>
+        </nav>
 
-                    {{> "systems/nova6/templates/components/aspects.hbs"}}
+        <div class="nova6-js-tab-content nova6-u-contents">
+            {{!--Base--}}
+            <div class="nova6-desk__content nova6-desk__content--actor-sheet" data-tab="base">
+                <div class="nova6-desk__tabloid">
+                    {{!--Aspects--}}
+                    <section class="nova6-desk__aspects">
+                        <header class="nova6-headline">
+                            <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Aspects"}}</h2>
+                            <div class="nova6-actions nova6-actions--headline">
+                                <i class="nova6-js-aspect-add nova6-actions__icon fa fa-plus"></i>
+                            </div>
+                        </header>
+
+                        {{> "systems/nova6/templates/components/aspects.hbs"}}
+                    </section>
+
+                    {{!--Skills--}}
+                    <section class="nova6-desk__skills">
+                        <header class="nova6-headline">
+                            <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Skills"}}</h2>
+                            <div class="nova6-actions nova6-actions--headline">
+                                <i class="nova6-js-skill-add nova6-actions__icon fa fa-plus"></i>
+                            </div>
+                        </header>
+
+                        {{> "systems/nova6/templates/components/skills.hbs"}}
+                    </section>
+
+                    {{!--Talents--}}
+                    <section class="nova6-desk__talents">
+                        <header class="nova6-headline">
+                            <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Talents"}}</h2>
+                            <div class="nova6-actions nova6-actions--headline">
+                                <i class="nova6-js-talent-add nova6-actions__icon fa fa-plus"></i>
+                            </div>
+                        </header>
+
+                        {{> "systems/nova6/templates/components/talents.hbs"}}
+                    </section>
+
+                    <!--{{> "systems/nova6/templates/components/copyright.hbs"}}-->
+                </div>
+
+                {{!--Sidebar--}}
+                <section class="nova6-desk__sidebar">
+                    {{!--Stress--}}
+                    <section class="nova6-desk__stress">
+                        <header class="nova6-headline">
+                            <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Stress"}}</h2>
+                        </header>
+
+                        {{> "systems/nova6/templates/components/stress.hbs"}}
+                    </section>
+
+                    {{!--Assets--}}
+                    <section class="nova6-desk__assets">
+                        <header class="nova6-headline">
+                            <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Assets"}}</h2>
+                            <div class="nova6-actions nova6-actions--headline">
+                                <i class="nova6-js-asset-add nova6-actions__icon fa fa-plus"></i>
+                            </div>
+                        </header>
+
+                        {{> "systems/nova6/templates/components/assets.hbs"}}
+                    </section>
+
+                    {{!--Load--}}
+                    <section class="nova6-desk__load">
+                        <header class="nova6-headline">
+                            <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Load"}}</h2>
+                            <div class="nova6-actions nova6-actions--headline">
+                                <select name="system.load" class="nova6-actions__icon nova6-u-select">
+                                    {{selectOptions loadChoices selected=system.load}}
+                                </select>
+                            </div>
+                        </header>
+
+                        {{loadLevelDescription}}
+                    </section>
                 </section>
-
-                {{!--Skills--}}
-                <section class="nova6-desk__skills">
-                    <header class="nova6-headline">
-                        <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Skills"}}</h2>
-                        <div class="nova6-actions nova6-actions--headline">
-                            <i class="nova6-js-skill-add nova6-actions__icon fa fa-plus"></i>
-                        </div>
-                    </header>
-
-                    {{> "systems/nova6/templates/components/skills.hbs"}}
-                </section>
-
-                {{!--Talents--}}
-                <section class="nova6-desk__talents">
-                    <header class="nova6-headline">
-                        <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Talents"}}</h2>
-                        <div class="nova6-actions nova6-actions--headline">
-                            <i class="nova6-js-talent-add nova6-actions__icon fa fa-plus"></i>
-                        </div>
-                    </header>
-
-                    {{> "systems/nova6/templates/components/talents.hbs"}}
-                </section>
-
-                {{!--Tabs--}}
-                <!--<section class="nova6-desk__tabs nova6-u-padding-std">
-                    <nav class="nova6-js-tabs-navigation nova6-tabs-navigation">
-                        <a class="nova6-tabs-navigation__item" data-tab="base">
-                            {{~localize "NOVA.Sheet.Tabs.Base"~}}
-                        </a>
-                        <a class="nova6-tabs-navigation__item" data-tab="bio">
-                            {{~localize "NOVA.Sheet.Tabs.Bio"~}}
-                        </a>
-                    </nav>
-
-                    <div class="nova6-js-tab-content nova6-u-full-height">
-                        {{!--Base--}}
-                        <div class="nova6-tab-content tab" data-tab="base">
-                            {{> "systems/nova6/templates/actor/tabs/base.hbs"}}
-                        </div>
-
-                        {{!--Bio--}}
-                        <div class="nova6-tab-content nova6-tab-content--bio tab" data-tab="bio">
-                            {{> "systems/nova6/templates/actor/tabs/bio.hbs"}}
-                        </div>
-                    </div>
-                </section>-->
-
-                <!--{{> "systems/nova6/templates/components/copyright.hbs"}}-->
             </div>
 
-            {{!--Sidebar--}}
-            <section class="nova6-desk__sidebar">
-                {{!--Stress--}}
-                <section class="nova6-desk__stress">
-                    <header class="nova6-headline">
-                        <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Stress"}}</h2>
-                    </header>
+            {{!--Backstory--}}
+            <div class="nova6-desk__content" data-tab="backstory">
+                <div class="nova6-desk__tab">
+                    {{> "systems/nova6/templates/actor/tabs/backstory.hbs"}}
+                </div>
+            </div>
 
-                    {{> "systems/nova6/templates/components/stress.hbs"}}
-                </section>
-
-                {{!--Assets--}}
-                <section class="nova6-desk__assets">
-                    <header class="nova6-headline">
-                        <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Assets"}}</h2>
-                        <div class="nova6-actions nova6-actions--headline">
-                            <i class="nova6-js-asset-add nova6-actions__icon fa fa-plus"></i>
-                        </div>
-                    </header>
-
-                    {{> "systems/nova6/templates/components/assets.hbs"}}
-                </section>
-
-                {{!--Load--}}
-                <section class="nova6-desk__load">
-                    <header class="nova6-headline">
-                        <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Load"}}</h2>
-                        <div class="nova6-actions nova6-actions--headline">
-                            <select name="system.load" class="nova6-actions__icon nova6-u-select">
-                                {{selectOptions loadChoices selected=system.load}}
-                            </select>
-                        </div>
-                    </header>
-
-                    {{loadLevelDescription}}
-                </section>
-
-                {{!--Notes--}}
-                <section class="nova6-desk__load">
-                    <header class="nova6-headline">
-                        <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Notes"}}</h2>
-                    </header>
-
-                    {{> "systems/nova6/templates/components/notes.hbs"}}
-                </section>
-            </section>
+            {{!--Notes--}}
+            <div class="nova6-desk__content" data-tab="notes">
+                <div class="nova6-desk__tab">
+                    {{> "systems/nova6/templates/actor/tabs/notes.hbs"}}
+                </div>
+            </div>
         </div>
     </div>
 </form>

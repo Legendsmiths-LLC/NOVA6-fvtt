@@ -1,7 +1,7 @@
 .nova6-desk {
     display: grid;
-    grid-template-rows: min-content minmax(100px, 100%) min-content;
-    grid-template-areas: "header" "content" "footer";
+    grid-template-rows: min-content min-content minmax(100px, 100%) min-content;
+    grid-template-areas: "header" "tabs" "content" "footer";
     height: 100%;
 
     &__aspects,
@@ -10,7 +10,7 @@
     &__load,
     &__stress,
     &__assets,
-    &__skills, {
+    &__skills {
         display: flex;
         flex-direction: column;
         gap: 2px;
@@ -25,6 +25,10 @@
         grid-area: content;
         overflow-y: auto;
         scrollbar-width: thin;
+
+        &[data-tab]:not(.active) {
+            display: none;
+        }
 
         &--app {
             padding: $component-padding;
@@ -42,6 +46,10 @@
             gap: $component-padding;
             padding: $component-padding;
         }
+    }
+
+    &__tab {
+        padding: $component-padding * 2;
     }
 
     &__footer {
@@ -64,11 +72,6 @@
 
     &__tabs {
         grid-area: tabs;
-
-        &--vertical {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            margin-bottom: -10px;
-        }
+        box-shadow: 0 2px 15px 0 $nova6-header-color;
     }
 }

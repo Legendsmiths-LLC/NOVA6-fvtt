@@ -48,8 +48,9 @@
                 }
             },
             "Tabs": {
-                "Base": "Base",
-                "Bio": "Bio"
+                "Base": "General",
+                "Backstory": "Backstory",
+                "Notes": "Notes & Contacts"
             },
             "Buttons": {
                 "EditMode": "Edit Mode"
