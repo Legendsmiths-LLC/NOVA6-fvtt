@@ -22,7 +22,7 @@ export class SkillItem extends BaseItem {
                     item.system.perk9,
                 ];
 
-                item.system.perks = perkData.filter((perk) => perk !== "").join(", ");
+                item.system.allPerks = perkData.filter((perk) => perk !== "").join(", ");
 
                 return item;
             });
@@ -51,7 +51,7 @@ export class SkillItem extends BaseItem {
 
         const skillId = e.currentTarget.parentNode.dataset.itemId;
         // @ts-ignore
-        const skill = sheet.actor.items.get(skillId)?.system as SkillItemData;
+        const skill = sheet.actor.items.get(skillId) as SkillItemData;
 
         if (skill) {
             new RollDialog(sheet.actor, skill).render(true);

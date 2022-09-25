@@ -12,6 +12,7 @@
             "load": 0,
             "backstory": "",
             "notes": "",
+            "quicknotes": "",
             "conditions":{
                 "stressed": false,
                 "staggered": false,

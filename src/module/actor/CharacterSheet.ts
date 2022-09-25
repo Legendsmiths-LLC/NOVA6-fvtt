@@ -22,6 +22,7 @@ export class CharacterSheet extends ActorSheet {
             scrollY: [".nova6-desk__content"],
             template: "systems/nova6/templates/actor/character.hbs",
             width: 900,
+            height: 730,
         };
 
         return mergeObject(super.defaultOptions, sheetOptions);
@@ -78,6 +79,9 @@ export class CharacterSheet extends ActorSheet {
         data.enrichedBackstory = await TextEditor.enrichHTML(this.object.system.backstory, { async: true });
         // @ts-ignore
         data.enrichedNotes = await TextEditor.enrichHTML(this.object.system.notes, { async: true });
+
+        // @ts-ignore
+        data.enrichedQuickNotes = await TextEditor.enrichHTML(this.object.system.quicknotes, { async: true });
 
         // Allow every item type to add data to the actor sheet
         for (const itemType in CONFIG.NOVA6.itemClasses) {

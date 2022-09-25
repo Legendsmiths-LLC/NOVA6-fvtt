@@ -15,7 +15,7 @@ export interface SkillData {
     focused: boolean;
     practiced: boolean;
     specialized: boolean;
-    perks: string;
+    allPerks: string;
     perk1: string;
     perk2: string;
     perk3: string;

@@ -95,6 +95,17 @@
 
                         {{loadLevelDescription}}
                     </section>
+
+                    {{!--Load--}}
+                    <section class="nova6-desk__notes">
+                        <header class="nova6-headline">
+                            <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.QuickNotes"}}</h2>
+                        </header>
+
+                        <div class="nova6-quicknotes">
+                            {{editor enrichedQuickNotes target="system.quicknotes" button=true editable=editable engine="prosemirror"}}
+                        </div>
+                    </section>
                 </section>
             </div>
 

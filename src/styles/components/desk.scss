@@ -8,6 +8,7 @@
     &__consequences,
     &__talents,
     &__load,
+    &__notes,
     &__stress,
     &__assets,
     &__skills {
@@ -50,6 +51,13 @@
 
     &__tab {
         padding: $component-padding * 2;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .editor {
+            flex-grow: 1;
+        }
     }
 
     &__footer {

@@ -25,6 +25,7 @@
             "Level": "Level",
             "Notes": "Notes",
             "Artwork": "Artwork",
+            "QuickNotes": "Quick Notes",
             "LoadLevel": {
                 "0": {
                     "name": "Unprepared",

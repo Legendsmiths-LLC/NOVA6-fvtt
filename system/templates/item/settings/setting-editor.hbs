@@ -5,7 +5,7 @@
 
     <label for="{{fieldName}}">
         <div class="nova6-setting__editor-wrapper">
-            {{editor enrichedField target=fieldName button=true editable=editable}}
+            {{editor enrichedField target=fieldName button=true editable=editable engine="prosemirror"}}
         </div>
         {{#if help}}<span class="nova6-text-input__setting-label">{{localize help}}</span>{{/if}}
     </label>
