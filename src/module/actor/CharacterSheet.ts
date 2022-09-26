@@ -64,7 +64,8 @@ export class CharacterSheet extends ActorSheet {
             options: this.options,
             editable: this.isEditable,
             isEmptyActor: !this.actor.items.size,
-            isToken: this.token && !this.token.data.actorLink,
+            // @ts-ignore
+            isToken: this.token && !this.token.actorLink,
             config: CONFIG.NOVA6,
         };
 

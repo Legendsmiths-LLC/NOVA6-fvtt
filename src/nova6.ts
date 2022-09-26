@@ -26,6 +26,7 @@ import { SkillSheet } from "./module/item/skill/SkillSheet";
 import { AssetSheet } from "./module/item/asset/AssetSheet";
 import { TalentSheet } from "./module/item/talent/TalentSheet";
 import { StressSheet } from "./module/item/stress/StressSheet";
+import { novaModifier } from "./module/applications/RollDialog";
 
 /* -------------------------------- */
 /*	System initialization			*/
@@ -44,6 +45,9 @@ Hooks.once("init", async () => {
 
     // Register HandlebarsHelpers
     HandlebarsHelpers.registerHelpers();
+
+    //Register new die modifier
+    Die.MODIFIERS["nova"] = novaModifier;
 
     // Unregister Core sheets
     Actors.unregisterSheet("core", ActorSheet);

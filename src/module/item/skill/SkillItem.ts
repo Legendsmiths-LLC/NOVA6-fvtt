@@ -2,6 +2,7 @@ import { BaseItem } from "../BaseItem";
 import { ItemData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
 import { SkillItemData } from "../ItemTypes";
 import { RollDialog } from "../../applications/RollDialog";
+import { ItemDataBaseProperties } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData";
 
 export class SkillItem extends BaseItem {
     static documentName = "skill";
@@ -51,7 +52,7 @@ export class SkillItem extends BaseItem {
 
         const skillId = e.currentTarget.parentNode.dataset.itemId;
         // @ts-ignore
-        const skill = sheet.actor.items.get(skillId) as SkillItemData;
+        const skill = sheet.actor.items.get(skillId) as SkillItemData & ItemDataBaseProperties;
 
         if (skill) {
             new RollDialog(sheet.actor, skill).render(true);

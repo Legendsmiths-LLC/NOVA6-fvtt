@@ -1,13 +1,21 @@
 import { SkillItemData } from "../item/ItemTypes";
 import { NOVA6Actor } from "../actor/NOVA6Actor";
+import { ItemDataBaseProperties } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData";
 
 type RollDialogData = {
     skill: SkillItemData;
     rollData: RollData;
     perks: Perk[];
+    talents: Talent[];
+    allowInstantSuccess: boolean;
 };
 
 type Perk = {
+    name: string;
+    active: boolean;
+};
+
+type Talent = {
     name: string;
     active: boolean;
 };
@@ -17,33 +25,105 @@ type RollData = {
     rank: number;
     bonus: number;
     penalty: number;
+    setbacks: number;
     activePerk: number;
+    freeStuntPoints: number;
     numberOfDice: number;
     availableTradeDice: number;
     forceTradeDice: number;
     usedTradeDice: number;
+    talent: number;
     status: "up" | "down" | "even";
 };
+
+export function novaModifier() {
+    console.log(this);
+
+    //Remove rerolled dice
+    this.results = this.results.filter((result) => !result.rerolled);
+    const faces = this.results.map((result) => result.result).sort((a, b) => b - a);
+
+    //Check for triples
+    for (const number of faces) {
+        if (number * 3 > 10 && faces.filter((face) => face === number).length >= 3) {
+            let marked = 0;
+            this.results = this.results.map((result) => {
+                result.discarded = true;
+
+                if (result.result === number && marked < 3) {
+                    result.discarded = result.result !== number && ++marked <= 3;
+                    marked++;
+                }
+
+                result.active = !result.discarded;
+                return result;
+            });
+
+            this.hasTriples = true;
+            return;
+        }
+    }
+
+    //Check for doubles
+    for (const number of faces) {
+        const otherFaces = faces.filter((face) => face !== number);
+
+        if (number * 2 + otherFaces[0] > 10 && faces.filter((face) => face === number).length >= 2) {
+            let markedHighest = false;
+            let marked = 0;
+            this.results = this.results.map((result) => {
+                result.discarded = true;
+
+                if (marked <= 2 && result.result === number) {
+                    result.discarded = false;
+                    marked++;
+                }
+
+                if (result.result === otherFaces[0] && !markedHighest) {
+                    result.discarded = false;
+                    markedHighest = true;
+                }
+
+                result.active = !result.discarded;
+                return result;
+            });
+
+            this.hasDoubles = true;
+            return;
+        }
+    }
+
+    // @ts-ignore
+    this.results = DiceTerm._keepOrDrop(this.results, 3);
+}
 
 export class RollDialog extends FormApplication<FormApplicationOptions, RollDialogData> {
     static baseDice = 3;
 
     actor: NOVA6Actor;
-    skill: SkillItemData;
+    skill: SkillItemData & ItemDataBaseProperties;
     rollData: RollData;
     perks: Perk[];
+    talents: Talent[];
 
-    constructor(actor: NOVA6Actor, skillData: SkillItemData, options?: Partial<ApplicationOptions>) {
+    constructor(
+        actor: NOVA6Actor,
+        skillData: SkillItemData & ItemDataBaseProperties,
+        options?: Partial<ApplicationOptions>
+    ) {
         const rollData: RollData = {
             baseDice: RollDialog.baseDice,
             rank: skillData.system.rank,
             bonus: 0,
             penalty: 0,
+            setbacks: 0,
             status: "even",
             activePerk: 0,
+            freeStuntPoints: 0,
             usedTradeDice: 0,
             availableTradeDice: 0,
             forceTradeDice: 0,
+            talent: 0,
             numberOfDice: 3,
         };
 
@@ -65,7 +145,50 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
                 .map(([_key, value]) => ({ name: value, active: false })),
         ];
 
+        this.talents = this.getAvailableTalents();
+
         this.calculateRollData();
+    }
+
+    getAvailableTalents() {
+        const actorTalents = this.actor.items.filter((item) => item.type === "talent");
+        const possibleTalents = [
+            "Focused",
+            "Specialized",
+            "Practiced",
+            "Resolute",
+            "Strong Body",
+            "Strong Personality",
+            "Tough",
+        ];
+
+        const talents = possibleTalents.filter((talent) => {
+            switch (talent) {
+                case "Focused":
+                    return this.skill.system.focused;
+                case "Specialized":
+                    return this.skill.system.specialized;
+                case "Practiced":
+                    return this.skill.system.practiced;
+                case "Resolute":
+                    return this.skill.name === "Resolve" && actorTalents.find((item) => item.name === talent);
+                case "Strong Body":
+                    return this.skill.name === "Physique" && actorTalents.find((item) => item.name === talent);
+                case "Strong Personality":
+                    return this.skill.name === "Interact" && actorTalents.find((item) => item.name === talent);
+                case "Tough":
+                    return this.skill.name === "Physique" && actorTalents.find((item) => item.name === talent);
+                default:
+                    return actorTalents.find((item) => item.name === talent);
+            }
+        });
+
+        return talents.map((talent) => {
+            return {
+                name: talent,
+                active: false,
+            };
+        });
     }
 
     static get defaultOptions() {
@@ -74,7 +197,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             template: "/systems/nova6/templates/applications/roll-dialog.hbs",
             classes: ["nova6", "nova6-sheet", "nova6-roll-dialog", "sheet"],
             scrollY: [".nova6-desk__content"],
-            width: 675,
+            width: 775,
             resizable: true,
             submitOnChange: true,
             closeOnSubmit: false,
@@ -88,6 +211,10 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             skill: this.skill,
             rollData: this.rollData,
             perks: this.perks,
+            talents: this.talents,
+            allowInstantSuccess:
+                !!this.talents.find((talent) => talent.name === "Practiced" && talent.active) &&
+                this.rollData.status === "up",
         };
     }
 
@@ -95,21 +222,47 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         super.activateListeners(html);
 
         html.find(".nova6-js-execute-roll").click((e) => this._executeRoll.call(this, e));
+        html.find(".nova6-js-instant-success").click((e) => this._instantSuccess.call(this, e));
         html.find(".nova6-js-sp-increment").click(() => this._changeStuntPoints.call(this, 2));
         html.find(".nova6-js-sp-decrement").click(() => this._changeStuntPoints.call(this, -2));
     }
 
+    calculateTalentBonus() {
+        return this.talents
+            .filter((talent) => talent.active)
+            .reduce((acc, talent) => {
+                switch (talent.name) {
+                    case "Specialized":
+                        return acc - 1;
+                    case "Resolute":
+                        return acc + 1;
+                    case "Strong Body":
+                        return acc + 1;
+                    case "Strong Personality":
+                        return acc + 1;
+                    case "Tough":
+                        return acc + 1;
+                    default:
+                        return acc;
+                }
+            }, 0);
+    }
+
     calculateRollData() {
+        const talent = this.calculateTalentBonus();
         const activePerk = this.perks.findIndex((perk) => perk.active) > 0 ? 1 : 0;
-        const bonusDice = this.rollData.rank + this.rollData.bonus + activePerk;
-        const penaltyDice = this.rollData.penalty;
+        const bonusDice = this.rollData.rank + this.rollData.bonus + activePerk + talent;
+        const penaltyDice = this.rollData.penalty + this.rollData.setbacks;
 
         const status = bonusDice - penaltyDice === 0 ? "even" : bonusDice - penaltyDice > 0 ? "up" : "down";
-        const numberOfDice = RollDialog.baseDice + bonusDice + penaltyDice - this.rollData.usedTradeDice;
+
+        let numberOfDice = RollDialog.baseDice + bonusDice + penaltyDice - this.rollData.usedTradeDice;
         const availableTradeDice = Math.floor((numberOfDice + this.rollData.usedTradeDice - 3) / 2) * 2;
         const forceTradeDice = Math.ceil(Math.max(numberOfDice - 7, 0) / 2) * 2;
 
+        //Recalculate number of dice
         this.rollData.usedTradeDice = Math.clamped(this.rollData.usedTradeDice, 0, availableTradeDice);
+        numberOfDice = RollDialog.baseDice + bonusDice + penaltyDice - this.rollData.usedTradeDice;
 
         this.rollData = {
             ...this.rollData,
@@ -118,6 +271,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             forceTradeDice,
             numberOfDice,
             availableTradeDice,
+            talent,
         };
     }
 
@@ -126,6 +280,10 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
 
         this.perks.forEach((perk, index) => {
             perk.active = formData["perk"] === index;
+        });
+
+        this.talents.forEach((talent, index) => {
+            talent.active = [formData["talent"]].deepFlatten().includes(index);
         });
 
         this.render();
@@ -141,9 +299,16 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
      *************************/
 
     async _executeRoll(_event: JQuery.ClickEvent) {
-        const roll = new Roll(`${this.rollData.numberOfDice}d6${this.rollData.status === "up" ? "kh3" : "kl3"}`).roll({
-            async: false,
-        });
+        const modifiers = Object.entries({
+            r1: !!this.talents.find((talent) => talent.name === "Practiced" && talent.active),
+            kl3: this.rollData.status === "down",
+            nova: true,
+        })
+            .filter(([, condition]) => condition)
+            .map(([name]) => name) as (keyof Die.Modifiers)[];
+
+        const formula = new Die({ number: this.rollData.numberOfDice, faces: 6, modifiers }).expression;
+        const roll = new Roll(formula).roll({ async: false });
 
         const chatData = {
             user: game.user?.id,
@@ -151,7 +316,21 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             type: CONST.CHAT_MESSAGE_TYPES.ROLL,
             sound: CONFIG.sounds.dice,
             roll: roll,
+            flavor: `${this.skill.name}`,
             rollMode: game.settings.get("core", "rollMode"),
+        };
+
+        await ChatMessage.create(chatData);
+
+        //this.close();
+    }
+
+    async _instantSuccess(_event: JQuery.ClickEvent) {
+        const chatData = {
+            user: game.user?.id,
+            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+            content: `<p>Chose instant success</p>`,
         };
 
         await ChatMessage.create(chatData);
