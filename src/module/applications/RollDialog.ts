@@ -302,7 +302,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         const modifiers = Object.entries({
             r1: !!this.talents.find((talent) => talent.name === "Practiced" && talent.active),
             kl3: this.rollData.status === "down",
-            nova: true,
+            nova: this.rollData.status !== "down",
         })
             .filter(([, condition]) => condition)
             .map(([name]) => name) as (keyof Die.Modifiers)[];
@@ -321,8 +321,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         };
 
         await ChatMessage.create(chatData);
-
-        //this.close();
+        this.close();
     }
 
     async _instantSuccess(_event: JQuery.ClickEvent) {
