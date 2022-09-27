@@ -1,0 +1,32 @@
+<div class="nova6-chat">
+    <header class="nova6-headline nova6-headline--chat">
+        <h3 class="nova6-headline__text">{{skill.name}}</h3>
+    </header>
+
+    <div class="nova6-roll">
+        <div class="dice-tooltip">
+            <section class="tooltip-part">
+                <div class="dice">
+                    <ol class="dice-rolls">
+                        {{#each rolls}}
+                            <li class="roll {{this.classes}}">{{{this.result}}}</li>
+                        {{/each}}
+                    </ol>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <p>
+        {{#if success}}
+            Success!
+        {{else}}
+            Failure!
+        {{/if}}
+    </p>
+
+    <p>
+        {{#if roll.hasTriples}}Has Triple!{{/if}}
+        {{#if roll.hasDoubles}}Has Double!{{/if}}
+    </p>
+</div>

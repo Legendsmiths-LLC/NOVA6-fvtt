@@ -48,6 +48,7 @@ Hooks.once("init", async () => {
 
     //Register new die modifier
     Die.MODIFIERS["nova"] = novaModifier;
+    Die.MODIFIERS["novadown"] = novaModifier;
 
     // Unregister Core sheets
     Actors.unregisterSheet("core", ActorSheet);

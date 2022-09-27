@@ -125,7 +125,7 @@
         "Apps": {
             "RollSkill": {
                 "Title": "Roll skill",
-                "Bonus": "Bonus dice",
+                "Bonus": "Additional Bonus dice",
                 "Penalty": "Penalty dice",
                 "Setbacks": "Setbacks",
                 "Perks": "Available Perks",

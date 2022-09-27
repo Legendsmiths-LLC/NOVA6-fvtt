@@ -36,65 +36,87 @@ type RollData = {
     status: "up" | "down" | "even";
 };
 
-export function novaModifier() {
-    console.log(this);
-
-    //Remove rerolled dice
+export function novaModifier(modifier: string) {
+    //Remove all rerolled dice
     this.results = this.results.filter((result) => !result.rerolled);
-    const faces = this.results.map((result) => result.result).sort((a, b) => b - a);
 
-    //Check for triples
-    for (const number of faces) {
-        if (number * 3 > 10 && faces.filter((face) => face === number).length >= 3) {
-            let marked = 0;
-            this.results = this.results.map((result) => {
-                result.discarded = true;
+    // Only check for winning triples/doubles if the roll is up
+    if (modifier === "nova") {
+        const faces: number[] = this.results.map((result) => result.result).sort((a, b) => b - a);
 
-                if (result.result === number && marked < 3) {
-                    result.discarded = result.result !== number && ++marked <= 3;
-                    marked++;
-                }
+        //Check for triples
+        for (const number of new Set(faces)) {
+            const isTriple = faces.filter((face) => face === number).length >= 3;
 
-                result.active = !result.discarded;
-                return result;
-            });
+            if (isTriple && number * 3 > 10) {
+                let marked = 0;
 
-            this.hasTriples = true;
-            return;
+                this.results = this.results.map((result) => {
+                    if (marked < 3 && result.result === number) {
+                        result.discarded = false;
+                        marked++;
+                    } else {
+                        result.discarded = true;
+                    }
+
+                    result.active = !result.discarded;
+
+                    return result;
+                });
+
+                this.hasTriples = true;
+                return;
+            }
         }
-    }
 
-    //Check for doubles
-    for (const number of faces) {
-        const otherFaces = faces.filter((face) => face !== number);
+        //Check for doubles
+        for (const number of new Set(faces)) {
+            const isDouble = faces.filter((face) => face === number).length >= 2;
+            const highestOtherFace = faces.filter((face) => face !== number)[0];
 
-        if (number * 2 + otherFaces[0] > 10 && faces.filter((face) => face === number).length >= 2) {
-            let markedHighest = false;
-            let marked = 0;
-            this.results = this.results.map((result) => {
-                result.discarded = true;
+            if (isDouble && number * 2 + highestOtherFace > 10) {
+                let markedHighest = false;
+                let marked = 0;
 
-                if (marked <= 2 && result.result === number) {
-                    result.discarded = false;
-                    marked++;
-                }
+                this.results = this.results.map((result) => {
+                    result.discarded = true;
 
-                if (result.result === otherFaces[0] && !markedHighest) {
-                    result.discarded = false;
-                    markedHighest = true;
-                }
+                    if (marked < 2 && result.result === number) {
+                        result.discarded = false;
+                        marked++;
+                    }
 
-                result.active = !result.discarded;
-                return result;
-            });
+                    if (result.result === highestOtherFace && !markedHighest) {
+                        result.discarded = false;
+                        markedHighest = true;
+                    }
 
-            this.hasDoubles = true;
-            return;
+                    result.active = !result.discarded;
+
+                    return result;
+                });
+
+                this.hasDoubles = true;
+                return;
+            }
         }
     }
 
     // @ts-ignore
-    this.results = DiceTerm._keepOrDrop(this.results, 3);
+    this.results = DiceTerm._keepOrDrop(this.results, 3, { keep: true, highest: modifier === "nova" });
+
+    // Check action dice for triples/doubles
+    const actionDiceSet = new Set([
+        ...this.results.filter((result) => result.discarded !== true).map((result) => result.result),
+    ]);
+
+    if (actionDiceSet.size === 1) {
+        this.hasTriples = true;
+    }
+
+    if (actionDiceSet.size === 2) {
+        this.hasDoubles = true;
+    }
 }
 
 export class RollDialog extends FormApplication<FormApplicationOptions, RollDialogData> {
@@ -251,18 +273,19 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     calculateRollData() {
         const talent = this.calculateTalentBonus();
         const activePerk = this.perks.findIndex((perk) => perk.active) > 0 ? 1 : 0;
+
         const bonusDice = this.rollData.rank + this.rollData.bonus + activePerk + talent;
         const penaltyDice = this.rollData.penalty + this.rollData.setbacks;
 
         const status = bonusDice - penaltyDice === 0 ? "even" : bonusDice - penaltyDice > 0 ? "up" : "down";
 
-        let numberOfDice = RollDialog.baseDice + bonusDice + penaltyDice - this.rollData.usedTradeDice;
-        const availableTradeDice = Math.floor((numberOfDice + this.rollData.usedTradeDice - 3) / 2) * 2;
+        let numberOfDice = RollDialog.baseDice + Math.abs(bonusDice - penaltyDice) - this.rollData.usedTradeDice;
+        const availableTradeDice = Math.abs(Math.floor((numberOfDice + this.rollData.usedTradeDice - 3) / 2) * 2);
         const forceTradeDice = Math.ceil(Math.max(numberOfDice - 7, 0) / 2) * 2;
 
         //Recalculate number of dice
-        this.rollData.usedTradeDice = Math.clamped(this.rollData.usedTradeDice, 0, availableTradeDice);
-        numberOfDice = RollDialog.baseDice + bonusDice + penaltyDice - this.rollData.usedTradeDice;
+        const usedTradeDice = Math.clamped(this.rollData.usedTradeDice, 0, availableTradeDice);
+        numberOfDice = RollDialog.baseDice + Math.abs(bonusDice - penaltyDice) - usedTradeDice;
 
         this.rollData = {
             ...this.rollData,
@@ -272,6 +295,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             numberOfDice,
             availableTradeDice,
             talent,
+            usedTradeDice,
         };
     }
 
@@ -301,14 +325,27 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     async _executeRoll(_event: JQuery.ClickEvent) {
         const modifiers = Object.entries({
             r1: !!this.talents.find((talent) => talent.name === "Practiced" && talent.active),
-            kl3: this.rollData.status === "down",
-            nova: this.rollData.status !== "down",
+            nova: this.rollData.status === "up",
+            novadown: this.rollData.status !== "up",
         })
             .filter(([, condition]) => condition)
             .map(([name]) => name) as (keyof Die.Modifiers)[];
 
         const formula = new Die({ number: this.rollData.numberOfDice, faces: 6, modifiers }).expression;
         const roll = new Roll(formula).roll({ async: false });
+
+        const success = roll.total > 10;
+
+        const templateData = {
+            skill: this.skill,
+            rollData: this.rollData,
+            skillPoints: 0,
+            roll: roll.dice[0],
+            success,
+            ...roll.dice[0].getTooltipData(),
+        };
+
+        const content = await renderTemplate("systems/nova6/templates/chat/roll.hbs", templateData);
 
         const chatData = {
             user: game.user?.id,
@@ -318,10 +355,11 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             roll: roll,
             flavor: `${this.skill.name}`,
             rollMode: game.settings.get("core", "rollMode"),
+            content,
         };
 
         await ChatMessage.create(chatData);
-        this.close();
+        //this.close();
     }
 
     async _instantSuccess(_event: JQuery.ClickEvent) {
