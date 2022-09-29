@@ -105,18 +105,38 @@ export function novaModifier(modifier: string) {
     // @ts-ignore
     this.results = DiceTerm._keepOrDrop(this.results, 3, { keep: true, highest: modifier === "nova" });
 
-    // Check action dice for triples/doubles
-    const actionDiceSet = new Set([
-        ...this.results.filter((result) => result.discarded !== true).map((result) => result.result),
-    ]);
+    const total = this.results
+        .filter((result) => !result.discarded)
+        .reduce((total, result) => total + result.result, 0);
 
-    if (actionDiceSet.size === 1) {
-        this.hasTriples = true;
+    // Edge case to prevent doubles or triples from being included in the action dice
+    if (modifier === "nova" && total < 11) {
+        const alreadyMarked: any[] = [];
+
+        this.results = this.results.map((result, index) => {
+            const notYetMarked = alreadyMarked.length < 3 && !alreadyMarked.includes(result.result);
+            const notEnoughMarks = index === this.results.length - (3 - alreadyMarked.length);
+
+            if (notYetMarked || notEnoughMarks) {
+                result.discarded = false;
+                result.active = true;
+                alreadyMarked.push(result.result);
+            } else {
+                result.discarded = true;
+                result.active = false;
+            }
+
+            return result;
+        });
     }
 
-    if (actionDiceSet.size === 2) {
-        this.hasDoubles = true;
-    }
+    // Check remaining action dice for triples/doubles
+    const actionDiceSet = new Set(
+        this.results.filter((result) => result.discarded !== true).map((result) => result.result)
+    );
+
+    this.hasTriples = actionDiceSet.size === 1;
+    this.hasDoubles = actionDiceSet.size === 2;
 }
 
 export class RollDialog extends FormApplication<FormApplicationOptions, RollDialogData> {
@@ -333,7 +353,6 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
 
         const formula = new Die({ number: this.rollData.numberOfDice, faces: 6, modifiers }).expression;
         const roll = new Roll(formula).roll({ async: false });
-
         const success = roll.total > 10;
 
         const templateData = {
@@ -359,7 +378,8 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         };
 
         await ChatMessage.create(chatData);
-        //this.close();
+
+        this.close();
     }
 
     async _instantSuccess(_event: JQuery.ClickEvent) {
