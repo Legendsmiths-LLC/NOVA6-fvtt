@@ -29,7 +29,11 @@
 
         {{#if (gt totalStuntPoints 0)}}
             <p>
-                {{{localize "NOVA.Roll.SP" number=totalStuntPoints}}}
+                {{#if success}}
+                    {{{localize "NOVA.Roll.StuntPointSuccess" number=totalStuntPoints}}}
+                {{else}}
+                    {{{localize "NOVA.Roll.StuntPointsFailure" number=totalStuntPoints}}}
+                {{/if}}
 
                 {{#each generatedStuntPoints}}
                     <span class="nova6-roll__stunt-point">{{lookup this 0}}

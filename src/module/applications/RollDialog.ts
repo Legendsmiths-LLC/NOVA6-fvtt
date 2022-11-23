@@ -401,7 +401,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Specialized")]);
         }
 
-        if (this.rollData.status === "up") {
+        if (this.rollData.status === "up" && this.rollData.usedTradeDice > 0) {
             generatedStuntPoints.push([this.rollData.usedTradeDice / 2, game.i18n.localize("NOVA.Roll.Traded")]);
         }
 
@@ -421,7 +421,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Double")]);
         }
 
-        if (this.rollData.status === "down") {
+        if (this.rollData.status === "down" && this.rollData.usedTradeDice > 0) {
             generatedStuntPoints.push([this.rollData.usedTradeDice / 2, game.i18n.localize("NOVA.Roll.Traded")]);
         }
 
