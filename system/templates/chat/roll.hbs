@@ -17,16 +17,15 @@
         </div>
     </div>
 
+    <p>
+        {{#if success}}
+            {{{localize "NOVA.Roll.Success"}}}
+        {{else}}
+            {{{localize "NOVA.Roll.Failure"}}}
+        {{/if}}
+    </p>
+
     <div class="nova6-roll__status">
-
-        <p>
-            {{#if success}}
-                {{{localize "NOVA.Roll.Success"}}}
-            {{else}}
-                {{{localize "NOVA.Roll.Failure"}}}
-            {{/if}}
-        </p>
-
         {{#if (gt totalStuntPoints 0)}}
             <p>
                 {{#if success}}
