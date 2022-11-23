@@ -133,7 +133,7 @@
             "Double": "double (Focused)",
             "Specialized": "Specialized",
             "Traded": "traded dice",
-            "Other": "other (Assets or the GM)"
+            "Other": "Assets or the GM"
         },
         "Apps": {
             "RollSkill": {
