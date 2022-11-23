@@ -354,12 +354,16 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         const formula = new Die({ number: this.rollData.numberOfDice, faces: 6, modifiers }).expression;
         const roll = new Roll(formula).roll({ async: false });
         const success = roll.total > 10;
+        const generatedStuntPoints = success
+            ? this._calculatePlayerSP(roll.dice[0])
+            : this._calculateGMSP(roll.dice[0]);
 
         const templateData = {
             skill: this.skill,
             rollData: this.rollData,
             skillPoints: 0,
             roll: roll.dice[0],
+            generatedStuntPoints,
             success,
             ...roll.dice[0].getTooltipData(),
         };
@@ -380,6 +384,42 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         await ChatMessage.create(chatData);
 
         this.close();
+    }
+
+    _calculatePlayerSP(roll: any) {
+        let generatedStuntPoints = this.rollData.freeStuntPoints ?? 0;
+
+        if (roll.hasTriple) {
+            generatedStuntPoints += 1;
+        } else if (roll.hasDouble && this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
+            generatedStuntPoints += 1;
+        }
+
+        if (this.talents.find((talent) => talent.name === "Specialized" && talent.active)) {
+            generatedStuntPoints += 1;
+        }
+
+        if (this.rollData.status === "up") {
+            generatedStuntPoints += this.rollData.usedTradeDice / 2;
+        }
+
+        return generatedStuntPoints;
+    }
+
+    _calculateGMSP(roll: any) {
+        let generatedStuntPoints = this.rollData.freeStuntPoints ?? 0;
+
+        if (roll.hasTriple) {
+            generatedStuntPoints += 1;
+        } else if (roll.hasDouble && this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
+            generatedStuntPoints += 1;
+        }
+
+        if (this.rollData.status === "down") {
+            generatedStuntPoints += this.rollData.usedTradeDice / 2;
+        }
+
+        return generatedStuntPoints;
     }
 
     async _instantSuccess(_event: JQuery.ClickEvent) {

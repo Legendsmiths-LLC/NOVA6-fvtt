@@ -122,6 +122,13 @@
                 }
             }
         },
+        "Roll": {
+            "Success": "Success!",
+            "Failure": "Failure!",
+            "Triple": "You rolled a triple!",
+            "Double": "You rolled a double!",
+            "SP": "Earned {number} StuntPoints!"
+        },
         "Apps": {
             "RollSkill": {
                 "Title": "Roll skill",
@@ -131,7 +138,7 @@
                 "Perks": "Available Perks",
                 "Talents": "Available Talents",
                 "NoPerk": "Don't use a perk",
-                "FreeSP": "Free Stunt Points",
+                "FreeSP": "Stunt Points <span>(From Specialized, Assets, or the GM)</span>",
                 "RollButton": "Roll!",
                 "Or": "or",
                 "SucceedButton": "Succeed!",

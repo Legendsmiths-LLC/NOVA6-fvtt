@@ -86,7 +86,7 @@
 
             <div class="nova6-setting">
                 <header class="nova6-headline">
-                    <h3 class="nova6-headline__text">{{localize "NOVA.Apps.RollSkill.FreeSP"}}</h3>
+                    <h3 class="nova6-headline__text">{{{localize "NOVA.Apps.RollSkill.FreeSP"}}}</h3>
                 </header>
 
                 <div class="nova6-slider">
@@ -152,8 +152,6 @@
                 </div>
             {{/if}}
 
-            <!-- TODO: Can't calculate them like this! MATH ABS! -->
-            <!-- TODO: Refactor dialog to allow for more dynamic roll modifiers -->
             <div class="nova6-setting nova6-roll-dialog__calculator">
                 <div>
                     <span class="nova6-roll-dialog__status nova6-roll-dialog__status--{{rollData.status}}">
