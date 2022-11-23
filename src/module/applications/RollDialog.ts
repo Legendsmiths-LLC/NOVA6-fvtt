@@ -407,7 +407,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     }
 
     _calculateGMSP(roll: any) {
-        let generatedStuntPoints = this.rollData.freeStuntPoints ?? 0;
+        let generatedStuntPoints = 0;
 
         if (roll.hasTriple) {
             generatedStuntPoints += 1;
