@@ -130,10 +130,10 @@
             "StuntPointSuccess": "You earned {number} StuntPoint(s)!",
             "StuntPointsFailure": "The GM earned {number} StuntPoint(s)!",
             "From": "from",
-            "Triple": "triple",
-            "Double": "double (Focused)",
+            "Triple": "Triple",
+            "Double": "Double (Focused)",
             "Specialized": "Specialized",
-            "Traded": "traded dice",
+            "Traded": "Traded dice",
             "Other": "Assets or the GM",
             "Instant": "You chose instant success!"
         },
