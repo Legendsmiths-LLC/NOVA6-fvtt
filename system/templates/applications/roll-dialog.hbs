@@ -60,29 +60,31 @@
                 </div>
             </div>
 
-            <div class="nova6-setting">
-                <header class="nova6-headline">
-                    <h3 class="nova6-headline__text">{{localize "NOVA.Apps.RollSkill.Setbacks"}}</h3>
-                </header>
+            {{#if (gt maxSetbacks 0)}}
+                <div class="nova6-setting">
+                    <header class="nova6-headline">
+                        <h3 class="nova6-headline__text">{{localize "NOVA.Apps.RollSkill.Setbacks"}}</h3>
+                    </header>
 
-                <div class="nova6-slider">
-                    <input
-                        class="nova6-js-setting-range-value nova6-slider__label"
-                        type="text"
-                        value="{{rollData.setbacks}}"
-                    />
+                    <div class="nova6-slider">
+                        <input
+                            class="nova6-js-setting-range-value nova6-slider__label"
+                            type="text"
+                            value="{{rollData.setbacks}}"
+                        />
 
-                    <input
-                        type="range"
-                        class="nova6-js-setting-range-slider"
-                        name="setbacks"
-                        data-dtype="Number"
-                        value="{{rollData.setbacks}}"
-                        min="0"
-                        max="10"
-                    />
+                        <input
+                            type="range"
+                            class="nova6-js-setting-range-slider"
+                            name="setbacks"
+                            data-dtype="Number"
+                            value="{{rollData.setbacks}}"
+                            min="0"
+                            max="{{maxSetbacks}}"
+                        />
+                    </div>
                 </div>
-            </div>
+            {{/if}}
 
             <div class="nova6-setting">
                 <header class="nova6-headline">

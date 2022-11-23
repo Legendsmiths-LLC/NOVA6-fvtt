@@ -46,6 +46,9 @@ Hooks.once("init", async () => {
     // Register HandlebarsHelpers
     HandlebarsHelpers.registerHelpers();
 
+    // Set initiative roll
+    CONFIG.Combat.initiative.formula = "1d20";
+
     //Register new die modifier
     Die.MODIFIERS["nova"] = novaModifier;
     Die.MODIFIERS["novadown"] = novaModifier;

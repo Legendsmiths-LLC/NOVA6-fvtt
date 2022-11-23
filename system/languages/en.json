@@ -131,6 +131,7 @@
             "StuntPointsFailure": "The GM earned {number} StuntPoint(s)!",
             "From": "from",
             "Triple": "Triple",
+            "TripleF": "Triple (Focused)",
             "Double": "Double (Focused)",
             "Specialized": "Specialized",
             "Traded": "Traded dice",

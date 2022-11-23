@@ -8,6 +8,7 @@ type RollDialogData = {
     perks: Perk[];
     talents: Talent[];
     allowInstantSuccess: boolean;
+    maxSetbacks: number;
 };
 
 type Perk = {
@@ -228,7 +229,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         return talents.map((talent) => {
             return {
                 name: talent,
-                active: false,
+                active: talent === "Focused",
             };
         });
     }
@@ -254,6 +255,8 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             rollData: this.rollData,
             perks: this.perks,
             talents: this.talents,
+            // @ts-ignore
+            maxSetbacks: this.actor.system.setbacks,
             allowInstantSuccess:
                 !!this.talents.find((talent) => talent.name === "Practiced" && talent.active) &&
                 this.rollData.status === "up",
@@ -385,14 +388,32 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
 
         await ChatMessage.create(chatData);
 
-        this.close();
+        this._handleSetbacks();
+
+        if (!_event.shiftKey) {
+            this.close();
+        }
+    }
+
+    _handleSetbacks() {
+        if (this.rollData.setbacks <= 0) {
+            return;
+        }
+
+        // @ts-ignore
+        const currentSetbacks = this.actor.system.setbacks;
+        this.actor.update({ "system.setbacks": currentSetbacks - this.rollData.setbacks });
     }
 
     _calculatePlayerSP(roll: any) {
         const generatedStuntPoints: Array<[number, string]> = [];
 
         if (roll.hasTriples) {
-            generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Triple")]);
+            if (this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
+                generatedStuntPoints.push([2, game.i18n.localize("NOVA.Roll.TripleF")]);
+            } else {
+                generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Triple")]);
+            }
         } else if (roll.hasDoubles && this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
             generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Double")]);
         }
@@ -416,7 +437,11 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         const generatedStuntPoints: Array<[number, string]> = [];
 
         if (roll.hasTriples) {
-            generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Triple")]);
+            if (this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
+                generatedStuntPoints.push([2, game.i18n.localize("NOVA.Roll.TripleF")]);
+            } else {
+                generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Triple")]);
+            }
         } else if (roll.hasDoubles && this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
             generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Double")]);
         }
