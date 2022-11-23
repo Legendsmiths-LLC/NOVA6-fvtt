@@ -357,6 +357,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         const generatedStuntPoints = success
             ? this._calculatePlayerSP(roll.dice[0])
             : this._calculateGMSP(roll.dice[0]);
+        const totalStuntPoints = generatedStuntPoints.reduce((acc, sp) => acc + sp[0], 0);
 
         const templateData = {
             skill: this.skill,
@@ -364,6 +365,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             skillPoints: 0,
             roll: roll.dice[0],
             generatedStuntPoints,
+            totalStuntPoints,
             success,
             ...roll.dice[0].getTooltipData(),
         };
@@ -387,36 +389,40 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     }
 
     _calculatePlayerSP(roll: any) {
-        let generatedStuntPoints = this.rollData.freeStuntPoints ?? 0;
+        const generatedStuntPoints: Array<[number, string]> = [];
 
-        if (roll.hasTriple) {
-            generatedStuntPoints += 1;
-        } else if (roll.hasDouble && this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
-            generatedStuntPoints += 1;
+        if (roll.hasTriples) {
+            generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Triple")]);
+        } else if (roll.hasDoubles && this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
+            generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Double")]);
         }
 
         if (this.talents.find((talent) => talent.name === "Specialized" && talent.active)) {
-            generatedStuntPoints += 1;
+            generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Specialized")]);
         }
 
         if (this.rollData.status === "up") {
-            generatedStuntPoints += this.rollData.usedTradeDice / 2;
+            generatedStuntPoints.push([this.rollData.usedTradeDice / 2, game.i18n.localize("NOVA.Roll.Traded")]);
+        }
+
+        if (this.rollData.freeStuntPoints > 0) {
+            generatedStuntPoints.push([this.rollData.freeStuntPoints, game.i18n.localize("NOVA.Roll.Other")]);
         }
 
         return generatedStuntPoints;
     }
 
     _calculateGMSP(roll: any) {
-        let generatedStuntPoints = 0;
+        const generatedStuntPoints: Array<[number, string]> = [];
 
-        if (roll.hasTriple) {
-            generatedStuntPoints += 1;
-        } else if (roll.hasDouble && this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
-            generatedStuntPoints += 1;
+        if (roll.hasTriples) {
+            generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Triple")]);
+        } else if (roll.hasDoubles && this.talents.find((talent) => talent.name === "Focused" && talent.active)) {
+            generatedStuntPoints.push([1, game.i18n.localize("NOVA.Roll.Double")]);
         }
 
         if (this.rollData.status === "down") {
-            generatedStuntPoints += this.rollData.usedTradeDice / 2;
+            generatedStuntPoints.push([this.rollData.usedTradeDice / 2, game.i18n.localize("NOVA.Roll.Traded")]);
         }
 
         return generatedStuntPoints;

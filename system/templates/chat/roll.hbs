@@ -17,25 +17,27 @@
         </div>
     </div>
 
-    <p>
-        {{#if success}}
-            {{{localize "NOVA.Roll.Success"}}}
-        {{else}}
-            {{{localize "NOVA.Roll.Failure"}}}
+    <div class="nova6-roll__status">
+
+        <p>
+            {{#if success}}
+                {{{localize "NOVA.Roll.Success"}}}
+            {{else}}
+                {{{localize "NOVA.Roll.Failure"}}}
+            {{/if}}
+        </p>
+
+        {{#if (gt totalStuntPoints 0)}}
+            <p>
+                {{{localize "NOVA.Roll.SP" number=totalStuntPoints}}}
+
+                {{#each generatedStuntPoints}}
+                    <span class="nova6-roll__stunt-point">{{lookup this 0}}
+                        {{localize "NOVA.Roll.From"}}
+                        {{lookup this 1}}
+                    </span>
+                {{/each}}
+            </p>
         {{/if}}
-    </p>
-
-    <!--
-    {{#if roll.hasTriples}}
-        <p>{{{localize "NOVA.Roll.Triple"}}}</p>
-    {{/if}}
-
-    {{#if roll.hasDoubles}}
-        <p>{{{localize "NOVA.Roll.Double"}}}</p>
-    {{/if}}
-    -->
-
-    {{#if (gt generatedStuntPoints 0)}}
-        <p>{{{localize "NOVA.Roll.SP" number=generatedStuntPoints}}}</p>
-    {{/if}}
+    </div>
 </div>
