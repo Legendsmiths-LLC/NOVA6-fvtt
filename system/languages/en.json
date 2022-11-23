@@ -127,7 +127,7 @@
             "Failure": "Failure!",
             "Triple": "You rolled a triple!",
             "Double": "You rolled a double!",
-            "SP": "Earned {number} StuntPoints!"
+            "SP": "Earned {number} StuntPoint(s)!"
         },
         "Apps": {
             "RollSkill": {
