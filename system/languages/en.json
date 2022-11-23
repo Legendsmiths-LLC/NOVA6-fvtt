@@ -134,7 +134,8 @@
             "Double": "double (Focused)",
             "Specialized": "Specialized",
             "Traded": "traded dice",
-            "Other": "Assets or the GM"
+            "Other": "Assets or the GM",
+            "Instant": "You chose instant success!"
         },
         "Apps": {
             "RollSkill": {

@@ -429,11 +429,16 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     }
 
     async _instantSuccess(_event: JQuery.ClickEvent) {
+        const templateData = {
+            skill: this.skill,
+        };
+
+        const content = await renderTemplate("systems/nova6/templates/chat/instant-success.hbs", templateData);
         const chatData = {
             user: game.user?.id,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-            content: `<p>Chose instant success</p>`,
+            content,
         };
 
         await ChatMessage.create(chatData);
