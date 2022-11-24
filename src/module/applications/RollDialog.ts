@@ -3,10 +3,12 @@ import { NOVA6Actor } from "../actor/NOVA6Actor";
 import { ItemDataBaseProperties } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs/itemData";
 
 type RollDialogData = {
-    skill: SkillItemData;
     rollData: RollData;
-    perks: Perk[];
     talents: Talent[];
+    title: string;
+    subtitle: string;
+    perks?: Perk[];
+    skill?: SkillItemData;
     allowInstantSuccess: boolean;
     maxSetbacks: number;
 };
@@ -23,7 +25,7 @@ type Talent = {
 
 type RollData = {
     baseDice: number;
-    rank: number;
+    rank?: number;
     bonus: number;
     penalty: number;
     setbacks: number;
@@ -144,19 +146,19 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     static baseDice = 3;
 
     actor: NOVA6Actor;
-    skill: SkillItemData & ItemDataBaseProperties;
     rollData: RollData;
-    perks: Perk[];
     talents: Talent[];
+    skill: (SkillItemData & ItemDataBaseProperties) | undefined;
+    perks: Perk[] | undefined;
 
     constructor(
         actor: NOVA6Actor,
-        skillData: SkillItemData & ItemDataBaseProperties,
+        skillData?: SkillItemData & ItemDataBaseProperties,
         options?: Partial<ApplicationOptions>
     ) {
         const rollData: RollData = {
             baseDice: RollDialog.baseDice,
-            rank: skillData.system.rank,
+            rank: skillData?.system.rank,
             bonus: 0,
             penalty: 0,
             setbacks: 0,
@@ -174,19 +176,22 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
 
         this.rollData = rollData;
         this.actor = actor;
-        this.skill = skillData;
 
-        const defaultPerk = {
-            name: game.i18n.localize("NOVA.Apps.RollSkill.NoPerk"),
-            active: true,
-        };
+        if (skillData) {
+            this.skill = skillData;
 
-        this.perks = [
-            defaultPerk,
-            ...Object.entries(this.skill.system)
-                .filter(([key, value]) => key.startsWith("perk") && value.trim().length)
-                .map(([_key, value]) => ({ name: value, active: false })),
-        ];
+            const defaultPerk = {
+                name: game.i18n.localize("NOVA.Apps.Roll.NoPerk"),
+                active: true,
+            };
+
+            this.perks = [
+                defaultPerk,
+                ...Object.entries(this.skill.system)
+                    .filter(([key, value]) => key.startsWith("perk") && value.trim().length)
+                    .map(([_key, value]) => ({ name: value, active: false })),
+            ];
+        }
 
         this.talents = this.getAvailableTalents();
 
@@ -208,19 +213,19 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         const talents = possibleTalents.filter((talent) => {
             switch (talent) {
                 case "Focused":
-                    return this.skill.system.focused;
+                    return this.skill?.system.focused;
                 case "Specialized":
-                    return this.skill.system.specialized;
+                    return this.skill?.system.specialized;
                 case "Practiced":
-                    return this.skill.system.practiced;
+                    return this.skill?.system.practiced;
                 case "Resolute":
-                    return this.skill.name === "Resolve" && actorTalents.find((item) => item.name === talent);
+                    return this.skill?.name === "Resolve" && actorTalents.find((item) => item.name === talent);
                 case "Strong Body":
-                    return this.skill.name === "Physique" && actorTalents.find((item) => item.name === talent);
+                    return this.skill?.name === "Physique" && actorTalents.find((item) => item.name === talent);
                 case "Strong Personality":
-                    return this.skill.name === "Interact" && actorTalents.find((item) => item.name === talent);
+                    return this.skill?.name === "Interact" && actorTalents.find((item) => item.name === talent);
                 case "Tough":
-                    return this.skill.name === "Physique" && actorTalents.find((item) => item.name === talent);
+                    return this.skill?.name === "Physique" && actorTalents.find((item) => item.name === talent);
                 default:
                     return actorTalents.find((item) => item.name === talent);
             }
@@ -236,7 +241,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
 
     static get defaultOptions() {
         const defaultRollDialogOptions: Partial<FormApplicationOptions> = {
-            title: game.i18n.localize("NOVA.Apps.RollSkill.Title"),
+            title: game.i18n.localize("NOVA.Apps.Roll.Title"),
             template: "/systems/nova6/templates/applications/roll-dialog.hbs",
             classes: ["nova6", "nova6-sheet", "nova6-roll-dialog", "sheet"],
             scrollY: [".nova6-desk__content"],
@@ -255,6 +260,8 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             rollData: this.rollData,
             perks: this.perks,
             talents: this.talents,
+            title: this._getTitle(),
+            subtitle: this._getSubtitle(),
             // @ts-ignore
             maxSetbacks: this.actor.system.setbacks,
             allowInstantSuccess:
@@ -294,10 +301,12 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     }
 
     calculateRollData() {
+        //calculate optional bonus and penalty dice
+        const rankDice = this.rollData.rank ?? 0;
+        const activePerkDice = this.perks ? (this.perks.findIndex((perk) => perk.active) > 0 ? 1 : 0) : 0;
         const talent = this.calculateTalentBonus();
-        const activePerk = this.perks.findIndex((perk) => perk.active) > 0 ? 1 : 0;
 
-        const bonusDice = this.rollData.rank + this.rollData.bonus + activePerk + talent;
+        const bonusDice = this.rollData.bonus + activePerkDice + talent + rankDice;
         const penaltyDice = this.rollData.penalty + this.rollData.setbacks;
 
         const status = bonusDice - penaltyDice === 0 ? "even" : bonusDice - penaltyDice > 0 ? "up" : "down";
@@ -313,7 +322,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         this.rollData = {
             ...this.rollData,
             status,
-            activePerk,
+            activePerk: activePerkDice,
             forceTradeDice,
             numberOfDice,
             availableTradeDice,
@@ -325,7 +334,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     async _updateObject(_event: Event, formData) {
         this.rollData = { ...this.rollData, ...formData };
 
-        this.perks.forEach((perk, index) => {
+        this.perks?.forEach((perk, index) => {
             perk.active = formData["perk"] === index;
         });
 
@@ -363,9 +372,8 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         const totalStuntPoints = generatedStuntPoints.reduce((acc, sp) => acc + sp[0], 0);
 
         const templateData = {
-            skill: this.skill,
+            title: this._getRollTitle(),
             rollData: this.rollData,
-            skillPoints: 0,
             roll: roll.dice[0],
             generatedStuntPoints,
             totalStuntPoints,
@@ -381,7 +389,6 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             type: CONST.CHAT_MESSAGE_TYPES.ROLL,
             sound: CONFIG.sounds.dice,
             roll: roll,
-            flavor: `${this.skill.name}`,
             rollMode: game.settings.get("core", "rollMode"),
             content,
         };
@@ -479,5 +486,29 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         );
 
         this.render();
+    }
+
+    _getTitle() {
+        if (this.skill) {
+            return game.i18n.localize("NOVA.Apps.Roll.TitleSkill");
+        }
+
+        return game.i18n.localize("NOVA.Apps.Roll.Title");
+    }
+
+    _getSubtitle() {
+        if (this.skill) {
+            return this.skill.name;
+        }
+
+        return "";
+    }
+
+    _getRollTitle() {
+        if (this.skill) {
+            return this.skill.name;
+        }
+
+        return game.i18n.localize("NOVA.Apps.Roll.Title");
     }
 }

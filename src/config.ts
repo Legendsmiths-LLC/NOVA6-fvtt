@@ -11,6 +11,7 @@ import { TalentItem } from "./module/item/talent/TalentItem";
 import { AssetItem } from "./module/item/asset/AssetItem";
 import { LoadLevel } from "./module/components/LoadLevel/LoadLevel";
 import { Counter } from "./module/components/Counter/Counter";
+import { GenericRoll } from "./module/components/GenericRoll/GenericRoll";
 
 export interface Nova6Config {
     itemClasses: {
@@ -43,6 +44,7 @@ export const NOVA6: Nova6Config = {
             sortable: Sortable,
             loadLevel: LoadLevel,
             counter: Counter,
+            genericRoll: GenericRoll,
         },
         item: {
             radio: Radio,

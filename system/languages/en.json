@@ -139,8 +139,9 @@
             "Instant": "You chose instant success!"
         },
         "Apps": {
-            "RollSkill": {
-                "Title": "Roll skill",
+            "Roll": {
+                "Title": "Roll",
+                "TitleSkill": "Roll skill",
                 "Bonus": "Additional Bonus dice",
                 "Penalty": "Penalty dice",
                 "Setbacks": "Setbacks",
