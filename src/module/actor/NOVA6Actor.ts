@@ -10,9 +10,7 @@ export class NOVA6Actor extends Actor {
     protected _onCreate(data, options, userId) {
         super._onCreate(data, options, userId);
 
-        for (const itemType in defaultItems.content) {
-            this.createEmbeddedDocuments("Item", defaultItems.content[itemType]);
-        }
+        this.createEmbeddedDocuments("Item", defaultItems.content);
     }
 }
 

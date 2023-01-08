@@ -1,111 +1,45 @@
 {
     "name": "Default",
-    "content": {
-        "aspects": [
-            {
-                "name": "Occupation",
-                "type": "aspect",
-                "data": {
-                    "label": "Occupation"
-                }
-            },
-            {
-                "name": "Background",
-                "type": "aspect",
-                "data": {
-                    "label": "Background"
-                }
-            },
-            {
-                "name": "Stability",
-                "type": "aspect",
-                "data": {
-                    "label": "Stability"
-                }
-            },
-            {
-                "name": "Trouble",
-                "type": "aspect",
-                "data": {
-                    "label": "Trouble"
-                }
+    "content": [
+        {
+            "name": "Fight",
+            "type": "skill",
+            "data": {
+                "name": "Fight"
             }
-        ],
-        "skills": [
-            {
-                "name": "Fight",
-                "type": "skill",
-                "data": {
-                    "name": "Fight"
-                }
-            },
-            {
-                "name": "Interact",
-                "type": "skill",
-                "data": {
-                    "name": "Interact"
-                }
-            },
-            {
-                "name": "Move",
-                "type": "skill",
-                "data": {
-                    "name": "Move"
-                }
-            },
-            {
-                "name": "Physique",
-                "type": "skill",
-                "data": {
-                    "name": "Physique"
-                }
-            },
-            {
-                "name": "Resolve",
-                "type": "skill",
-                "data": {
-                    "name": "Resolve"
-                }
+        },
+        {
+            "name": "Interact",
+            "type": "skill",
+            "data": {
+                "name": "Interact"
             }
-        ],
-        "stress": [
-            {
-                "name": "Stress",
-                "type": "stress",
-                "data": {}
+        },
+        {
+            "name": "Move",
+            "type": "skill",
+            "data": {
+                "name": "Move"
             }
-        ],
-        "talents": [
-            {
-                "name": "Talent",
-                "type": "talent",
-                "data": {}
-            },
-            {
-                "name": "Talent",
-                "type": "talent",
-                "data": {}
-            }, {
-                "name": "Talent",
-                "type": "talent",
-                "data": {}
+        },
+        {
+            "name": "Physique",
+            "type": "skill",
+            "data": {
+                "name": "Physique"
             }
-        ],
-        "assets": [
-            {
-                "name": "Asset",
-                "type": "asset",
-                "data": {}
-            },
-            {
-                "name": "Asset",
-                "type": "asset",
-                "data": {}
-            }, {
-                "name": "Asset",
-                "type": "asset",
-                "data": {}
+        },
+        {
+            "name": "Resolve",
+            "type": "skill",
+            "data": {
+                "name": "Resolve"
             }
-        ]
-    }
+        },
+        {
+            "name": "Stress",
+            "type": "stress",
+            "data": {}
+        }
+    ]
 }

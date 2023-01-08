@@ -10,13 +10,35 @@
             "flags": {}
         }
     ],
-    "scripts": ["system.js"],
+    "scripts": [
+        "system.js"
+    ],
     "styles": [],
     "languages": [
         {
             "lang": "en",
             "name": "English",
             "path": "languages/en.json"
+        }
+    ],
+    "packs": [
+        {
+            "name": "aspects",
+            "label": "Aspects",
+            "path": "data/packs/aspects.db",
+            "type": "Item"
+        },
+        {
+            "name": "talents",
+            "label": "Talents",
+            "path": "data/packs/talents.db",
+            "type": "Item"
+        },
+        {
+            "name": "assets",
+            "label": "Assets",
+            "path": "data/packs/assets.db",
+            "type": "Item"
         }
     ],
     "compatibility": {
