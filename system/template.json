@@ -49,9 +49,6 @@
             "perk8": "",
             "perk9": ""
         },
-        "talent": {
-            "templates": ["base"]
-        },
         "stress": {
             "numPhysicalStressed": 3,
             "numPhysicalStaggered": 2,
@@ -61,8 +58,13 @@
             "numMentalIncapacitated": 1,
             "status": {}
         },
+        "talent": {
+            "templates": ["base"],
+            "value": ""
+        },
         "asset": {
-            "templates": ["base"]
+            "templates": ["base"],
+            "value": ""
         }
     }
 }
