@@ -20,8 +20,10 @@
             "Skills": "Skills",
             "Stress": "Stress",
             "Assets": "Assets",
+            "NoAssets": "No assets yet",
             "Load": "Load Level",
             "Talents": "Talents",
+            "NoTalents": "No talents yet",
             "Level": "Level",
             "Notes": "Notes",
             "Artwork": "Artwork",
@@ -92,14 +94,16 @@
             "Talent": {
                 "EditItem": "Edit Talent",
                 "Name": "Name",
-                "Description": "Description",
-                "NoDescription": "No description"
+                "Value": "Value",
+                "NoValue": "No value",
+                "Description": "Description"
             },
             "Asset": {
                 "EditItem": "Edit Asset",
                 "Name": "Name",
-                "Description": "Description",
-                "NoDescription": "No description"
+                "Value": "Value",
+                "NoValue": "No value",
+                "Description": "Description"
             },
             "Stress": {
                 "EditItem": "Edit Stress Settings",

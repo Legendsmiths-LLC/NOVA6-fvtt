@@ -1,5 +1,19 @@
 {
     "name": "Default",
+    "packs": {
+        "aspects": [
+            "High Concept",
+            "Background",
+            "Motivation",
+            "Trouble"
+        ],
+        "assets": [
+            "Instrument",
+            "Memento",
+            "Personal Item",
+            "Token"
+        ]
+    },
     "content": [
         {
             "name": "Fight",

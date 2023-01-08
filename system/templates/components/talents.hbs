@@ -2,11 +2,11 @@
     {{#each talents as |talent talentIndex|}}
         <div class="nova6-item nova6-js-sortable nova6-talent" data-item-id="{{talent._id}}">
             <div class="nova6-talent__name">{{{talent.name}}}</div>
-            <div class="nova6-talent__description">
-                {{#if talent.system.description}}
-                    <span>{{{talent.system.description}}}</span>
+            <div class="nova6-talent__value">
+                {{#if talent.system.value}}
+                    <span>{{{talent.system.value}}}</span>
                 {{else}}
-                    <span class="nova6-talent--disabled">{{localize "NOVA.Item.Talent.NoDescription"}}</span>
+                    <span class="nova6-talent--disabled">{{localize "NOVA.Item.Talent.NoValue"}}</span>
                 {{/if}}
 
                 <div class="nova6-actions nova6-js-sortable nova6-actions--item nova6-actions--talent">
@@ -19,5 +19,7 @@
                 </div>
             </div>
         </div>
+    {{else}}
+        <p>{{localize "NOVA.Sheet.NoTalents"}}</p>
     {{/each}}
 </div>

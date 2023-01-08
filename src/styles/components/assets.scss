@@ -2,6 +2,12 @@
     display: grid;
     grid-template-columns: min-content 1fr;
     grid-gap: $component-padding;
+
+    > p {
+        grid-column-end: span 2;
+        margin: 0;
+        opacity: 0.3;
+    }
 }
 
 .nova6-asset {
@@ -15,9 +21,10 @@
         font-weight: bold;
         padding-right: $component-padding * 2;
         max-width: 25%;
+        white-space: nowrap;
     }
 
-    &__description {
+    &__value {
         flex-grow: 1;
 
         p {

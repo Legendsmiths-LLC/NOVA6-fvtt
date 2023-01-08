@@ -2,11 +2,11 @@
     {{#each assets as |asset assetIndex|}}
         <div class="nova6-item nova6-js-sortable nova6-asset" data-item-id="{{asset._id}}">
             <div class="nova6-asset__name">{{{asset.name}}}</div>
-            <div class="nova6-asset__description">
-                {{#if asset.system.description}}
-                    <span>{{{asset.system.description}}}</span>
+            <div class="nova6-asset__value">
+                {{#if asset.system.value}}
+                    <span>{{{asset.system.value}}}</span>
                 {{else}}
-                    <span class="nova6-asset--disabled">{{localize "NOVA.Item.Asset.NoDescription"}}</span>
+                    <span class="nova6-asset--disabled">{{localize "NOVA.Item.Asset.NoValue"}}</span>
                 {{/if}}
 
                 <div class="nova6-actions nova6-js-sortable nova6-actions--item nova6-actions--asset">
@@ -19,5 +19,7 @@
                 </div>
             </div>
         </div>
+    {{else}}
+        <p>{{localize "NOVA.Sheet.NoAssets"}}</p>
     {{/each}}
 </div>

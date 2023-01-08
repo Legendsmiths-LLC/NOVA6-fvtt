@@ -7,6 +7,12 @@
         field = item.name
     }}
 
+    {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+        headline = "NOVA.Item.Asset.Value"
+        fieldName = "system.value"
+        field = item.system.value
+    }}
+
     {{> "systems/nova6/templates/item/settings/setting-editor.hbs"
         headline = "NOVA.Item.Asset.Description"
         fieldName = "system.description"
