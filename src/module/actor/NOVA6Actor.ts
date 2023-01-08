@@ -15,7 +15,7 @@ export class NOVA6Actor extends Actor {
         }
 
         // Add all default items
-        const itemsToCreate: any = defaultItems.content;
+        const itemsToCreate: any = foundry.utils.duplicate(defaultItems.content);
 
         // @ts-ignore
         const aspects = await game?.packs.get("nova6.aspects").getDocuments();
