@@ -1,21 +1,23 @@
 {{> "systems/nova6/templates/components/item-header.hbs" title="NOVA.Item.Aspect.EditItem" item=item}}
 
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    headline = "NOVA.Item.Aspect.Value"
-    fieldName = "system.text"
-    field = system.text
-}}
+<div class="nova6-desk__content">
+    {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+        headline = "NOVA.Item.Aspect.Value"
+        fieldName = "system.text"
+        field = system.text
+    }}
 
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    headline = "NOVA.Item.Aspect.Label"
-    fieldName = "system.label"
-    field = system.label
-}}
+    {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+        headline = "NOVA.Item.Aspect.Label"
+        fieldName = "system.label"
+        field = system.label
+    }}
 
-{{> "systems/nova6/templates/item/settings/setting-editor.hbs"
-    headline = "NOVA.Item.Aspect.Description"
-    fieldName = "system.description"
-    enrichedField = enrichedDescription
-}}
+    {{> "systems/nova6/templates/item/settings/setting-editor.hbs"
+        headline = "NOVA.Item.Aspect.Description"
+        fieldName = "system.description"
+        enrichedField = enrichedDescription
+    }}
+</div>
 
 {{> "systems/nova6/templates/components/item-footer.hbs"}}

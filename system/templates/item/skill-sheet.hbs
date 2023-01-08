@@ -1,104 +1,125 @@
 {{> "systems/nova6/templates/components/item-header.hbs" title="NOVA.Item.Skill.EditItem" item=item}}
 
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    headline = "NOVA.Item.Skill.Name"
-    fieldName = "name"
-    field = item.name
-}}
+<nav class="nova6-desk__tabs nova6-js-tabs-navigation nova6-tabs-navigation">
+    <a class="nova6-tabs-navigation__item" data-tab="base">
+        {{~localize "NOVA.Sheet.Tabs.Base"~}}
+    </a>
+    <a class="nova6-tabs-navigation__item" data-tab="description">
+        {{~localize "NOVA.Sheet.Tabs.Description"~}}
+    </a>
+</nav>
 
-{{> "systems/nova6/templates/item/settings/setting-rank.hbs"
-    headline = "NOVA.Item.Skill.Rank"
-    fieldName = "system.rank"
-    field = system.rank
-    dtype = "Number"
-    radioItems = availableRanks
-}}
+<div class="nova6-js-tab-content nova6-u-contents">
+    {{!--Base--}}
+    <div class="nova6-desk__content" data-tab="base">
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            headline = "NOVA.Item.Skill.Name"
+            fieldName = "name"
+            field = item.name
+        }}
+
+        {{> "systems/nova6/templates/item/settings/setting-rank.hbs"
+            headline = "NOVA.Item.Skill.Rank"
+            fieldName = "system.rank"
+            field = system.rank
+            dtype = "Number"
+            radioItems = availableRanks
+        }}
 
 
-<div class="nova6-setting">
-    <header class="nova6-headline nova6-headline--no-margin">
-        <h3 class="nova6-headline__text">{{localize "NOVA.Item.Skill.SkillTalents"}}</h3>
-    </header>
+        <div class="nova6-setting">
+            <header class="nova6-headline nova6-headline--no-margin">
+                <h3 class="nova6-headline__text">{{localize "NOVA.Item.Skill.SkillTalents"}}</h3>
+            </header>
+        </div>
+
+        <div class="nova6-setting__columns">
+            {{> "systems/nova6/templates/item/settings/setting-checkbox.hbs"
+                fieldName = "system.focused"
+                field = system.focused
+                label = "NOVA.Item.Skill.Focused"
+            }}
+
+            {{> "systems/nova6/templates/item/settings/setting-checkbox.hbs"
+                fieldName = "system.practiced"
+                field = system.practiced
+                label = "NOVA.Item.Skill.Practiced"
+            }}
+
+            {{> "systems/nova6/templates/item/settings/setting-checkbox.hbs"
+                fieldName = "system.specialized"
+                field = system.specialized
+                label = "NOVA.Item.Skill.Specialized"
+            }}
+        </div>
+
+        <div class="nova6-setting">
+            <header class="nova6-headline">
+                <h3 class="nova6-headline__text">{{localize "NOVA.Item.Skill.Perks"}}</h3>
+            </header>
+        </div>
+
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            placeholder = "NOVA.Item.Skill.Perk1"
+            fieldName = "system.perk1"
+            field = system.perk1
+        }}
+
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            placeholder = "NOVA.Item.Skill.Perk2"
+            fieldName = "system.perk2"
+            field = system.perk2
+        }}
+
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            placeholder = "NOVA.Item.Skill.Perk3"
+            fieldName = "system.perk3"
+            field = system.perk3
+        }}
+
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            placeholder = "NOVA.Item.Skill.Perk4"
+            fieldName = "system.perk4"
+            field = system.perk4
+        }}
+
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            placeholder = "NOVA.Item.Skill.Perk5"
+            fieldName = "system.perk5"
+            field = system.perk5
+        }}
+
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            placeholder = "NOVA.Item.Skill.Perk6"
+            fieldName = "system.perk6"
+            field = system.perk6
+        }}
+
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            placeholder = "NOVA.Item.Skill.Perk7"
+            fieldName = "system.perk7"
+            field = system.perk7
+        }}
+
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            placeholder = "NOVA.Item.Skill.Perk8"
+            fieldName = "system.perk8"
+            field = system.perk8
+        }}
+
+        {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+            placeholder = "NOVA.Item.Skill.Perk9"
+            fieldName = "system.perk9"
+            field = system.perk9
+        }}
+    </div>
+
+    {{!--Description--}}
+    <div class="nova6-desk__content" data-tab="description">
+        <div class="nova6-desk__tab">
+            {{editor description target="system.description" button=true editable=editable engine="prosemirror"}}
+        </div>
+    </div>
 </div>
-
-<div class="nova6-setting__columns">
-    {{> "systems/nova6/templates/item/settings/setting-checkbox.hbs"
-        fieldName = "system.focused"
-        field = system.focused
-        label = "NOVA.Item.Skill.Focused"
-    }}
-
-    {{> "systems/nova6/templates/item/settings/setting-checkbox.hbs"
-        fieldName = "system.practiced"
-        field = system.practiced
-        label = "NOVA.Item.Skill.Practiced"
-    }}
-
-    {{> "systems/nova6/templates/item/settings/setting-checkbox.hbs"
-        fieldName = "system.specialized"
-        field = system.specialized
-        label = "NOVA.Item.Skill.Specialized"
-    }}
-</div>
-
-<div class="nova6-setting">
-    <header class="nova6-headline">
-        <h3 class="nova6-headline__text">{{localize "NOVA.Item.Skill.Perks"}}</h3>
-    </header>
-</div>
-
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    placeholder = "NOVA.Item.Skill.Perk1"
-    fieldName = "system.perk1"
-    field = system.perk1
-}}
-
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    placeholder = "NOVA.Item.Skill.Perk2"
-    fieldName = "system.perk2"
-    field = system.perk2
-}}
-
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    placeholder = "NOVA.Item.Skill.Perk3"
-    fieldName = "system.perk3"
-    field = system.perk3
-}}
-
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    placeholder = "NOVA.Item.Skill.Perk4"
-    fieldName = "system.perk4"
-    field = system.perk4
-}}
-
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    placeholder = "NOVA.Item.Skill.Perk5"
-    fieldName = "system.perk5"
-    field = system.perk5
-}}
-
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    placeholder = "NOVA.Item.Skill.Perk6"
-    fieldName = "system.perk6"
-    field = system.perk6
-}}
-
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    placeholder = "NOVA.Item.Skill.Perk7"
-    fieldName = "system.perk7"
-    field = system.perk7
-}}
-
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    placeholder = "NOVA.Item.Skill.Perk8"
-    fieldName = "system.perk8"
-    field = system.perk8
-}}
-
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    placeholder = "NOVA.Item.Skill.Perk9"
-    fieldName = "system.perk9"
-    field = system.perk9
-}}
 
 {{> "systems/nova6/templates/components/item-footer.hbs"}}

@@ -2,6 +2,13 @@ export class NOVA6ItemSheet extends ItemSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["nova6", "nova6-sheet", "nova6-sheet--item", "sheet"],
+            tabs: [
+                {
+                    navSelector: ".nova6-js-tabs-navigation",
+                    contentSelector: ".nova6-js-tab-content",
+                    initial: "base",
+                },
+            ],
             scrollY: [".nova6-desk__content"],
             width: 575,
         });
@@ -20,6 +27,10 @@ export class NOVA6ItemSheet extends ItemSheet {
 
         // Let every item type manipulate its own sheet data
         data = (await CONFIG.NOVA6.itemClasses[this.item.type]?.getSheetData(data, this)) || data;
+
+        //WYSIWYG fields
+        // @ts-ignore
+        data.description = await TextEditor.enrichHTML(this.object.system.description, { async: true });
 
         // Let every component manipulate an items' sheet data
         for (const sheetComponent in CONFIG.NOVA6.sheetComponents.item) {

@@ -80,7 +80,6 @@ export class CharacterSheet extends ActorSheet {
         data.enrichedBackstory = await TextEditor.enrichHTML(this.object.system.backstory, { async: true });
         // @ts-ignore
         data.enrichedNotes = await TextEditor.enrichHTML(this.object.system.notes, { async: true });
-
         // @ts-ignore
         data.enrichedQuickNotes = await TextEditor.enrichHTML(this.object.system.quicknotes, { async: true });
 

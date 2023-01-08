@@ -1,15 +1,17 @@
 {{> "systems/nova6/templates/components/item-header.hbs" title="NOVA.Item.Asset.EditItem" item=item}}
 
-{{> "systems/nova6/templates/item/settings/setting-input.hbs"
-    headline = "NOVA.Item.Asset.Name"
-    fieldName = "name"
-    field = item.name
-}}
+<div class="nova6-desk__content">
+    {{> "systems/nova6/templates/item/settings/setting-input.hbs"
+        headline = "NOVA.Item.Asset.Name"
+        fieldName = "name"
+        field = item.name
+    }}
 
-{{> "systems/nova6/templates/item/settings/setting-editor.hbs"
-    headline = "NOVA.Item.Asset.Description"
-    fieldName = "system.description"
-    enrichedField = enrichedDescription
-}}
+    {{> "systems/nova6/templates/item/settings/setting-editor.hbs"
+        headline = "NOVA.Item.Asset.Description"
+        fieldName = "system.description"
+        enrichedField = enrichedDescription
+    }}
+</div>
 
 {{> "systems/nova6/templates/components/item-footer.hbs"}}

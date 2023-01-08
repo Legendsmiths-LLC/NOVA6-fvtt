@@ -51,7 +51,8 @@
             "Tabs": {
                 "Base": "General",
                 "Backstory": "Backstory",
-                "Notes": "Notes & Contacts"
+                "Notes": "Notes & Contacts",
+                "Description": "Description"
             },
             "Buttons": {
                 "EditMode": "Edit Mode"
