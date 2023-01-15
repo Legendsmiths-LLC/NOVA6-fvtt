@@ -12,44 +12,16 @@
             "Memento",
             "Personal Item",
             "Token"
+        ],
+        "skills": [
+            "Fight",
+            "Interact",
+            "Move",
+            "Physique",
+            "Resolve"
         ]
     },
     "content": [
-        {
-            "name": "Fight",
-            "type": "skill",
-            "data": {
-                "name": "Fight"
-            }
-        },
-        {
-            "name": "Interact",
-            "type": "skill",
-            "data": {
-                "name": "Interact"
-            }
-        },
-        {
-            "name": "Move",
-            "type": "skill",
-            "data": {
-                "name": "Move"
-            }
-        },
-        {
-            "name": "Physique",
-            "type": "skill",
-            "data": {
-                "name": "Physique"
-            }
-        },
-        {
-            "name": "Resolve",
-            "type": "skill",
-            "data": {
-                "name": "Resolve"
-            }
-        },
         {
             "name": "Stress",
             "type": "stress",
