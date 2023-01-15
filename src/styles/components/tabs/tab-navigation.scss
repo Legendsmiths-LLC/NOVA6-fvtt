@@ -22,6 +22,10 @@
         &::after {
             @include cutout-top-right;
         }
+
+        &:only-child {
+            display: none;
+        }
     }
 }
 

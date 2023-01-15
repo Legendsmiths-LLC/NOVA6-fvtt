@@ -7,6 +7,7 @@ type RollDialogData = {
     talents: Talent[];
     title: string;
     subtitle: string;
+    description: string;
     perks?: Perk[];
     skill?: SkillItemData;
     allowInstantSuccess: boolean;
@@ -244,6 +245,13 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             title: game.i18n.localize("NOVA.Apps.Roll.Title"),
             template: "/systems/nova6/templates/applications/roll-dialog.hbs",
             classes: ["nova6", "nova6-sheet", "nova6-roll-dialog", "sheet"],
+            tabs: [
+                {
+                    navSelector: ".nova6-js-tabs-navigation",
+                    contentSelector: ".nova6-js-tab-content",
+                    initial: "base",
+                },
+            ],
             scrollY: [".nova6-desk__content"],
             width: 775,
             resizable: true,
@@ -262,6 +270,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             talents: this.talents,
             title: this._getTitle(),
             subtitle: this._getSubtitle(),
+            description: this._getDescription(),
             // @ts-ignore
             maxSetbacks: this.actor.system.setbacks,
             allowInstantSuccess:
@@ -499,6 +508,14 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     _getSubtitle() {
         if (this.skill) {
             return this.skill.name;
+        }
+
+        return "";
+    }
+
+    _getDescription() {
+        if (this.skill) {
+            return this.skill.system.description;
         }
 
         return "";

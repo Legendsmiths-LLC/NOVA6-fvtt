@@ -2,7 +2,7 @@
     "id": "nova6",
     "title": "NOVA6",
     "description": "The official FoundryVTT game system for the NOVA6 TTRPG from Legendsmiths, LLC",
-    "version": "0.1.17",
+    "version": "0.1.18",
     "authors": [
         {
             "name": "Patrick Bauer",
@@ -38,6 +38,12 @@
             "name": "assets",
             "label": "Assets",
             "path": "data/packs/assets.db",
+            "type": "Item"
+        },
+        {
+            "name": "skills",
+            "label": "Skills",
+            "path": "data/packs/skills.db",
             "type": "Item"
         }
     ],

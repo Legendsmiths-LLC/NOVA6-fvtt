@@ -25,6 +25,7 @@ export interface SkillData {
     perk7: string;
     perk8: string;
     perk9: string;
+    description: string;
 }
 
 export interface SkillItemData {
