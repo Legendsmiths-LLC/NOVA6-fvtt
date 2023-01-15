@@ -37,6 +37,16 @@ export class NOVA6Actor extends Actor {
             }
         }
 
+        // @ts-ignore
+        const skills = await game?.packs.get("nova6.skills").getDocuments();
+        for (const skillName of defaultItems.packs.skills) {
+            const packItem = skills.find((skill) => skill.name === skillName);
+
+            if (packItem) {
+                itemsToCreate.push(packItem);
+            }
+        }
+
         this.createEmbeddedDocuments("Item", itemsToCreate);
     }
 }
