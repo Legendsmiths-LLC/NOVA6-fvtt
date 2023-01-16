@@ -1,7 +1,7 @@
 # The NOVA6 game system for FoundryVTT
 
 <p align="center">
-<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/anvil-vtt/nova6"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/anvil-vtt/nova6"> <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/anvil-vtt/nova6/total" /> <img alt="GitHub Releases" src="https://img.shields.io/github/downloads/anvil-vtt/nova6/latest/total" /> <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/anvil-vtt/nova6?label=latest%20release" /> 
+<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/legendsmiths-llc/nova6-fvtt"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/legendsmiths-llc/nova6-fvtt"> <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/legendsmiths-llc/nova6-fvtt/total" /> <img alt="GitHub Releases" src="https://img.shields.io/github/downloads/legendsmiths-llc/nova6-fvtt/latest/total" /> <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/legendsmiths-llc/nova6-fvtt?label=latest%20release" /> 
 </p>
 
 This is the official NOVA6 game system for FoundryVTT, based on the TTRPG from Legendsmiths, LLC. For more information about Legendsmiths and their work, visit [https://legendsmiths.com/](https://legendsmiths.com/).
@@ -10,7 +10,7 @@ The NOVA6 game system is not usable standalone. To play this game you need a cop
 
 ## Installation
 
-**Manifest URL**: https://github.com/anvil-vtt/NOVA6/releases/latest/download/system.json
+**Manifest URL**: https://github.com/Legendsmiths-LLC/NOVA6-fvtt/releases/latest/download/system.json
 
 For manual installation, use the provided manifest URL in the "_Install System_" popup window while managing game systems.
 

@@ -10,7 +10,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/anvil-vtt/NOVA6.git"
+        "url": "git+https://github.com/Legendsmiths-LLC/NOVA6-fvtt.git"
     },
     "author": "Patrick Bauer (Daddi#2333)",
     "license": "MIT",

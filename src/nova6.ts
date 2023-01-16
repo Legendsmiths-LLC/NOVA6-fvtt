@@ -2,7 +2,7 @@
  * he official NOVA6 game system for FoundryVTT, based on the TTRPG from Legendsmiths
  *
  * Author: Patrick Bauer (Daddi#2333)
- * Repository: https://github.com/anvil-vtt/NOVA6
+ * Repository: https://github.com/Legendsmiths-LLC/NOVA6-fvtt
  * Software License: MIT#
  * Content License:
  *      Original material for NOVA6 is derived from the Fate Core System. Work based on Fate Core System
