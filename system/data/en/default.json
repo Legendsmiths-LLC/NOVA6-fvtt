@@ -15,9 +15,10 @@
         ],
         "skills": [
             "Fight",
-            "Interact",
             "Move",
+            "Interact",
             "Physique",
+            "Wits",
             "Resolve"
         ]
     },

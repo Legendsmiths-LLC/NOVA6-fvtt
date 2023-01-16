@@ -2,7 +2,7 @@
     "id": "nova6",
     "title": "NOVA6",
     "description": "The official FoundryVTT game system for the NOVA6 TTRPG from Legendsmiths, LLC",
-    "version": "0.1.20",
+    "version": "0.1.21",
     "authors": [
         {
             "name": "Patrick Bauer",
@@ -24,26 +24,32 @@
     "packs": [
         {
             "name": "aspects",
-            "label": "Aspects",
+            "label": "NOVA6 Aspects",
             "path": "data/packs/aspects.db",
             "type": "Item"
         },
         {
             "name": "talents",
-            "label": "Talents",
+            "label": "NOVA6 Talents",
             "path": "data/packs/talents.db",
             "type": "Item"
         },
         {
             "name": "assets",
-            "label": "Assets",
+            "label": "NOVA6 Assets",
             "path": "data/packs/assets.db",
             "type": "Item"
         },
         {
             "name": "skills",
-            "label": "Skills",
+            "label": "NOVA6 Skills",
             "path": "data/packs/skills.db",
+            "type": "Item"
+        },
+        {
+            "name": "beyondhope",
+            "label": "NOVA6 Themepack Beyond Hope and Reason\n",
+            "path": "data/packs/beyondhope.db",
             "type": "Item"
         }
     ],
