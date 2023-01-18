@@ -8,6 +8,16 @@
             "name": "Patrick Bauer",
             "discord": "Daddi#2333",
             "flags": {}
+        },
+        {
+            "name": "Shane Harsch",
+            "discord": "TekHed",
+            "flags": {}
+        },
+        {
+            "name": "Legendsmiths",
+            "discord": "Legendsmiths",
+            "url": "https://www.legendsmiths.com"
         }
     ],
     "scripts": [
