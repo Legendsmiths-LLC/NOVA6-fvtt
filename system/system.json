@@ -2,19 +2,19 @@
     "id": "nova6",
     "title": "NOVA6",
     "description": "The official FoundryVTT game system for the NOVA6 TTRPG from Legendsmiths, LLC",
-    "version": "0.1.22",
+    "version": "0.1.23",
     "authors": [
         {
-            "name": "Patrick Bauer",
-            "flags": {}
-        },
-        {
             "name": "Shane Harsch",
+            "discord": "TekHed#2367",
+            "email" "shane@legendsmiths.com",
+            "url": "https://www.legendsmiths.com",
             "flags": {}
         },
         {
-            "name": "Legendsmiths",
-            "url": "https://www.legendsmiths.com"
+            "name": "Patrick Bauer",
+            "discord": "Daddi#2333",
+            "flags": {}
         }
     ],
     "scripts": [
