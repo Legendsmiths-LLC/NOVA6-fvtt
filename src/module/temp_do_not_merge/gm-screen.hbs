@@ -1,0 +1,117 @@
+{{ log 'NOVA6 GM SCREEN' this }}
+<table>
+    {{#each actors}}
+        <tr>
+            <th></th>
+            <th><div>{{localize "gmscreen.aspects"}}</div></th>
+        </tr>
+        <tr>
+            <td>
+                <div>{{this.name}}</div>
+                {{!-- {{> "systems/nova6/templates/components/stress.hbs" 
+                    actor=this 
+                    stresses=this.stresses  
+                    stressTypes=this.stressTypes
+                    stressSeverities=this.stressSeverities
+                    stressDurations=this.stressDurations
+                }} --}}
+                <table>
+                    {{#each this.stresses as |stress stressIndex|}}
+                        <tr>
+                            <td><div>{{stress.name}}</div></td>
+                        </tr>
+                        <tr>
+                            <td><div>{{localize "NOVA.Item.Stress.Physical"}}</div></td>
+                            <td class="nova6-stress nova6-stress--contents">
+                                {{#range 0 stress.system.numPhysicalStressed}}
+                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                        stress=stress
+                                        stressType='Physical'
+                                        stressSeverity='Stressed'
+                                        box=box
+                                        boxIndex=@index
+                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
+                                    }}
+                                {{/range}}
+                            </td>
+                            <td class="nova6-stress nova6-stress--contents">
+                                {{#range 1 stress.system.numPhysicalStaggered}}
+                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                        stress=stress 
+                                        stressType='Physical' 
+                                        stressSeverity='Stressed' 
+                                        box=box 
+                                        boxIndex=@index
+                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
+                                    }}
+                                {{/range}}
+                            </td>
+                            <td class="nova6-stress nova6-stress--contents">
+                                {{#range 1 stress.system.numPhysicalIncapacitated}}
+                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                                        stress=stress 
+                                        stressType='Physical' 
+                                        stressSeverity='Stressed' 
+                                        box=box
+                                        boxIndex=@index
+                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
+                                    }}
+                                {{/range}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{localize "NOVA.Item.Stress.Stressed"}}</td>
+                            <td>{{localize "NOVA.Item.Stress.Staggered"}}</td>
+                            <td>{{localize "NOVA.Item.Stress.Incapacitated"}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{localize "NOVA.Item.Stress.Mental"}}</td>
+                            <td class="nova6-stress nova6-stress--contents">
+                                {{#range 1 stress.system.numMentalStressed}}
+                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                                        stress=stress 
+                                        stressType='Mental' 
+                                        stressSeverity='Stressed' 
+                                        box=box 
+                                        boxIndex=@index
+                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
+                                    }}
+                                {{/range}}
+                            </td>
+                            <td class="nova6-stress nova6-stress--contents">
+                                {{#range 1 stress.system.numMentalStaggered}}
+                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                                        stress=stress 
+                                        stressType='Mental' 
+                                        stressSeverity='Stressed' 
+                                        box=box 
+                                        boxIndex=@index
+                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
+                                    }}
+                                {{/range}}
+                            </td>
+                            <td class="nova6-stress nova6-stress--contents">
+                                {{#range 1 stress.system.numMentalIncapacitated}}
+                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                                        stress=stress 
+                                        stressType='Mental' 
+                                        stressSeverity='Stressed' 
+                                        box=box 
+                                        boxIndex=@index
+                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
+                                    }}
+                                {{/range}}
+                            </td>
+                        </tr>
+                    {{/each}}
+                </table>
+            </td>
+            <th class="flexrow">
+                {{#each this.aspects as |aspect aspectIndex|}}
+                    <div>{{aspect.name}}</div>
+                {{/each}}
+            </th>
+        </tr>
+    {{/each}}
+</table>
