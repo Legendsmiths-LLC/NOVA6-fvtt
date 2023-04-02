@@ -1,117 +1,289 @@
 {{ log 'NOVA6 GM SCREEN' this }}
-<table>
+<head>
+    <style>
+        .nova6-stress {
+            grid-template-columns: repeat(5, min-content);
+        }
+
+        .two-column-list {
+            column-count: 2;
+            column-gap: 30px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            margin-right: 25px;
+            width: 300px;
+        }
+
+        .two-column-list li {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        /*.collapsible {
+            cursor: pointer;
+            padding: 0;
+            border: none;
+            outline: none;
+            width: 100%;
+            text-align: left;
+            font-size: 18px;
+            background-color: #f1f1f1;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #ddd;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }*/
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+
+        .active + .content {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .fa-angle-down {
+            margin-right: 0.5em;
+            font-size: 1.2em;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .collapsible.active .fa-angle-down {
+            transform: rotate(180deg);
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        tr:first-child {
+            background-color: darkgray;
+        }
+
+        tr:nth-child(4n+2),
+        tr:nth-child(4n+3) {
+            background-color: lightgray!important;
+        }
+    
+        tr:nth-child(4n+4),
+        tr:nth-child(4n+5) {
+            background-color: darkgray !important;
+        }
+        /*
+        tr {
+            background: blue !important;
+        }
+
+        tr:nth-child(4n+1) {
+            background: red !important;
+        }
+
+        tr:nth-child(4n+2) {
+            background: red !important;
+        }*/
+    </style>
+    <script>
+        function toggleCollapsible(event) {
+            event.preventDefault();
+            event.currentTarget.classList.toggle("active");
+            var content = event.currentTarget.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+    </script>
+</head>
+
+<form>
     {{#each actors}}
-        <tr>
-            <th></th>
-            <th><div>{{localize "gmscreen.aspects"}}</div></th>
-        </tr>
-        <tr>
-            <td>
-                <div>{{this.name}}</div>
-                {{!-- {{> "systems/nova6/templates/components/stress.hbs" 
-                    actor=this 
-                    stresses=this.stresses  
-                    stressTypes=this.stressTypes
-                    stressSeverities=this.stressSeverities
-                    stressDurations=this.stressDurations
-                }} --}}
-                <table>
-                    {{#each this.stresses as |stress stressIndex|}}
-                        <tr>
-                            <td><div>{{stress.name}}</div></td>
-                        </tr>
-                        <tr>
-                            <td><div>{{localize "NOVA.Item.Stress.Physical"}}</div></td>
-                            <td class="nova6-stress nova6-stress--contents">
-                                {{#range 0 stress.system.numPhysicalStressed}}
-                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs
-                                        stress=stress
-                                        stressType='Physical'
-                                        stressSeverity='Stressed'
-                                        box=box
-                                        boxIndex=@index
-                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
-                                    }}
-                                {{/range}}
-                            </td>
-                            <td class="nova6-stress nova6-stress--contents">
-                                {{#range 1 stress.system.numPhysicalStaggered}}
-                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs
-                                        stress=stress 
-                                        stressType='Physical' 
-                                        stressSeverity='Stressed' 
-                                        box=box 
-                                        boxIndex=@index
-                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
-                                    }}
-                                {{/range}}
-                            </td>
-                            <td class="nova6-stress nova6-stress--contents">
-                                {{#range 1 stress.system.numPhysicalIncapacitated}}
-                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs 
-                                        stress=stress 
-                                        stressType='Physical' 
-                                        stressSeverity='Stressed' 
-                                        box=box
-                                        boxIndex=@index
-                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
-                                    }}
-                                {{/range}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>{{localize "NOVA.Item.Stress.Stressed"}}</td>
-                            <td>{{localize "NOVA.Item.Stress.Staggered"}}</td>
-                            <td>{{localize "NOVA.Item.Stress.Incapacitated"}}</td>
-                        </tr>
-                        <tr>
-                            <td>{{localize "NOVA.Item.Stress.Mental"}}</td>
-                            <td class="nova6-stress nova6-stress--contents">
-                                {{#range 1 stress.system.numMentalStressed}}
-                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs 
-                                        stress=stress 
-                                        stressType='Mental' 
-                                        stressSeverity='Stressed' 
-                                        box=box 
-                                        boxIndex=@index
-                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
-                                    }}
-                                {{/range}}
-                            </td>
-                            <td class="nova6-stress nova6-stress--contents">
-                                {{#range 1 stress.system.numMentalStaggered}}
-                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs 
-                                        stress=stress 
-                                        stressType='Mental' 
-                                        stressSeverity='Stressed' 
-                                        box=box 
-                                        boxIndex=@index
-                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
-                                    }}
-                                {{/range}}
-                            </td>
-                            <td class="nova6-stress nova6-stress--contents">
-                                {{#range 1 stress.system.numMentalIncapacitated}}
-                                    {{> systems/nova6/templates/applications/stress-box-partial.hbs 
-                                        stress=stress 
-                                        stressType='Mental' 
-                                        stressSeverity='Stressed' 
-                                        box=box 
-                                        boxIndex=@index
-                                        status=(getValueAtIndex stress.system.status.Physical.Stressed this)
-                                    }}
-                                {{/range}}
-                            </td>
-                        </tr>
-                    {{/each}}
-                </table>
-            </td>
-            <th class="flexrow">
-                {{#each this.aspects as |aspect aspectIndex|}}
-                    <div>{{aspect.name}}</div>
+        <div>{{this.name}}</div>
+        <div class="flexrow">
+            <table>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th style="text-align: left;">{{localize "NOVA.Item.Stress.Stressed"}}</th>
+                    <th style="text-align: left;">{{localize "NOVA.Item.Stress.Staggered"}}</th>
+                    <th style="text-align: left;">{{localize "NOVA.Item.Stress.Incapacitated"}}</th>
+                </tr>
+                {{#each this.stresses as |stress stressIndex|}}
+                <tr>
+                    <td>{{stress.name}}</td>
+                    <td>
+                        {{localize "NOVA.Item.Stress.Physical"}}
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numPhysicalStressed}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                stress=stress
+                                stressType='Physical'
+                                stressSeverity='Stressed'
+                                box=box
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Physical.Stressed this)
+                            }}
+                        {{/range}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numPhysicalStaggered}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                stress=stress 
+                                stressType='Physical' 
+                                stressSeverity='Staggered' 
+                                box=box 
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Physical.Staggered this)
+                            }}
+                        {{/range}}
+                        </div>          
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents" >
+                        {{#range 0 stress.system.numPhysicalIncapacitated}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                                stress=stress 
+                                stressType='Physical' 
+                                stressSeverity='Incapacitated' 
+                                box=box
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Physical.Incapacitated this)
+                            }}
+                        {{/range}}
+                        </div>          
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{{localize "NOVA.Item.Stress.Mental"}}</td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numMentalStressed}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                stress=stress
+                                stressType='Mental'
+                                stressSeverity='Stressed'
+                                box=box
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Mental.Stressed this)
+                            }}
+                        {{/range}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numMentalStaggered}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                stress=stress 
+                                stressType='Mental' 
+                                stressSeverity='Staggered' 
+                                box=box 
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Mental.Staggered this)
+                            }}
+                        {{/range}}
+                        </div>          
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numMentalIncapacitated}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                                stress=stress 
+                                stressType='Mental' 
+                                stressSeverity='Incapacitated' 
+                                box=box
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Mental.Incapacitated this)
+                            }}
+                        {{/range}}
+                        </div>          
+                    </td>
+                </tr>
                 {{/each}}
-            </th>
-        </tr>
+            </table>
+            <ul class="two-column-list">
+                {{#each this.aspects as |aspect aspectIndex|}}
+                    {{log 'aspect' aspect}}
+                    <li style="text-align: left;">
+                        <div class="container" style="justify-content: flex-start; align-items: center;">
+                            <div class="nova6-js-sortable nova6-item" data-item-id="{{aspect._id}}">
+                                <div class="nova6-u-pos-relative">
+                                    <div class="nova6-aspects__wrapper">
+                                        <div class="nova6-aspects__status">
+                                            <label
+                                                class="nova6-js-aspect-checkbox nova6-checkbox"
+                                                data-item-id="{{aspect._id}}"
+                                            >
+                                            <input
+                                                class="nova6-checkbox__input"
+                                                type="checkbox"
+                                                {{#if aspect.system.invoked}}checked="checked"{{/if}}
+                                            >
+
+                                                <i class="nova6-checkbox__icon fa fa-check"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="text-align: left; font-weight: bold;">{{aspect.name}}</div>
+
+                            <div>({{aspect.system.label}})</div>
+                        </div>
+
+                        <div class="collapsible" onclick="toggleCollapsible(event)">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+
+                        <div class="content">
+                            <div id="description{{aspectIndex}}"></div>
+                        </div>
+
+                        {{!-- <div class="collapsible" onclick="toggleCollapsible(event)">
+                            <input type="checkbox" id="collapse{{aspectIndex}}" class="collapse-checkbox">
+                            <label for="collapse{{aspectIndex}}" class="collapse-label">
+                                <i class="fas fa-angle-down"></i> Click to expand/collapse
+                            </label>
+                            <div class="content">
+                                <div id="description{{aspectIndex}}"></div>
+                            </div>
+                        </div> --}}
+
+                        {{!-- <div id="description{{aspectIndex}}"></div> --}}
+                        <script>
+                            var aspectDescription = `{{aspect.system.description}}`;
+                            var decodedText = $("<div>").html(aspectDescription).text();
+                            var plainText = decodedText.replace(/(<([^>]+)>)/ig, "");
+                            document.getElementById("description{{aspectIndex}}").innerHTML = plainText;
+                        </script>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
     {{/each}}
-</table>
+</form>
