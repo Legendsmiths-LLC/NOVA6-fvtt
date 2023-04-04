@@ -21,29 +21,6 @@
             margin-bottom: 10px;
         }
 
-        /*.collapsible {
-            cursor: pointer;
-            padding: 0;
-            border: none;
-            outline: none;
-            width: 100%;
-            text-align: left;
-            font-size: 18px;
-            background-color: #f1f1f1;
-        }
-
-        .active, .collapsible:hover {
-            background-color: #ddd;
-        }
-
-        .collapsible:after {
-            content: '\002B';
-            color: #777;
-            font-weight: bold;
-            float: right;
-            margin-left: 5px;
-        }*/
-
         .active:after {
             content: "\2212";
         }
@@ -89,18 +66,6 @@
         tr:nth-child(4n+5) {
             background-color: darkgray !important;
         }
-        /*
-        tr {
-            background: blue !important;
-        }
-
-        tr:nth-child(4n+1) {
-            background: red !important;
-        }
-
-        tr:nth-child(4n+2) {
-            background: red !important;
-        }*/
     </style>
     <script>
         function toggleCollapsible(event) {
@@ -117,9 +82,13 @@
 </head>
 
 <form>
+    <div class="flexrow">
+        <button type="button" data-action="reset-stress" >{{localize "NOVA.GmScreen.Buttons.ResetStress"}}</button>
+        <button type="button" data-action="reset-aspects" >{{localize "NOVA.GmScreen.Buttons.ResetAspects"}}</button>
+    </div>
     {{#each actors}}
         <div>{{this.name}}</div>
-        <div class="flexrow">
+        <div class="flexrow" data-actor-id="{{this._id}}">
             <table>
                 <tr>
                     <th></th>
@@ -227,7 +196,6 @@
             </table>
             <ul class="two-column-list">
                 {{#each this.aspects as |aspect aspectIndex|}}
-                    {{log 'aspect' aspect}}
                     <li style="text-align: left;">
                         <div class="container" style="justify-content: flex-start; align-items: center;">
                             <div class="nova6-js-sortable nova6-item" data-item-id="{{aspect._id}}">
@@ -264,17 +232,6 @@
                             <div id="description{{aspectIndex}}"></div>
                         </div>
 
-                        {{!-- <div class="collapsible" onclick="toggleCollapsible(event)">
-                            <input type="checkbox" id="collapse{{aspectIndex}}" class="collapse-checkbox">
-                            <label for="collapse{{aspectIndex}}" class="collapse-label">
-                                <i class="fas fa-angle-down"></i> Click to expand/collapse
-                            </label>
-                            <div class="content">
-                                <div id="description{{aspectIndex}}"></div>
-                            </div>
-                        </div> --}}
-
-                        {{!-- <div id="description{{aspectIndex}}"></div> --}}
                         <script>
                             var aspectDescription = `{{aspect.system.description}}`;
                             var decodedText = $("<div>").html(aspectDescription).text();

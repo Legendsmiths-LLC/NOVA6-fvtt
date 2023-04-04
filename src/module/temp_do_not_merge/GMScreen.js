@@ -7,38 +7,24 @@ Hooks.on("init", () => {
 Hooks.once("ready", () => {
     Nova6GMScreen.initialize()
 
-    // game.socket.on(ComplexRoll.SOCKET, ( options ) => {
-    //     switch(options.type) {
-    //         case 'results':
-    //             if (options.complexRollId in ComplexRollData.getComplexRollsForUser(game.userId)) {
-    //                 ComplexRoll.complexRollForm.updateResults(options)
-    //             }
-    //             break;
-    //         case 'update':
-    //             ComplexRoll.complexRollForm.render(true, {})
+    game.socket.on('system.nova6', ( options ) => {
+        switch(options.type) {
+            case 'update':
+                console.log('update called!')
 
-    //             break;
-    //         default:
-    //             ComplexRoll.log(true, "unknown socket event " + options.type)
-    //             break;
-    //     }
-    // });
+                break;
+            default:
+                break;
+        }
+    });
 });
 
-// Hooks.on('renderPlayerList', (playerList, html) => {
-//     // find the element which has our logged in user's id
-//     const loggedInUserListItem = html.find(`[data-user-id="${game.userId}"]`)
-    
-//     // insert a button at the end of this element
-//     loggedInUserListItem.append(
-//       "<button type='button' class='todo-list-icon-button'><i class='fas fa-tasks'></i></button>"
-//     );
-//   });
+Hooks.on("updateActor", () => {
+    Nova6GMScreen.Nova6GMScreenForm.render();
+});
 
 Hooks.on("getSceneControlButtons", (controls) => {
     if(!game.user.isGM) { return; }
-
-    console.log(controls)
 
     controls[0].tools.push({
         name: game.i18n.localize("gmsreen.gmscreen"),
@@ -86,18 +72,10 @@ class Nova6GMScreenData {
             const stresses =  actor.items.filter((item) => {
                 return item.type === 'stress';
             });
-            const stressDurations = actor.items.filter((item) => {
-                if ((item.type) === 'stress') {
-                    console.log(item)
-                }
-            });
             return {
                 ...actor.toObject(),
                 aspects: aspects.map((aspect) => aspect.toObject()),
                 stresses: stresses.map((stress) => stress.toObject())//,
-                // stressTypes: ['Physical', 'Mental'],
-                // stressSeverities: ['Stressed', 'Staggered', 'Incapacitated'],
-                // stressDurations: ["C","B","Q","S","T","L","LL","E","P"]
             }
         })
     }
@@ -141,9 +119,7 @@ class Nova6GMScreenForm extends FormApplication {
     }
 
     async _updateObject(event, formData) { 
-        const expandedData = foundry.utils.expandObject(formData);
-
-        // await ComplexRollData.updateManyComplexRolls(this.options.userId, expandedData);
+        // const expandedData = foundry.utils.expandObject(formData);
 
         this.render()
     }
@@ -152,12 +128,98 @@ class Nova6GMScreenForm extends FormApplication {
         super.activateListeners(html);
 
         html.on('click', '[data-action]', this._handleButtonClick.bind(this));
+        html.find(".nova6-js-aspect-checkbox").click((e) => this._aspectToggle.call(this, e));
     }
 
     async _handleButtonClick(event) {
         const clickedElement = $(event.currentTarget);
         const action = clickedElement.data().action;
-        // const complexRollId = clickedElement.parents('[data-complex-roll-id]')?.data()?.complexRollId;
 
+        const actors = Nova6GMScreenData.getPlayerActorData()
+
+        switch (action) {
+            case ('reset-aspects'): {
+                this.clearAspects(actors)
+
+                break;
+            }
+            case ('reset-stress'): {
+                this.clearStress(actors)
+
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        game.socket.emit('system.nova6', { type: 'update' })
+
+        this.render()
+    }
+
+    async clearAspects(actors) {
+        for (const [actorKey, actor] of Object.entries(actors)) {
+            const items = actor.items
+
+            for (const [itemKey, item] of Object.entries(items)) {
+                if (item.type === 'aspect') {
+                    await game.actors.get(actor._id).items.get(item._id).update({"system.invoked": false})
+                }
+            }
+        }
+
+        this.render()
+    }
+
+    async clearStress(actors) {
+        for (const [actorKey, actor] of Object.entries(actors)) {
+            const items = actor.items
+
+            for (const [itemKey, item] of Object.entries(items)) {
+                if (item.type === 'stress') {
+                    const relevantItem = game.actors.get(actor._id).items.get(item._id)
+
+                    const clearKeys = await this.setAllStressKeys(relevantItem, 'C')
+
+                    await relevantItem.update(clearKeys)
+                }
+            }
+        }
+
+        this.render()
+    }
+
+    async setAllStressKeys(relevantItem, newKey) {
+        const stressTypes = ["Physical", "Mental"];
+        const stressSeverities = ["Stressed", "Staggered", "Incapacitated"];
+
+        let clearKeys = [];
+
+        for(let stressIndex = 0; stressIndex < stressTypes.length; stressIndex++) {
+            for(let severityIndex = 0; severityIndex < stressSeverities.length; severityIndex++) {
+                const stressData = relevantItem.system[stressTypes[stressIndex]][stressSeverities[severityIndex]]
+
+                for (const [key, value] of Object.entries(stressData)) {
+                    clearKeys[`system.status.${stressTypes[stressIndex]}.${stressSeverities[severityIndex]}.${key}.status`] = newKey
+                }
+            }   
+        }
+
+        return clearKeys
+    }
+
+    async _aspectToggle(event) {
+        const clickedElement = $(event.currentTarget);
+        const itemId = clickedElement.data().itemId        
+        const actorId = clickedElement.closest('[data-actor-id]').data().actorId
+
+        const relevantItem = game.actors.get(actorId).items.get(itemId)
+
+        await relevantItem.update({"system.invoked": !relevantItem.system.invoked})
+
+        game.socket.emit('system.nova6', { type: 'update' })
+
+        this.render()
     }
 }
