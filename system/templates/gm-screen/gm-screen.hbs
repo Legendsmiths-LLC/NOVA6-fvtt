@@ -1,0 +1,246 @@
+{{ log 'NOVA6 GM SCREEN' this }}
+<head>
+    <style>
+        .nova6-stress {
+            grid-template-columns: repeat(5, min-content);
+        }
+
+        .two-column-list {
+            column-count: 2;
+            column-gap: 30px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            margin-right: 25px;
+            width: 300px;
+        }
+
+        .two-column-list li {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .active:after {
+            content: "\2212";
+        }
+
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+
+        .active + .content {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .fa-angle-down {
+            margin-right: 0.5em;
+            font-size: 1.2em;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .collapsible.active .fa-angle-down {
+            transform: rotate(180deg);
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+
+        tr:first-child {
+            background-color: darkgray;
+        }
+
+        tr:nth-child(4n+2),
+        tr:nth-child(4n+3) {
+            background-color: lightgray!important;
+        }
+    
+        tr:nth-child(4n+4),
+        tr:nth-child(4n+5) {
+            background-color: darkgray !important;
+        }
+    </style>
+    <script>
+        function toggleCollapsible(event) {
+            event.preventDefault();
+            event.currentTarget.classList.toggle("active");
+            var content = event.currentTarget.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        }
+    </script>
+</head>
+
+<form>
+    <div class="flexrow">
+        <button type="button" data-action="reset-stress" >{{localize "NOVA.GmScreen.Buttons.ResetStress"}}</button>
+        <button type="button" data-action="reset-aspects" >{{localize "NOVA.GmScreen.Buttons.ResetAspects"}}</button>
+    </div>
+    {{#each actors}}
+        <div>{{this.name}}</div>
+        <div class="flexrow" data-actor-id="{{this._id}}">
+            <table>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th style="text-align: left;">{{localize "NOVA.Item.Stress.Stressed"}}</th>
+                    <th style="text-align: left;">{{localize "NOVA.Item.Stress.Staggered"}}</th>
+                    <th style="text-align: left;">{{localize "NOVA.Item.Stress.Incapacitated"}}</th>
+                </tr>
+                {{#each this.stresses as |stress stressIndex|}}
+                <tr>
+                    <td>{{stress.name}}</td>
+                    <td>
+                        {{localize "NOVA.Item.Stress.Physical"}}
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numPhysicalStressed}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                stress=stress
+                                stressType='Physical'
+                                stressSeverity='Stressed'
+                                box=box
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Physical.Stressed this)
+                            }}
+                        {{/range}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numPhysicalStaggered}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                stress=stress 
+                                stressType='Physical' 
+                                stressSeverity='Staggered' 
+                                box=box 
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Physical.Staggered this)
+                            }}
+                        {{/range}}
+                        </div>          
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents" >
+                        {{#range 0 stress.system.numPhysicalIncapacitated}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                                stress=stress 
+                                stressType='Physical' 
+                                stressSeverity='Incapacitated' 
+                                box=box
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Physical.Incapacitated this)
+                            }}
+                        {{/range}}
+                        </div>          
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>{{localize "NOVA.Item.Stress.Mental"}}</td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numMentalStressed}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                stress=stress
+                                stressType='Mental'
+                                stressSeverity='Stressed'
+                                box=box
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Mental.Stressed this)
+                            }}
+                        {{/range}}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numMentalStaggered}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                                stress=stress 
+                                stressType='Mental' 
+                                stressSeverity='Staggered' 
+                                box=box 
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Mental.Staggered this)
+                            }}
+                        {{/range}}
+                        </div>          
+                    </td>
+                    <td>
+                        <div class="nova6-stress nova6-stress--contents">
+                        {{#range 0 stress.system.numMentalIncapacitated}}
+                            {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                                stress=stress 
+                                stressType='Mental' 
+                                stressSeverity='Incapacitated' 
+                                box=box
+                                boxIndex=@index
+                                status=(getValueAtIndex stress.system.status.Mental.Incapacitated this)
+                            }}
+                        {{/range}}
+                        </div>          
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+            <ul class="two-column-list">
+                {{#each this.aspects as |aspect aspectIndex|}}
+                    <li style="text-align: left;">
+                        <div class="container" style="justify-content: flex-start; align-items: center;">
+                            <div class="nova6-js-sortable nova6-item" data-item-id="{{aspect._id}}">
+                                <div class="nova6-u-pos-relative">
+                                    <div class="nova6-aspects__wrapper">
+                                        <div class="nova6-aspects__status">
+                                            <label
+                                                class="nova6-js-aspect-checkbox nova6-checkbox"
+                                                data-item-id="{{aspect._id}}"
+                                            >
+                                            <input
+                                                class="nova6-checkbox__input"
+                                                type="checkbox"
+                                                {{#if aspect.system.invoked}}checked="checked"{{/if}}
+                                            >
+
+                                                <i class="nova6-checkbox__icon fa fa-check"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="text-align: left; font-weight: bold;">{{aspect.name}}</div>
+
+                            <div>({{aspect.system.label}})</div>
+                        </div>
+
+                        <div class="collapsible" onclick="toggleCollapsible(event)">
+                            <i class="fas fa-angle-down"></i>
+                        </div>
+
+                        <div class="content">
+                            <div id="description{{aspectIndex}}"></div>
+                        </div>
+
+                        <script>
+                            var aspectDescription = `{{aspect.system.description}}`;
+                            var decodedText = $("<div>").html(aspectDescription).text();
+                            var plainText = decodedText.replace(/(<([^>]+)>)/ig, "");
+                            document.getElementById("description{{aspectIndex}}").innerHTML = plainText;
+                        </script>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    {{/each}}
+</form>

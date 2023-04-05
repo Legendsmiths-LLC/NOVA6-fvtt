@@ -1,0 +1,17 @@
+<form>
+    <div class="nova6-stress nova6-stress__{{stressType}} nova6-stress--contents nova6-stress__boxes">
+        <label class="nova6-checkbox">
+            <input
+                class="nova6-js-stress-checkbox nova6-checkbox__input"
+                type="checkbox"
+                data-item="{{stress._id}}"
+                data-type="{{stressType}}"
+                data-severity="{{stressSeverity}}"
+                data-index="{{boxIndex}}"
+                {{#if status}}checked="checked"{{/if}}
+            >
+            <i class="nova6-checkbox__icon nova6-checkbox__icon--status-{{status}}"></i>
+            {{> duration_selector stress=stress stressType=stressType stressSeverity=stressSeverity box=box boxIndex=boxIndex}}
+        </label>
+    </div>
+</form>
