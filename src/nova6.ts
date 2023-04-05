@@ -1,5 +1,5 @@
 /**
- * he official NOVA6 game system for FoundryVTT, based on the TTRPG from Legendsmiths
+ * The official NOVA6 game system for FoundryVTT, based on the TTRPG from Legendsmiths
  *
  * Author: Patrick Bauer (Daddi#2333)
  * Repository: https://github.com/Legendsmiths-LLC/NOVA6-fvtt
@@ -27,6 +27,7 @@ import { AssetSheet } from "./module/item/asset/AssetSheet";
 import { TalentSheet } from "./module/item/talent/TalentSheet";
 import { StressSheet } from "./module/item/stress/StressSheet";
 import { novaModifier } from "./module/applications/RollDialog";
+import { Nova6GMScreen } from "./module/components/GMScreen/GMScreen"
 
 /* -------------------------------- */
 /*	System initialization			*/
@@ -87,6 +88,8 @@ Hooks.once("init", async () => {
         types: ["stress"],
         makeDefault: true,
     });
+
+    Nova6GMScreen.initialize()
 
     // Preload all needed templates
     await TemplatePreloader.preloadHandlebarsTemplates();

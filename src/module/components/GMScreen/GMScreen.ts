@@ -1,53 +1,37 @@
-Hooks.on("init", () => {
-    loadTemplates([
-        "systems/nova6/templates/applications/stress-box-partial.hbs"
-    ]);
-})
+// Hooks.on("init", () => {
 
-Hooks.once("ready", () => {
-    Nova6GMScreen.initialize()
+// })
 
-    if (! game?.socket) { return; }
+// Hooks.once("ready", () => {
+//     Nova6GMScreen.initialize()
 
-    game?.socket.on('system.nova6', ( options: { type: string } ) => {
-        switch(options!.type) {
-            case 'update':
-                console.log('update called!')
+//     if (! game?.socket) { return; }
 
-                break;
-            default:
-                break;
-        }
-    });
-});
+//     game?.socket.on('system.nova6', ( options: { type: string } ) => {
+//         switch(options!.type) {
+//             case 'update':
+//                 console.log('update called!')
 
-Hooks.on("updateActor", () => {
-    Nova6GMScreen.Nova6GMScreenForm?.render();
-});
+//                 break;
+//             default:
+//                 break;
+//         }
+//     });
+// });
 
-Hooks.on("getSceneControlButtons", (controls) => {
-    if(!game?.user?.isGM) { return; }
-
-    controls[0].tools.push({
-        name: game.i18n.localize("gmsreen.gmscreen"),
-        title: game.i18n.localize("gmsreen.gmscreen"),
-        icon: 'far fa-dice',
-        button: true,
-        onClick: () => {
-            Nova6GMScreen.Nova6GMScreenForm?.render(true, {})
-        },
-    })
-});
-
-class Nova6GMScreen {
+export class Nova6GMScreen {
     static Nova6GMScreenForm: Nova6GMScreenForm
 
     static initialize() {
         this.Nova6GMScreenForm = new Nova6GMScreenForm({}, undefined)
 
+        loadTemplates([
+            "systems/nova6/templates/gm-screen/stress-box-partial.hbs"
+        ]);
+
         Handlebars.registerHelper('range', function(start: any, end: any, options: any) {
-            var ret = '';
-            for (var i = start; i <= end-1; i++) {
+            let ret = '';
+            for (let i = start; i <= end-1; i++) {
                 ret = ret + options.fn(i);
             }
             return ret;
@@ -58,16 +42,34 @@ class Nova6GMScreen {
 
             return array[index];
         });
+
+        Hooks.on("getSceneControlButtons", (controls) => {
+            if(!game?.user?.isGM) { return; }
+        
+            controls[0].tools.push({
+                name: game.i18n.localize("gmsreen.gmscreen"),
+                title: game.i18n.localize("gmsreen.gmscreen"),
+                icon: 'far fa-dice',
+                button: true,
+                onClick: () => {
+                    Nova6GMScreen.Nova6GMScreenForm?.render(true, {})
+                },
+            })
+        });
+
+        Hooks.on("updateActor", () => {
+            this.Nova6GMScreenForm?.render();
+        });
     }
 
     static TEMPLATES: {[key: string]: string} = {
-        Nova6GMScreenForm: "./systems/nova6/templates/applications/gm-screen.hbs"
+        Nova6GMScreenForm: "./systems/nova6/templates/gm-screen/gm-screen.hbs"
     }
 
-    static ID: string = "nova6gmscreen"
+    static ID = "nova6gmscreen"
 }
 
-class Nova6GMScreenData {
+export class Nova6GMScreenData {
     static getPlayerActorData() {
         return game?.actors?.filter((e) => e.hasPlayerOwner).map((actor) => {
             const aspects = actor.items.filter((item) => {
@@ -85,7 +87,7 @@ class Nova6GMScreenData {
     }
 }
 
-class Nova6GMScreenForm extends FormApplication {
+export class Nova6GMScreenForm extends FormApplication {
     static get defaultOptions() {
         const template = Nova6GMScreen.TEMPLATES.Nova6GMScreenForm
 
@@ -108,7 +110,7 @@ class Nova6GMScreenForm extends FormApplication {
         return mergedOptions
     }
 
-    getData():Promise<FormApplication.Data<{}, FormApplicationOptions>> {
+    getData() {
         const data = super.getData()
 
         const actors = Nova6GMScreenData.getPlayerActorData()
@@ -171,14 +173,16 @@ class Nova6GMScreenForm extends FormApplication {
             const items = (actor as any).items
 
             for (const [_, item] of Object.entries(items)) {
-                if ((item as any).type === 'aspect') {
+                if ((item as any)?.type === 'aspect') {
+                    // @ts-ignore
                     const relvantActor = game?.actors?.get(actor?._id) as Actor | undefined;
-                    if (!relvantActor) { return };
+                    if (!relvantActor) { continue; };
     
+                    // @ts-ignore
                     const relevantItem = relvantActor?.items?.get(item?._id) as Item | undefined;
     
                     if (relevantItem) {
-                        await relevantItem.update({"system.invoked": false})
+                        await relevantItem?.update({"system.invoked": false})
                     }
                 }
             }
@@ -205,6 +209,7 @@ class Nova6GMScreenForm extends FormApplication {
                 const relvantActor = game?.actors?.get(actor?._id) as Actor | undefined;
                 if (!relvantActor) { continue; };
 
+                // @ts-ignore
                 const relevantItem = relvantActor?.items?.get(item?._id) as Item | undefined;
 
                 if (relevantItem) {
@@ -241,6 +246,7 @@ class Nova6GMScreenForm extends FormApplication {
 
         const relevantItem = game?.actors?.get(actorId)?.items?.get(itemId)
 
+        // @ts-ignore
         await relevantItem?.update({"system.invoked": !relevantItem?.system?.invoked})
 
         if (game?.socket) {

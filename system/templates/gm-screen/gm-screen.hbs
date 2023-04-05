@@ -106,7 +106,7 @@
                     <td>
                         <div class="nova6-stress nova6-stress--contents">
                         {{#range 0 stress.system.numPhysicalStressed}}
-                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                            {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs
                                 stress=stress
                                 stressType='Physical'
                                 stressSeverity='Stressed'
@@ -120,7 +120,7 @@
                     <td>
                         <div class="nova6-stress nova6-stress--contents">
                         {{#range 0 stress.system.numPhysicalStaggered}}
-                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                            {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs
                                 stress=stress 
                                 stressType='Physical' 
                                 stressSeverity='Staggered' 
@@ -134,7 +134,7 @@
                     <td>
                         <div class="nova6-stress nova6-stress--contents" >
                         {{#range 0 stress.system.numPhysicalIncapacitated}}
-                            {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                            {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs 
                                 stress=stress 
                                 stressType='Physical' 
                                 stressSeverity='Incapacitated' 
@@ -152,7 +152,7 @@
                     <td>
                         <div class="nova6-stress nova6-stress--contents">
                         {{#range 0 stress.system.numMentalStressed}}
-                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                            {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs
                                 stress=stress
                                 stressType='Mental'
                                 stressSeverity='Stressed'
@@ -166,7 +166,7 @@
                     <td>
                         <div class="nova6-stress nova6-stress--contents">
                         {{#range 0 stress.system.numMentalStaggered}}
-                            {{> systems/nova6/templates/applications/stress-box-partial.hbs
+                            {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs
                                 stress=stress 
                                 stressType='Mental' 
                                 stressSeverity='Staggered' 
@@ -180,7 +180,7 @@
                     <td>
                         <div class="nova6-stress nova6-stress--contents">
                         {{#range 0 stress.system.numMentalIncapacitated}}
-                            {{> systems/nova6/templates/applications/stress-box-partial.hbs 
+                            {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs 
                                 stress=stress 
                                 stressType='Mental' 
                                 stressSeverity='Incapacitated' 
