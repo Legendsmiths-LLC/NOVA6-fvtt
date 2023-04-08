@@ -32,7 +32,7 @@ export class Nova6GMScreen {
         Handlebars.registerHelper('range', function(start: any, end: any, options: any) {
             let ret = '';
             for (let i = start; i <= end-1; i++) {
-                ret = ret + options.fn(i);
+                ret = ret + options.fn(i, { data: { ...options.data, index: i } });
             }
             return ret;
         });
@@ -115,20 +115,25 @@ export class Nova6GMScreenForm extends FormApplication {
 
         const actors = Nova6GMScreenData.getPlayerActorData()
 
+        const stressDurations =  ["C","B","Q","S","T","L","LL","E","P"]
+
+        const expandedStressDurations = stressDurations.map((duration) => ({
+            duration,
+            label: game.i18n.localize(`NOVA.Item.Stress.Durations.${duration}`),
+        }));
+
         const newData: any = {
             data,
             actors,
             stressTypes: ['Physical', 'Mental'],
             stressSeverities: ['Stressed', 'Staggered', 'Incapacitated'],
-            stressDurations: ["C","B","Q","S","T","L","LL","E","P"]
+            stressDurations: expandedStressDurations
         }
 
         return newData
     }
 
     async _updateObject(_) { 
-        // const expandedData = foundry.utils.expandObject(formData);
-
         this.render()
     }
 
@@ -137,6 +142,7 @@ export class Nova6GMScreenForm extends FormApplication {
 
         html.on('click', '[data-action]', this._handleButtonClick.bind(this));
         html.find(".nova6-js-aspect-checkbox").click((e) => this._aspectToggle.call(this, e));
+        html.find(".nova6-stress__selector").click((e) => this._stressSelector.call(this, e))
     }
 
     async _handleButtonClick(event) {
@@ -147,15 +153,17 @@ export class Nova6GMScreenForm extends FormApplication {
 
         switch (action) {
             case ('reset-aspects'): {
-                this.clearAspects(actors)
+                this.clearAspectsAll(actors)
 
                 break;
             }
+
             case ('reset-stress'): {
                 this.clearStressAll(actors)
 
                 break;
             }
+
             default: {
                 break;
             }
@@ -168,7 +176,7 @@ export class Nova6GMScreenForm extends FormApplication {
         game?.socket.emit('system.nova6', { type: 'update' })
     }
 
-    async clearAspects(actors) {
+    async clearAspectsAll(actors) {
         for (const [_, actor] of Object.entries(actors)) {
             const items = (actor as any).items
 
@@ -185,7 +193,7 @@ export class Nova6GMScreenForm extends FormApplication {
                         await relevantItem?.update({"system.invoked": false})
                     }
                 }
-            }
+            }        
         }
 
         this.render()
@@ -193,6 +201,7 @@ export class Nova6GMScreenForm extends FormApplication {
 
     async clearStressAll(actors) {
         for (const [_, actor] of Object.entries(actors)) {
+            console.log(actor)
             await this.clearStressActor(actor)
         }
 
@@ -200,12 +209,16 @@ export class Nova6GMScreenForm extends FormApplication {
     }
 
     async clearStressActor(actor: any) {
-        const items = actor.items
+        const items = (actor as any).items
 
         for (const [_, item] of Object.entries(items)) {
-            if (!item) { continue; }
+            console.log(item)
 
             if ((item as any)?.type === 'stress') {
+                // @ts-ignore
+                console.log(item.type)
+
+                // @ts-ignore
                 const relvantActor = game?.actors?.get(actor?._id) as Actor | undefined;
                 if (!relvantActor) { continue; };
 
@@ -218,6 +231,8 @@ export class Nova6GMScreenForm extends FormApplication {
                 }
             }
         }
+
+        this.render()
     }
 
     async getAllStressKeys(relevantItem: any, newKey: string): Promise<{ [key: string]: string }> {
@@ -252,6 +267,38 @@ export class Nova6GMScreenForm extends FormApplication {
         if (game?.socket) {
             game?.socket.emit('system.nova6', { type: 'update' })
         }
+
+        this.render()
+    }
+
+    // @ts-ignore
+    async _stressSelector(event) {
+        console.log('stress selector here!')
+
+        const durationSelector = event.currentTarget;
+        const stressId = durationSelector.dataset.item;
+        const stressType = durationSelector.dataset.type;
+        const stressSeverity = durationSelector.dataset.severity;
+        const boxIndex = durationSelector.dataset.index;
+        const selectedDuration = event.target.dataset.duration;
+
+        const clickedElement = $(event.currentTarget);
+        const actorId = clickedElement.closest('[data-actor-id]').data().actorId
+
+        // console.log(`Selected stress duration: ${selectedDuration}, stress ID: ${stressId}, stress type: ${stressType}, stress severity: ${stressSeverity}, box index: ${boxIndex}`);
+        // console.log(actorId)
+
+        const relevantActor = game.actors?.get(actorId)
+        const relevantItem = relevantActor?.items.get(stressId)
+
+        const update = {}
+        update[`system.status.${stressType}.${stressSeverity}.${boxIndex}`] = selectedDuration
+
+        await relevantItem?.update(update)
+
+        console.log(actorId)
+        console.log(stressId)
+        console.log(update)
 
         this.render()
     }
