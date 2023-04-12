@@ -95,14 +95,14 @@ export class Nova6GMScreenForm extends FormApplication {
 
         const overrides = {
             height: 'auto',
-            width: 1400,
+            width: 1410,
             id: Nova6GMScreen.ID,
             template: template,
-            title: "gmscreen.gmscreen",
+            title: "NOVA6.GmScreen.GmScreen",
             userId: game.userId,
             closeOnSubmit: false, // do not close when submitted
             submitOnChange: true, // submit when any input changes
-            resizable: false,
+            resizable: true,
         }
 
         const mergedOptions = foundry.utils.mergeObject(defaults, overrides);
