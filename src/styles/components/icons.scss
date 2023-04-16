@@ -1,0 +1,23 @@
+.icon-nova6 {
+    font-family: Arial, sans-serif;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.45;
+}
+
+.icon-nova6::before {
+    content: 'N6';
+}
+
+.icon-gmscreen {
+    font-family: Arial, sans-serif;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.45;
+}
+
+.icon-gmscreen::before {
+    content: 'GM';
+}

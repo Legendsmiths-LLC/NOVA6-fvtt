@@ -110,9 +110,9 @@
     </div>
     {{#each actors}}
         <div class="nova6-headline flexrow">
-            <div>{{this.name}}</div>
-            {{!-- <button type="button" data-action="reset-stress-one" data-actor-id="{{this._id}}" >{{localize "NOVA.GmScreen.Buttons.ResetStress"}}</button>
-            <button type="button" data-action="reset-aspects-one" data-actor-id="{{this._id}}" >{{localize "NOVA.GmScreen.Buttons.ResetAspects"}}</button> --}}
+            <div style="font-weight: bold; font-size: 24px;">{{this.name}}</div>
+            <button type="button" data-action="reset-stress-one" data-actor-id="{{this._id}}" >{{localize "NOVA.GmScreen.Buttons.ResetStressOne"}}</button>
+            <button type="button" data-action="reset-aspects-one" data-actor-id="{{this._id}}" >{{localize "NOVA.GmScreen.Buttons.ResetAspectsOne"}}</button>
         </div>
         <div class="flexrow" data-actor-id="{{this._id}}" style="gap: 10px">
             <div style="flex: 0 0 40%;">
