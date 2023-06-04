@@ -186,11 +186,16 @@
         "GmScreen": {
             "GmScreen": "NOVA6 GM Screen",
             "Buttons": {
-                "ResetStress": "Reset Stress (All)",
-                "ResetAspects": "Reset Aspects (All)",
-                "ResetStressOne": "Reset Stress",
-                "ResetAspectsOne": "Reset Aspects"
-            }
+                "ResetStress": "Recover Stress (All)",
+                "ResetAspects": "Clear Aspects (All)",
+                "ResetStressOne": "Recover Stress",
+                "ResetAspectsOne": "Clear Aspects"
+            },
+            "Stress": {
+                "Select": "Select stress level to recover",
+                "RecoverStress": "Stress Duration Select"
+            },
+            "Recover": "Recover"
         }
     }
 }

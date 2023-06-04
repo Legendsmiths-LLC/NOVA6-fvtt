@@ -5,35 +5,6 @@
             grid-template-columns: repeat(5, min-content);
         }
 
-        /*
-        .two-column-list {
-            column-count: 2;
-            column-gap: 30px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            margin-right: 25px;
-            width: 300px;
-        }
-
-        .two-column-list li {
-            display: inline-block;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-		.eight-column-list {
-			display: grid;
-			grid-template-columns: repeat(8, 1fr);
-			grid-gap: 5px;
-			list-style: none;
-			padding: 0;
-			margin: 0;
-			margin-right: 20px;
-			width: 500px;
-		}
-        */
-
         .auto-columns {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -73,21 +44,6 @@
             align-items: center;
             gap: 10px;
         }
-
-        /*
-        tr:first-child {
-            background-color: darkgray;
-        }
-        tr:nth-child(4n+2),
-        tr:nth-child(4n+3) {
-            background-color: lightgray!important;
-        }
-    
-        tr:nth-child(4n+4),
-        tr:nth-child(4n+5) {
-            background-color: darkgray !important;
-        }
-        */
     </style>
     <script>
         function toggleCollapsible(event) {
@@ -111,8 +67,8 @@
     {{#each actors}}
         <div class="nova6-headline flexrow">
             <div style="font-weight: bold; font-size: 24px;">{{this.name}}</div>
-            <button type="button" data-action="reset-stress-one" data-actor-id="{{this._id}}" >{{localize "NOVA.GmScreen.Buttons.ResetStressOne"}}</button>
-            <button type="button" data-action="reset-aspects-one" data-actor-id="{{this._id}}" >{{localize "NOVA.GmScreen.Buttons.ResetAspectsOne"}}</button>
+            <button type="button" data-action="reset-stress-one" data-actor-id="{{this._id}}" style="color: white">{{localize "NOVA.GmScreen.Buttons.ResetStressOne"}}</button>
+            <button type="button" data-action="reset-aspects-one" data-actor-id="{{this._id}}" style="color: white">{{localize "NOVA.GmScreen.Buttons.ResetAspectsOne"}}</button>
         </div>
         <div class="flexrow" data-actor-id="{{this._id}}" style="gap: 10px">
             <div style="flex: 0 0 40%;">
@@ -258,7 +214,7 @@
 
                                 <div style="text-align: left; font-weight: bold; font-size: 0.8em;">{{aspect.name}}</div>
 
-                                <div style="font-size: 0.8em;">({{aspect.system.label}})</div>
+                                <div style="font-size: 0.8em;">{{aspect.system.label}}</div>
                             </div>
 
                             {{!-- <div class="collapsible" onclick="toggleCollapsible(event)">

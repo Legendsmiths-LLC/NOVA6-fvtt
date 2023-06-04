@@ -73,7 +73,7 @@ export class Nova6Layer extends PlaceablesLayer {
         // @ts-ignore
         super.render(...args);
     }
-  }
+}
 
 export class Nova6GMScreen {
     static Nova6GMScreenForm: Nova6GMScreenForm
@@ -105,7 +105,8 @@ export class Nova6GMScreen {
     }
 
     static TEMPLATES: {[key: string]: string} = {
-        Nova6GMScreenForm: "./systems/nova6/templates/gm-screen/gm-screen.hbs"
+        Nova6GMScreenForm: "./systems/nova6/templates/gm-screen/gm-screen.hbs",
+        Nova6GMScreenStressForm: "./systems/nova6/templates/gm-screen/stress-form.hbs"
     }
 
     static ID = "nova6gmscreen"
@@ -140,7 +141,7 @@ export class Nova6GMScreenForm extends FormApplication {
             width: 1410,
             id: Nova6GMScreen.ID,
             template: template,
-            title: "NOVA6.GmScreen.GmScreen",
+            title: game.i18n.localize("NOVA.GmScreen.GmScreen"),
             userId: game.userId,
             closeOnSubmit: false, // do not close when submitted
             submitOnChange: true, // submit when any input changes
@@ -220,13 +221,21 @@ export class Nova6GMScreenForm extends FormApplication {
             }
 
             case ('reset-stress'): {
-                this.clearStressAll(actors);
+                const formData = await stressForm()
+                // @ts-ignore
+                const stressLevel = formData['stresslevel']
+
+                this.clearStressAll(actors, stressLevel);
 
                 break;
             }
 
             case ('reset-stress-one'): {
-                this.clearStressOne(event, actors);
+                const formData = await stressForm()
+                // @ts-ignore
+                const stressLevel = formData['stresslevel']
+
+                this.clearStressOne(event, actors, stressLevel);
 
                 break;
             }
@@ -285,16 +294,16 @@ export class Nova6GMScreenForm extends FormApplication {
         }        
     }
 
-    async clearStressAll(actors) {
+    async clearStressAll(actors, stressLevel) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for (const [_, actor] of Object.entries(actors)) {
-            await this.clearStressActor(actor)
+            await this.clearStressActor(actor, stressLevel)
         }
 
         this.render()
     }
 
-    async clearStressOne(event, actors) {
+    async clearStressOne(event, actors, stressLevel) {
         const clickedElement = $(event.currentTarget);
         const actorId = clickedElement.closest('[data-actor-id]').data().actorId
 
@@ -302,14 +311,14 @@ export class Nova6GMScreenForm extends FormApplication {
         for (const [_, actor] of Object.entries(actors)) {
             // @ts-ignore
             if (actor._id === actorId) {
-                await this.clearStressActor(actor)
+                await this.clearStressActor(actor, stressLevel)
             }
         }
 
         this.render()
     }
 
-    async clearStressActor(actor: any) {
+    async clearStressActor(actor: any, stressLevel) {
         const items = (actor as any).items
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -324,7 +333,7 @@ export class Nova6GMScreenForm extends FormApplication {
                 const relevantItem = relvantActor?.items?.get(item?._id) as Item | undefined;
 
                 if (relevantItem) {
-                    const clearKeys = await this.getAllStressKeys(relevantItem, 'C')
+                    const clearKeys = await this.getAllStressKeys(relevantItem, 'C', stressLevel)
                     await relevantItem?.update(clearKeys)
                 }
             }
@@ -333,11 +342,15 @@ export class Nova6GMScreenForm extends FormApplication {
         this.render()
     }
 
-    async getAllStressKeys(relevantItem: any, newKey: string): Promise<{ [key: string]: string }> {
+    async getAllStressKeys(relevantItem: any, newKey: string, stressLevel): Promise<{ [key: string]: string }> {
         const stressTypes: string[] = ["Physical", "Mental"];
         const stressSeverities: string[] = ["Stressed", "Staggered", "Incapacitated"];
 
         const clearKeys: { [key: string]: string } = {};
+
+        // @ts-ignore
+        const stressDurations =  ["C","B","Q","S","T","L","LL","E","P"]
+        const stressLevelToClear = stressDurations.indexOf(stressLevel)
 
         for(let stressIndex = 0; stressIndex < stressTypes.length; stressIndex++) {
             for(let severityIndex = 0; severityIndex < stressSeverities.length; severityIndex++) {
@@ -345,6 +358,17 @@ export class Nova6GMScreenForm extends FormApplication {
 
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 for (const [key, _] of Object.entries(stressData)) {
+                    const duration = relevantItem.system.status[stressTypes[stressIndex]][stressSeverities[severityIndex]][key]
+
+                    // if stress level is already 'C' skip
+                    if (Object.prototype.toString.call(duration) !== "[object String]") { continue; }
+
+                    const thisStressLevel = stressDurations.indexOf(duration)
+
+                    if (thisStressLevel > stressLevelToClear) {
+                        continue;
+                    }
+
                     clearKeys[`system.status.${stressTypes[stressIndex]}.${stressSeverities[severityIndex]}.${key}.status`] = newKey
                 }
             }   
@@ -398,4 +422,43 @@ export class Nova6GMScreenForm extends FormApplication {
 
         game?.socket.emit('system.nova6', { type: 'update' })
     }
+}
+
+async function stressForm() {
+	const templateData = {
+		CONFIG
+	};
+
+	const content = await renderTemplate(Nova6GMScreen.TEMPLATES.Nova6GMScreenStressForm, templateData);
+
+	const promise = new Promise(resolve => {
+		const data = {
+			title: game.i18n.localize("NOVA.GmScreen.RecoverStress"),
+			content: content,
+			buttons: {
+				recoverStress: {
+					label: game.i18n.localize("NOVA.GmScreen.Recover"),
+					callback: html => {
+                        const formData = new FormData(html[0].querySelector("form"));
+
+                        const data = {};
+                        // @ts-ignore
+                        for (const [name, value] of formData.entries()) {
+                            data[name] = value;
+                        }                        
+
+                        resolve(data);
+                    }
+				},
+			},
+			default: "recoverStress",
+			close: () => resolve({})
+		}
+
+		new Dialog(data, { 'width': 200 }).render(true);;
+	});
+
+    return promise.then(formData => {
+        return formData
+    });
 }
