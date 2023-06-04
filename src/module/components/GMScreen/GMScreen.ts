@@ -1,4 +1,3 @@
-// Hooks.on('init') 
 Hooks.once("init", async function () {
     const layers = { nova6: { layerClass: Nova6Layer, group: "primary" } }
     CONFIG.Canvas.layers = foundry.utils.mergeObject(Canvas.layers, layers);
@@ -100,6 +99,10 @@ export class Nova6GMScreen {
         });
 
         Hooks.on("updateActor", () => {
+            this.Nova6GMScreenForm?.render();
+        });
+
+        Hooks.on("updateItem", () => {
             this.Nova6GMScreenForm?.render();
         });
     }
@@ -433,7 +436,7 @@ async function stressForm() {
 
 	const promise = new Promise(resolve => {
 		const data = {
-			title: game.i18n.localize("NOVA.GmScreen.RecoverStress"),
+			title: game.i18n.localize("NOVA.GmScreen.Stress.RecoverStress"),
 			content: content,
 			buttons: {
 				recoverStress: {
