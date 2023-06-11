@@ -1,4 +1,3 @@
-{{!-- {{ log 'NOVA6 GM SCREEN' this }} --}}
 <head>
     <style>
         .nova6-stress {
@@ -212,22 +211,14 @@
                                     </div>
                                 </div>
 
-                                <div style="text-align: left; font-weight: bold; font-size: 0.8em;">{{aspect.name}}</div>
-
-                                <div style="font-size: 0.8em;">{{aspect.system.label}}</div>
+                                <div style="text-align: left; font-weight: bold; font-size: 0.8em;">{{aspect.system.label}}</div>
                             </div>
 
-                            {{!-- <div class="collapsible" onclick="toggleCollapsible(event)">
-                                <i class="fas fa-angle-down"></i>
-                            </div>
-
-                            <div class="content">
-                                <div id="description{{aspectIndex}}"></div>
-                            </div> --}}
-
-                            <div style="height: 100px; overflow-y: auto;">
+                            <div style="height: 50px; overflow-y: auto;">
+                                {{#unless (isDefaultAspect aspect)}}
                                 <div id="description{{aspectIndex}}" data-description="{{aspect.system.description}}" style="font-size: 0.8em;"></div>
-                            
+                                {{/unless}}
+
                                 <script>
                                     var aspectDescriptions = document.querySelectorAll("[id^=description]");
 
@@ -239,13 +230,6 @@
                                     });
                                 </script>
                             </div>
-
-                            {{!-- <script>
-                                var aspectDescription = `{{aspect.system.description}}`;
-                                var decodedText = $("<div>").html(aspectDescription).text();
-                                var plainText = decodedText.replace(/(<([^>]+)>)/ig, "");
-                                document.getElementById("description{{aspectIndex}}").innerHTML = plainText;
-                            </script> --}}
                         </li>
                     {{/each}}
                 </ul>

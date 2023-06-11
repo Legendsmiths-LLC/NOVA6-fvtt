@@ -1,7 +1,36 @@
 Hooks.once("init", async function () {
     const layers = { nova6: { layerClass: Nova6Layer, group: "primary" } }
     CONFIG.Canvas.layers = foundry.utils.mergeObject(Canvas.layers, layers);
-})
+
+
+    // register helper to check if an aspect has a default description
+    // @ts-ignore
+    Handlebars.registerHelper('isDefaultAspect', function(item) {
+        // @ts-ignore
+        return CONFIG.NOVA6.aspectDescriptions.includes(item.system.description)
+    });
+});
+
+Hooks.once("ready", async function () {
+    // we need to store our default aspect item descriptions in a place
+    // we can access without the use of async functions
+
+    // @ts-ignore
+    await game.packs.loaded;
+    
+    const aspectPack = game.packs.find(p => p.collection === "nova6.aspects")
+    // @ts-ignore
+    const aspectPackData = await aspectPack.getIndex();
+    const descriptions = await Promise.all(aspectPackData.map(async (entry) => {
+        // @ts-ignore
+        const document = await aspectPack.getDocument(entry._id);
+        // @ts-ignore
+        return document.system.description;
+    }));
+
+    // @ts-ignore
+    CONFIG.NOVA6.aspectDescriptions = descriptions;
+});
 
 Hooks.on('getSceneControlButtons', (buttons) => {
     // @ts-ignore
