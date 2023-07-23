@@ -1,6 +1,6 @@
 <head>
     <style>
-        .nova6-stress {
+        .gm-screen-nova6-stress {
             grid-template-columns: repeat(5, min-content);
         }
 
@@ -84,7 +84,7 @@
                             {{localize "NOVA.Item.Stress.Physical"}}
                         </td>
                         <td>
-                            <div class="nova6-stress nova6-stress--contents">
+                            <div class="nova6-stress gm-screen-nova6-stress nova6-stress--contents">
                             {{#range 0 stress.system.numPhysicalStressed}}
                                 {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs
                                     stress=stress
@@ -99,7 +99,7 @@
                             </div>
                         </td>
                         <td>
-                            <div class="nova6-stress nova6-stress--contents">
+                            <div class="nova6-stress gm-screen-nova6-stress nova6-stress--contents">
                             {{#range 0 stress.system.numPhysicalStaggered}}
                                 {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs
                                     stress=stress 
@@ -115,7 +115,7 @@
                             </div>          
                         </td>
                         <td>
-                            <div class="nova6-stress nova6-stress--contents" >
+                            <div class="nova6-stress gm-screen-nova6-stress nova6-stress--contents" >
                             {{#range 0 stress.system.numPhysicalIncapacitated}}
                                 {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs 
                                     stress=stress 
@@ -134,7 +134,7 @@
                     <tr>
                         <td>{{localize "NOVA.Item.Stress.Mental"}}</td>
                         <td>
-                            <div class="nova6-stress nova6-stress--contents">
+                            <div class="nova6-stress gm-screen-nova6-stress nova6-stress--contents">
                             {{#range 0 stress.system.numMentalStressed}}
                                 {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs
                                     stress=stress
@@ -150,7 +150,7 @@
                             </div>
                         </td>
                         <td>
-                            <div class="nova6-stress nova6-stress--contents">
+                            <div class="nova6-stress gm-screen-nova6-stress nova6-stress--contents">
                             {{#range 0 stress.system.numMentalStaggered}}
                                 {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs
                                     stress=stress 
@@ -166,7 +166,7 @@
                             </div>          
                         </td>
                         <td>
-                            <div class="nova6-stress nova6-stress--contents">
+                            <div class="nova6-stress gm-screen-nova6-stress nova6-stress--contents">
                             {{#range 0 stress.system.numMentalIncapacitated}}
                                 {{> systems/nova6/templates/gm-screen/stress-box-partial.hbs 
                                     stress=stress 
@@ -215,9 +215,10 @@
                             </div>
 
                             <div style="height: 50px; overflow-y: auto;">
-                                {{#unless (isDefaultAspect aspect)}}
-                                <div id="description{{aspectIndex}}" data-description="{{aspect.system.description}}" style="font-size: 0.8em;"></div>
-                                {{/unless}}
+                                {{!-- {{#unless (isDefaultAspect aspect)}} --}}
+                                <div id="description{{aspectIndex}}" data-description="{{aspect.system.text}}" 
+                                    style="text-align: left; font-weight: bold; font-size: 1.2em;"></div>
+                                {{!-- {{/unless}} --}}
 
                                 <script>
                                     var aspectDescriptions = document.querySelectorAll("[id^=description]");
@@ -237,5 +238,5 @@
         </div>
     {{/each}}
 
-    <div style="visibility: hidden; height: 75px;"></div>
+    <div style="visibility: hidden; height: 200px;"></div>
 </form>

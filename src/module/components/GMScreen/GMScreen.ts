@@ -329,6 +329,7 @@ export class Nova6GMScreenForm extends FormApplication {
     async clearStressAll(actors, stressLevel) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for (const [_, actor] of Object.entries(actors)) {
+            // @ts-ignore
             await this.clearStressActor(actor, stressLevel)
         }
 
@@ -343,6 +344,7 @@ export class Nova6GMScreenForm extends FormApplication {
         for (const [_, actor] of Object.entries(actors)) {
             // @ts-ignore
             if (actor._id === actorId) {
+                // @ts-ignore
                 await this.clearStressActor(actor, stressLevel)
             }
         }
@@ -351,62 +353,50 @@ export class Nova6GMScreenForm extends FormApplication {
     }
 
     async clearStressActor(actor: any, stressLevel) {
+        const stressTypes: string[] = ["Physical", "Mental"];
+
+        let newDurations = {};
+
+        // @ts-ignore
+        const stressDurations =  ["C","B","Q","S","T","L","LL","E","P"]
+
         const items = (actor as any).items
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         for (const [_, item] of Object.entries(items)) {
-            if ((item as any)?.type === 'stress') {
+            if ((item as any)?.type !== 'stress') {
+                continue;
+            }
 
+            const relvantActor = game?.actors?.get(actor?._id) as Actor | undefined;
+            if (!relvantActor) { continue; };
+
+            // @ts-ignore
+            const relevantItem = relvantActor?.items?.get(item?._id) as Item | undefined;
+
+            for (const type of stressTypes) {
                 // @ts-ignore
-                const relvantActor = game?.actors?.get(actor?._id) as Actor | undefined;
-                if (!relvantActor) { continue; };
+                for (const severity of Object.keys(relevantItem.system.status[type])) {
+                    // @ts-ignore
+                    newDurations = relevantItem.system.status[type][severity];
 
-                // @ts-ignore
-                const relevantItem = relvantActor?.items?.get(item?._id) as Item | undefined;
+                    // @ts-ignore
+                    for (const key of Object.keys(relevantItem.system.status[type][severity])) {
+                        // @ts-ignore
+                        const currentValue = relevantItem.system.status[type][severity][key] || 'C'
 
-                if (relevantItem) {
-                    const clearKeys = await this.getAllStressKeys(relevantItem, 'C', stressLevel)
-                    await relevantItem?.update(clearKeys)
+                        if (stressDurations.indexOf(currentValue) <= stressDurations.indexOf(stressLevel)) {
+                            newDurations[key] = 'C'
+                        }
+                    }
+
+                    // @ts-ignore
+                    await relevantItem.update({ [`system.status.${type}.${severity}`]: newDurations });
                 }
             }
         }
 
         this.render()
-    }
-
-    async getAllStressKeys(relevantItem: any, newKey: string, stressLevel): Promise<{ [key: string]: string }> {
-        const stressTypes: string[] = ["Physical", "Mental"];
-        const stressSeverities: string[] = ["Stressed", "Staggered", "Incapacitated"];
-
-        const clearKeys: { [key: string]: string } = {};
-
-        // @ts-ignore
-        const stressDurations =  ["C","B","Q","S","T","L","LL","E","P"]
-        const stressLevelToClear = stressDurations.indexOf(stressLevel)
-
-        for(let stressIndex = 0; stressIndex < stressTypes.length; stressIndex++) {
-            for(let severityIndex = 0; severityIndex < stressSeverities.length; severityIndex++) {
-                const stressData = relevantItem.system[stressTypes[stressIndex]][stressSeverities[severityIndex]]
-
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                for (const [key, _] of Object.entries(stressData)) {
-                    const duration = relevantItem.system.status[stressTypes[stressIndex]][stressSeverities[severityIndex]][key]
-
-                    // if stress level is already 'C' skip
-                    if (Object.prototype.toString.call(duration) !== "[object String]") { continue; }
-
-                    const thisStressLevel = stressDurations.indexOf(duration)
-
-                    if (thisStressLevel > stressLevelToClear) {
-                        continue;
-                    }
-
-                    clearKeys[`system.status.${stressTypes[stressIndex]}.${stressSeverities[severityIndex]}.${key}.status`] = newKey
-                }
-            }   
-        }
-
-        return clearKeys
     }
 
     async _aspectToggle(event) {
