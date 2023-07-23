@@ -44,18 +44,6 @@
             gap: 10px;
         }
     </style>
-    <script>
-        function toggleCollapsible(event) {
-            event.preventDefault();
-            event.currentTarget.classList.toggle("active");
-            var content = event.currentTarget.nextElementSibling;
-            if (content.style.maxHeight){
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
-        }
-    </script>
 </head>
 
 <form>
@@ -215,10 +203,8 @@
                             </div>
 
                             <div style="height: 50px; overflow-y: auto;">
-                                {{!-- {{#unless (isDefaultAspect aspect)}} --}}
                                 <div id="description{{aspectIndex}}" data-description="{{aspect.system.text}}" 
                                     style="text-align: left; font-weight: bold; font-size: 1.2em;"></div>
-                                {{!-- {{/unless}} --}}
 
                                 <script>
                                     var aspectDescriptions = document.querySelectorAll("[id^=description]");
