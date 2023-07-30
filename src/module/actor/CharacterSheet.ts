@@ -51,7 +51,7 @@ export class CharacterSheet extends ActorSheet {
 
     /**
      * Returns all data that is needed to render the sheet.
-     * All variables are available inside the handelbar templates.
+     * All variables are available inside the handlebar templates.
      *
      * Items are split into their categories for easier access.
      *

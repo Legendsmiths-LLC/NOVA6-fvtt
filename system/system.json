@@ -62,7 +62,7 @@
     ],
     "compatibility": {
         "minimum": "10",
-        "verified": "10"
+        "verified": "11"
     },
     "url": "https://github.com/Legendsmiths-LLC/NOVA6-fvtt",
     "manifest": "https://github.com/Legendsmiths-LLC/NOVA6-fvtt/releases/latest/download/system.json",

@@ -73,6 +73,7 @@
     &__action {
         font-family: "Fate Icons", sans-serif;
         font-size: 10px;
+        cursor: pointer;
 
         &:first-child {
             transform: translateX($component-padding);
