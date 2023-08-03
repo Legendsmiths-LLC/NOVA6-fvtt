@@ -2,6 +2,7 @@ name: NOVA6 CI
 
 on: 
   push:
+    tags:
     - '0.*'
     - '1.*'
     
