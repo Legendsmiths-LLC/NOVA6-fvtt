@@ -11,7 +11,12 @@ type RollDialogData = {
     perks?: Perk[];
     skill?: SkillItemData;
     allowInstantSuccess: boolean;
-    maxSetbacks: number;
+    availableTrackers: {
+        setbacks: number;
+        dread: number;
+        courage: number;
+        unrealInsight: number;
+    };
 };
 
 type Perk = {
@@ -29,7 +34,12 @@ type RollData = {
     rank?: number;
     bonus: number;
     penalty: number;
-    setbacks: number;
+    tracker: {
+        setbacks: number;
+        dread: number;
+        courage: number;
+        unrealInsight: number;
+    };
     activePerk: number;
     freeStuntPoints: number;
     numberOfDice: number;
@@ -136,7 +146,7 @@ export function novaModifier(modifier: string) {
 
     // Check remaining action dice for triples/doubles
     const actionDiceSet = new Set(
-        this.results.filter((result) => result.discarded !== true).map((result) => result.result)
+        this.results.filter((result) => result.discarded !== true).map((result) => result.result),
     );
 
     this.hasTriples = actionDiceSet.size === 1;
@@ -147,22 +157,31 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     static baseDice = 3;
 
     actor: NOVA6Actor;
+
     rollData: RollData;
+
     talents: Talent[];
+
     skill: (SkillItemData & ItemDataBaseProperties) | undefined;
+
     perks: Perk[] | undefined;
 
     constructor(
         actor: NOVA6Actor,
         skillData?: SkillItemData & ItemDataBaseProperties,
-        options?: Partial<ApplicationOptions>
+        options?: Partial<ApplicationOptions>,
     ) {
         const rollData: RollData = {
             baseDice: RollDialog.baseDice,
             rank: skillData?.system.rank,
             bonus: 0,
             penalty: 0,
-            setbacks: 0,
+            tracker: {
+                setbacks: 0,
+                dread: 0,
+                courage: 0,
+                unrealInsight: 0,
+            },
             status: "even",
             activePerk: 0,
             freeStuntPoints: 0,
@@ -271,8 +290,16 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             title: this._getTitle(),
             subtitle: this._getSubtitle(),
             description: this._getDescription(),
-            // @ts-ignore
-            maxSetbacks: this.actor.system.setbacks,
+            availableTrackers: {
+                // @ts-ignore
+                setbacks: this.actor.system.setbacks,
+                // @ts-ignore
+                dread: this.actor.system.dread,
+                // @ts-ignore
+                courage: this.actor.system.courage,
+                // @ts-ignore
+                unrealInsight: this.actor.system.unrealInsight,
+            },
             allowInstantSuccess:
                 !!this.talents.find((talent) => talent.name === "Practiced" && talent.active) &&
                 this.rollData.status === "up",
@@ -315,8 +342,15 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         const activePerkDice = this.perks ? (this.perks.findIndex((perk) => perk.active) > 0 ? 1 : 0) : 0;
         const talent = this.calculateTalentBonus();
 
-        const bonusDice = this.rollData.bonus + activePerkDice + talent + rankDice;
-        const penaltyDice = this.rollData.penalty + this.rollData.setbacks;
+        const bonusDice =
+            this.rollData.bonus +
+            activePerkDice +
+            talent +
+            rankDice +
+            this.rollData.tracker.courage +
+            this.rollData.tracker.unrealInsight;
+
+        const penaltyDice = this.rollData.penalty + this.rollData.tracker.setbacks + this.rollData.tracker.dread;
 
         const status = bonusDice - penaltyDice === 0 ? "even" : bonusDice - penaltyDice > 0 ? "up" : "down";
 
@@ -341,7 +375,8 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     }
 
     async _updateObject(_event: Event, formData) {
-        this.rollData = { ...this.rollData, ...formData };
+        foundry.utils.mergeObject(this.rollData, formData);
+        //this.rollData = { ...this.rollData, ...formData };
 
         this.perks?.forEach((perk, index) => {
             perk.active = formData["perk"] === index;
@@ -404,21 +439,24 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
 
         await ChatMessage.create(chatData);
 
-        this._handleSetbacks();
+        this._handleTrackers();
 
         if (!_event.shiftKey) {
             this.close();
         }
     }
 
-    _handleSetbacks() {
-        if (this.rollData.setbacks <= 0) {
-            return;
-        }
+    _handleTrackers() {
+        const availableTrackers = ["setbacks", "dread", "courage", "unrealInsight"];
 
-        // @ts-ignore
-        const currentSetbacks = this.actor.system.setbacks;
-        this.actor.update({ "system.setbacks": currentSetbacks - this.rollData.setbacks });
+        availableTrackers.forEach((tracker) => {
+            if (this.rollData.tracker[tracker] <= 0) {
+                return;
+            }
+
+            // @ts-ignore
+            this.actor.update({ [`system.${tracker}`]: this.actor.system[tracker] - this.rollData.tracker[tracker] });
+        });
     }
 
     _calculatePlayerSP(roll: any) {
@@ -491,7 +529,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
         this.rollData.usedTradeDice = Math.clamped(
             this.rollData.usedTradeDice + change,
             0,
-            this.rollData.availableTradeDice
+            this.rollData.availableTradeDice,
         );
 
         this.render();

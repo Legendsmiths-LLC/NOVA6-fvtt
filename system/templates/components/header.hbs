@@ -1,5 +1,29 @@
-<header class="nova6-header">
+{{#*inline "trackerPartial"}}
+    <div class="nova6-header__tracker">
+        <label class="nova6-header__label nova6-header__label--center" for="name">
+            {{localize (lookup (concat "NOVA.Sheet.Tracker." name) 'string')}}
+        </label>
 
+        <div class="nova6-header__tracker-wrapper">
+            <span
+                class="nova6-js-decrement nova6-header__action"
+                data-name="{{path}}"
+            >-</span>
+            <input
+                class="nova6-text-input nova6-text-input--fp"
+                name="{{path}}"
+                type="text"
+                value="{{value}}"
+            >
+            <span
+                class="nova6-js-increment nova6-header__action"
+                data-name="{{path}}"
+            >+</span>
+        </div>
+    </div>
+{{/inline}}
+
+<header class="nova6-header">
     <div class="nova6-header__columns">
         {{> "systems/nova6/templates/components/artwork.hbs"}}
 
@@ -17,13 +41,12 @@
         </div>
     </div>
 
-
-    <div class="nova6-header__setbacks">
+    <div class="nova6-header__tracker">
         <label class="nova6-header__label nova6-header__label--center" for="name">
             {{localize "NOVA.Sheet.Level"}}
         </label>
 
-        <div class="nova6-header__setbacks-wrapper">
+        <div class="nova6-header__tracker-wrapper">
             <input
                 class="nova6-text-input nova6-text-input--fp"
                 name="system.level"
@@ -67,31 +90,9 @@
         </div>
     </div>
 
-
-    <div class="nova6-header__setbacks">
-        <label class="nova6-header__label nova6-header__label--center" for="name">
-            {{localize "NOVA.Sheet.Setbacks"}}
-        </label>
-
-        <div class="nova6-header__setbacks-wrapper">
-            <span
-                class="nova6-js-decrement nova6-header__action"
-                data-name="system.setbacks"
-            >-</span>
-            <input
-                class="nova6-text-input nova6-text-input--fp"
-                name="system.setbacks"
-                type="text"
-                value="{{system.setbacks}}"
-            >
-
-            <span
-                class="nova6-js-increment nova6-header__action"
-                data-name="system.setbacks"
-            >+</span>
-
-        </div>
-    </div>
+    {{#each trackers as |tracker|}}
+        {{> trackerPartial name=tracker.name path=tracker.path value=tracker.value}}
+    {{/each}}
 
     {{> "systems/nova6/templates/components/header-logo.hbs"}}
 </header>

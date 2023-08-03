@@ -27,6 +27,7 @@ import { AssetSheet } from "./module/item/asset/AssetSheet";
 import { TalentSheet } from "./module/item/talent/TalentSheet";
 import { StressSheet } from "./module/item/stress/StressSheet";
 import { novaModifier } from "./module/applications/RollDialog";
+import { RollConfig } from "./module/features/RollConfig";
 import { Nova6GMScreen } from "./module/components/GMScreen/GMScreen"
 
 /* -------------------------------- */
@@ -94,6 +95,11 @@ Hooks.once("init", async () => {
     // Preload all needed templates
     await TemplatePreloader.preloadHandlebarsTemplates();
 });
+
+/* -------------------------------- */
+/*	Register hooks      			*/
+/* -------------------------------- */
+RollConfig.hooks();
 
 /* -------------------------------- */
 /*	Webpack HMR                     */

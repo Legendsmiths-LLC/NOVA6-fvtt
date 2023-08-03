@@ -11,7 +11,7 @@
 
 <div class="nova6-js-tab-content nova6-u-contents">
     {{!--Base--}}
-    <div class="nova6-desk__content" data-tab="base">
+    <div class="nova6-desk__content tab" data-tab="base">
         {{> "systems/nova6/templates/item/settings/setting-input.hbs"
             headline = "NOVA.Item.Skill.Name"
             fieldName = "name"
@@ -115,7 +115,7 @@
     </div>
 
     {{!--Description--}}
-    <div class="nova6-desk__content" data-tab="description">
+    <div class="nova6-desk__content tab" data-tab="description">
         <div class="nova6-desk__tab">
             {{editor description target="system.description" button=true editable=editable engine="prosemirror"}}
         </div>

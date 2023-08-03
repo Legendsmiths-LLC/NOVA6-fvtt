@@ -64,7 +64,7 @@ export class CharacterSheet extends ActorSheet {
 
     /**
      * Returns all data that is needed to render the sheet.
-     * All variables are available inside the handelbar templates.
+     * All variables are available inside the handlebar templates.
      *
      * Items are split into their categories for easier access.
      *
@@ -95,6 +95,30 @@ export class CharacterSheet extends ActorSheet {
         data.enrichedNotes = await TextEditor.enrichHTML(this.object.system.notes, { async: true });
         // @ts-ignore
         data.enrichedQuickNotes = await TextEditor.enrichHTML(this.object.system.quicknotes, { async: true });
+
+        const availableTracker = [
+            { name: "Setbacks", value: data.actor.system.setbacks, path: "system.setbacks", active: true },
+            {
+                name: "Dread",
+                value: data.system.dread,
+                path: "system.dread",
+                active: game.settings.get("nova6", "enableDread"),
+            },
+            {
+                name: "Courage",
+                value: data.system.courage,
+                path: "system.courage",
+                active: game.settings.get("nova6", "enableCourage"),
+            },
+            {
+                name: "UnrealInsight",
+                value: data.system.unrealInsight,
+                path: "system.unrealInsight",
+                active: game.settings.get("nova6", "enableUnrealInsight"),
+            },
+        ];
+
+        data.trackers = availableTracker.filter((tracker) => tracker.active);
 
         // Allow every item type to add data to the actor sheet
         for (const itemType in CONFIG.NOVA6.itemClasses) {

@@ -15,7 +15,6 @@
             "Name": "Name",
             "Description": "Description",
             "PlotPoints": "Plot Points",
-            "Setbacks": "Setbacks",
             "Aspects": "Aspects",
             "Skills": "Skills",
             "Stress": "Stress",
@@ -28,6 +27,12 @@
             "Notes": "Notes",
             "Artwork": "Artwork",
             "QuickNotes": "Quick Notes",
+            "Tracker": {
+                "Setbacks": "Setbacks",
+                "Dread": "Dread",
+                "Courage": "Courage",
+                "UnrealInsight": "U. Insight"
+            },
             "LoadLevel": {
                 "0": {
                     "name": "Unprepared",
@@ -130,8 +135,6 @@
         "Roll": {
             "Success": "Success!",
             "Failure": "Failure!",
-            "Triple": "You rolled a triple!",
-            "Double": "You rolled a double!",
             "StuntPointSuccess": "You earned {number} StuntPoint(s)!",
             "StuntPointsFailure": "The GM earned {number} StuntPoint(s)!",
             "From": "from",
@@ -149,7 +152,6 @@
                 "TitleSkill": "Roll skill",
                 "Bonus": "Additional Bonus dice",
                 "Penalty": "Penalty dice",
-                "Setbacks": "Setbacks",
                 "Perks": "Available Perks",
                 "Talents": "Available Talents",
                 "NoPerk": "Don't use a perk",
@@ -159,11 +161,20 @@
                 "SucceedButton": "Succeed!",
                 "Description": "You're ready to roll. You can choose to trade up to {number} dice for Stunt Points.",
                 "Error": "You have to many dice. Trade at least {number} dice for Stunt Points to get you total to 7 dice or lower.",
+                "Tracker": {
+                    "setbacks": "Setbacks",
+                    "dread": "Dread",
+                    "courage": "Courage",
+                    "unrealInsight": "Unreal Insight"
+                },
                 "Calculator": {
                     "Bonus": "Bonus",
                     "Penalty": "Penalty",
                     "Perks": "Perk",
                     "Setbacks": "Setbacks",
+                    "Dread": "Dread",
+                    "Courage": "Courage",
+                    "UnrealInsight": "U. Insight",
                     "Talents": "Talent",
                     "Base": "Base",
                     "Rank": "Rank",
@@ -182,6 +193,20 @@
             "DocumentDeleteText": "Do you really want to <strong>permanently</strong> delete this entity?",
             "Confirm": "Confirm",
             "Cancel": "Cancel"
+        },
+        "Settings": {
+            "enableDread": {
+                "Name": "Enable Dread",
+                "Hint": "Enable Dread for character sheets and rolls"
+            },
+            "enableCourage": {
+                "Name": "Enable Courage",
+                "Hint": "Enable Courage for character sheets and rolls"
+            },
+            "enableUnrealInsight": {
+                "Name": "Enable Unreal Insight",
+                "Hint": "Enable Unreal Insight for character sheets and rolls"
+            }
         },
         "GmScreen": {
             "GmScreen": "NOVA6 GM Screen",

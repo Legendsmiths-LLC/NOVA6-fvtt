@@ -9,11 +9,14 @@
                 "refresh": 3
             },
             "setbacks": 0,
+            "dread": 0,
+            "courage": 0,
+            "unrealInsight": 0,
             "load": 0,
             "backstory": "",
             "notes": "",
             "quicknotes": "",
-            "conditions":{
+            "conditions": {
                 "stressed": false,
                 "staggered": false,
                 "incapacitated": false

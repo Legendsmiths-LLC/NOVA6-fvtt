@@ -25,7 +25,7 @@
 
         <div class="nova6-js-tab-content nova6-u-contents">
             {{!--Base--}}
-            <div class="nova6-desk__content" data-tab="base">
+            <div class="nova6-desk__content tab" data-tab="base">
                 <div class="nova6-setting">
                     <header class="nova6-headline">
                         <h3 class="nova6-headline__text">{{localize "NOVA.Apps.Roll.Bonus"}}</h3>
@@ -74,31 +74,37 @@
                     </div>
                 </div>
 
-                {{#if (gt maxSetbacks 0)}}
+                {{#*inline "rollTrackerPartial"}}
                     <div class="nova6-setting">
                         <header class="nova6-headline">
-                            <h3 class="nova6-headline__text">{{localize "NOVA.Apps.Roll.Setbacks"}}</h3>
+                            <h3 class="nova6-headline__text">{{localize (lookup (concat "NOVA.Apps.Roll.Tracker." name) 'string')}} ({{maxValue}})</h3>
                         </header>
 
                         <div class="nova6-slider">
                             <input
                                 class="nova6-js-setting-range-value nova6-slider__label"
                                 type="text"
-                                value="{{rollData.setbacks}}"
+                                value="{{lookup rollData.tracker name}}"
                             />
 
                             <input
                                 type="range"
                                 class="nova6-js-setting-range-slider"
-                                name="setbacks"
+                                name="tracker.{{name}}"
                                 data-dtype="Number"
-                                value="{{rollData.setbacks}}"
+                                value="{{lookup rollData.tracker name}}"
                                 min="0"
-                                max="{{maxSetbacks}}"
+                                max="{{maxValue}}"
                             />
                         </div>
                     </div>
-                {{/if}}
+                {{/inline}}
+
+                {{#each availableTrackers as |trackerMaxValue trackerName|}}
+                    {{#if (gt trackerMaxValue 0)}}
+                        {{> rollTrackerPartial name=trackerName maxValue=trackerMaxValue rollData=../rollData}}
+                    {{/if}}
+                {{/each}}
 
                 <div class="nova6-setting">
                     <header class="nova6-headline">
@@ -222,7 +228,7 @@
                     <div class="nova6-roll-dialog__calculator--operator">-</div>
 
                     <div class="nova6-roll-dialog__dicelabel">
-                        <span>{{rollData.setbacks}}</span>
+                        <span>{{rollData.tracker.setbacks}}</span>
                         <div>{{localize "NOVA.Apps.Roll.Calculator.Setbacks"}}</div>
                     </div>
 
@@ -264,7 +270,7 @@
 
             {{!--Description--}}
             {{#if description}}
-                <div class="nova6-desk__content" data-tab="description">
+                <div class="nova6-desk__content tab" data-tab="description">
                     <div class="nova6-desk__tab">
                         {{{description}}}
                     </div>
