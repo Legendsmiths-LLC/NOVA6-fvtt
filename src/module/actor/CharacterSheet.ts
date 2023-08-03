@@ -47,6 +47,19 @@ export class CharacterSheet extends ActorSheet {
         for (const sheetComponent in CONFIG.NOVA6.sheetComponents.actor) {
             CONFIG.NOVA6.sheetComponents.actor[sheetComponent].activateListeners(html, this);
         }
+
+        // @ts-ignore
+        game.socket?.on('system.nova6', (options) => {
+            switch(options?.type) {
+                case 'update':
+                    this.render()
+    
+                    break;
+                default:
+                    console.log('unidentified socket type')
+                    break;
+            }
+        })
     }
 
     /**
@@ -184,6 +197,10 @@ export class CharacterSheet extends ActorSheet {
             selection?.removeAllRanges();
             selection?.addRange(range);
             element.focus();
+        }
+
+        if (game?.socket) {
+            game?.socket.emit('system.nova6', { type: 'update' })
         }
     }
 }

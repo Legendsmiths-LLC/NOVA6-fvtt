@@ -207,6 +207,20 @@
                 "Name": "Enable Unreal Insight",
                 "Hint": "Enable Unreal Insight for character sheets and rolls"
             }
+        },
+        "GmScreen": {
+            "GmScreen": "NOVA6 GM Screen",
+            "Buttons": {
+                "ResetStress": "Recover Stress (All)",
+                "ResetAspects": "Clear Aspects (All)",
+                "ResetStressOne": "Recover Stress",
+                "ResetAspectsOne": "Clear Aspects"
+            },
+            "Stress": {
+                "Select": "Select stress level to recover",
+                "RecoverStress": "Stress Duration Select"
+            },
+            "Recover": "Recover"
         }
     }
 }

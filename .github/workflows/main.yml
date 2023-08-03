@@ -2,10 +2,9 @@ name: NOVA6 CI
 
 on: 
   push:
-    tags:
     - '0.*'
     - '1.*'
-
+    
 jobs:
   build:
     runs-on: ubuntu-latest
