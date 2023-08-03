@@ -2,7 +2,7 @@
     "id": "nova6",
     "title": "NOVA6",
     "description": "The official FoundryVTT game system for the NOVA6 TTRPG from Legendsmiths, LLC",
-    "version": "0.1.24",
+    "version": "0.1.26",
     "authors": [
         {
             "name": "tekhed",
@@ -14,6 +14,11 @@
         {
             "name": "Patrick Bauer",
             "discord": "Daddi#2333",
+            "flags": {}
+        },
+        {
+            "name": "DM Dorman",
+            "discord": "bodiddley",
             "flags": {}
         }
     ],
