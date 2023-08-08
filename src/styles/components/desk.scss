@@ -49,6 +49,14 @@
         }
     }
 
+    &__grid {
+        display: grid;
+
+        &--columns {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
     &__tab {
         padding: $component-padding * 2;
         min-height: 100%;

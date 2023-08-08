@@ -17,6 +17,7 @@ type RollDialogData = {
         courage: number;
         unrealInsight: number;
     };
+    activeTrackers: number;
 };
 
 type Perk = {
@@ -272,7 +273,7 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
                 },
             ],
             scrollY: [".nova6-desk__content"],
-            width: 775,
+            width: 875,
             resizable: true,
             submitOnChange: true,
             closeOnSubmit: false,
@@ -282,6 +283,17 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
     }
 
     getData(_options): RollDialogData {
+        const availableTrackers = {
+            // @ts-ignore
+            setbacks: this.actor.system.setbacks,
+            // @ts-ignore
+            dread: this.actor.system.dread,
+            // @ts-ignore
+            courage: this.actor.system.courage,
+            // @ts-ignore
+            unrealInsight: this.actor.system.unrealInsight,
+        };
+
         return {
             skill: this.skill,
             rollData: this.rollData,
@@ -290,16 +302,8 @@ export class RollDialog extends FormApplication<FormApplicationOptions, RollDial
             title: this._getTitle(),
             subtitle: this._getSubtitle(),
             description: this._getDescription(),
-            availableTrackers: {
-                // @ts-ignore
-                setbacks: this.actor.system.setbacks,
-                // @ts-ignore
-                dread: this.actor.system.dread,
-                // @ts-ignore
-                courage: this.actor.system.courage,
-                // @ts-ignore
-                unrealInsight: this.actor.system.unrealInsight,
-            },
+            availableTrackers,
+            activeTrackers: Object.values(availableTrackers).filter((value) => value > 0).length,
             allowInstantSuccess:
                 !!this.talents.find((talent) => talent.name === "Practiced" && talent.active) &&
                 this.rollData.status === "up",

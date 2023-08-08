@@ -26,107 +26,109 @@
         <div class="nova6-js-tab-content nova6-u-contents">
             {{!--Base--}}
             <div class="nova6-desk__content tab" data-tab="base">
-                <div class="nova6-setting">
-                    <header class="nova6-headline">
-                        <h3 class="nova6-headline__text">{{localize "NOVA.Apps.Roll.Bonus"}}</h3>
-                    </header>
-
-                    <div class="nova6-slider">
-                        <input
-                            class="nova6-js-setting-range-value nova6-slider__label"
-                            type="text"
-                            value="{{rollData.bonus}}"
-                        />
-
-                        <input
-                            type="range"
-                            class="nova6-js-setting-range-slider"
-                            name="bonus"
-                            data-dtype="Number"
-                            value="{{rollData.bonus}}"
-                            min="0"
-                            max="10"
-                        />
-                    </div>
-                </div>
-
-                <div class="nova6-setting">
-                    <header class="nova6-headline">
-                        <h3 class="nova6-headline__text">{{localize "NOVA.Apps.Roll.Penalty"}}</h3>
-                    </header>
-
-                    <div class="nova6-slider">
-                        <input
-                            class="nova6-js-setting-range-value nova6-slider__label"
-                            type="text"
-                            value="{{rollData.penalty}}"
-                        />
-
-                        <input
-                            type="range"
-                            class="nova6-js-setting-range-slider"
-                            name="penalty"
-                            data-dtype="Number"
-                            value="{{rollData.penalty}}"
-                            min="0"
-                            max="10"
-                        />
-                    </div>
-                </div>
-
-                {{#*inline "rollTrackerPartial"}}
+                <div class="nova6-desk__grid {{#if (gt activeTrackers 1)}}nova6-desk__grid--columns{{/if}}">
                     <div class="nova6-setting">
                         <header class="nova6-headline">
-                            <h3 class="nova6-headline__text">{{localize (lookup (concat "NOVA.Apps.Roll.Tracker." name) 'string')}} ({{maxValue}})</h3>
+                            <h3 class="nova6-headline__text">{{localize "NOVA.Apps.Roll.Bonus"}}</h3>
                         </header>
 
                         <div class="nova6-slider">
                             <input
                                 class="nova6-js-setting-range-value nova6-slider__label"
                                 type="text"
-                                value="{{lookup rollData.tracker name}}"
+                                value="{{rollData.bonus}}"
                             />
 
                             <input
                                 type="range"
                                 class="nova6-js-setting-range-slider"
-                                name="tracker.{{name}}"
+                                name="bonus"
                                 data-dtype="Number"
-                                value="{{lookup rollData.tracker name}}"
+                                value="{{rollData.bonus}}"
                                 min="0"
-                                max="{{maxValue}}"
+                                max="10"
                             />
                         </div>
                     </div>
-                {{/inline}}
 
-                {{#each availableTrackers as |trackerMaxValue trackerName|}}
-                    {{#if (gt trackerMaxValue 0)}}
-                        {{> rollTrackerPartial name=trackerName maxValue=trackerMaxValue rollData=../rollData}}
-                    {{/if}}
-                {{/each}}
+                    <div class="nova6-setting">
+                        <header class="nova6-headline">
+                            <h3 class="nova6-headline__text">{{localize "NOVA.Apps.Roll.Penalty"}}</h3>
+                        </header>
 
-                <div class="nova6-setting">
-                    <header class="nova6-headline">
-                        <h3 class="nova6-headline__text">{{{localize "NOVA.Apps.Roll.FreeSP"}}}</h3>
-                    </header>
+                        <div class="nova6-slider">
+                            <input
+                                class="nova6-js-setting-range-value nova6-slider__label"
+                                type="text"
+                                value="{{rollData.penalty}}"
+                            />
 
-                    <div class="nova6-slider">
-                        <input
-                            class="nova6-js-setting-range-value nova6-slider__label"
-                            type="text"
-                            value="{{rollData.freeStuntPoints}}"
-                        />
+                            <input
+                                type="range"
+                                class="nova6-js-setting-range-slider"
+                                name="penalty"
+                                data-dtype="Number"
+                                value="{{rollData.penalty}}"
+                                min="0"
+                                max="10"
+                            />
+                        </div>
+                    </div>
 
-                        <input
-                            type="range"
-                            class="nova6-js-setting-range-slider"
-                            name="freeStuntPoints"
-                            data-dtype="Number"
-                            value="{{rollData.freeStuntPoints}}"
-                            min="0"
-                            max="10"
-                        />
+                    {{#*inline "rollTrackerPartial"}}
+                        <div class="nova6-setting">
+                            <header class="nova6-headline">
+                                <h3 class="nova6-headline__text">{{localize (lookup (concat "NOVA.Apps.Roll.Tracker." name) 'string')}} ({{maxValue}})</h3>
+                            </header>
+
+                            <div class="nova6-slider">
+                                <input
+                                    class="nova6-js-setting-range-value nova6-slider__label"
+                                    type="text"
+                                    value="{{lookup rollData.tracker name}}"
+                                />
+
+                                <input
+                                    type="range"
+                                    class="nova6-js-setting-range-slider"
+                                    name="tracker.{{name}}"
+                                    data-dtype="Number"
+                                    value="{{lookup rollData.tracker name}}"
+                                    min="0"
+                                    max="{{maxValue}}"
+                                />
+                            </div>
+                        </div>
+                    {{/inline}}
+
+                    {{#each availableTrackers as |trackerMaxValue trackerName|}}
+                        {{#if (gt trackerMaxValue 0)}}
+                            {{> rollTrackerPartial name=trackerName maxValue=trackerMaxValue rollData=../rollData}}
+                        {{/if}}
+                    {{/each}}
+
+                    <div class="nova6-setting">
+                        <header class="nova6-headline">
+                            <h3 class="nova6-headline__text">{{{localize "NOVA.Apps.Roll.FreeSP"}}}</h3>
+                        </header>
+
+                        <div class="nova6-slider">
+                            <input
+                                class="nova6-js-setting-range-value nova6-slider__label"
+                                type="text"
+                                value="{{rollData.freeStuntPoints}}"
+                            />
+
+                            <input
+                                type="range"
+                                class="nova6-js-setting-range-slider"
+                                name="freeStuntPoints"
+                                data-dtype="Number"
+                                value="{{rollData.freeStuntPoints}}"
+                                min="0"
+                                max="10"
+                            />
+                        </div>
                     </div>
                 </div>
 
@@ -217,6 +219,23 @@
                         <div>{{localize "NOVA.Apps.Roll.Calculator.Bonus"}}</div>
                     </div>
 
+                    {{#if (gt availableTrackers.courage 0)}}
+                        <div class="nova6-roll-dialog__calculator--operator">+</div>
+
+                        <div class="nova6-roll-dialog__dicelabel">
+                            <span>{{rollData.tracker.courage}}</span>
+                            <div>{{localize "NOVA.Apps.Roll.Calculator.Courage"}}</div>
+                        </div>
+                    {{/if}}
+
+                    {{#if (gt availableTrackers.unrealInsight 0)}}
+                        <div class="nova6-roll-dialog__calculator--operator">+</div>
+
+                        <div class="nova6-roll-dialog__dicelabel">
+                            <span>{{rollData.tracker.unrealInsight}}</span>
+                            <div>{{localize "NOVA.Apps.Roll.Calculator.UnrealInsight"}}</div>
+                        </div>
+                    {{/if}}
 
                     <div class="nova6-roll-dialog__calculator--operator">-</div>
 
@@ -225,12 +244,23 @@
                         <div>{{localize "NOVA.Apps.Roll.Calculator.Penalty"}}</div>
                     </div>
 
-                    <div class="nova6-roll-dialog__calculator--operator">-</div>
+                    {{#if (gt availableTrackers.setbacks 0)}}
+                        <div class="nova6-roll-dialog__calculator--operator">-</div>
 
-                    <div class="nova6-roll-dialog__dicelabel">
-                        <span>{{rollData.tracker.setbacks}}</span>
-                        <div>{{localize "NOVA.Apps.Roll.Calculator.Setbacks"}}</div>
-                    </div>
+                        <div class="nova6-roll-dialog__dicelabel">
+                            <span>{{rollData.tracker.setbacks}}</span>
+                            <div>{{localize "NOVA.Apps.Roll.Calculator.Setbacks"}}</div>
+                        </div>
+                    {{/if}}
+
+                    {{#if (gt availableTrackers.dread 0)}}
+                        <div class="nova6-roll-dialog__calculator--operator">-</div>
+
+                        <div class="nova6-roll-dialog__dicelabel">
+                            <span>{{rollData.tracker.dread}}</span>
+                            <div>{{localize "NOVA.Apps.Roll.Calculator.Dread"}}</div>
+                        </div>
+                    {{/if}}
 
                     <div class="nova6-roll-dialog__calculator--operator">-</div>
 
