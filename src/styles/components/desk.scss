@@ -54,7 +54,20 @@
 
         &--columns {
             grid-template-columns: 1fr 1fr;
+            grid-auto-flow: dense;
+
+            > .nova6-setting {
+                grid-column: 1;
+            }
+
+            .nova6-desk__trackers div {
+                grid-column: 2;
+            }
         }
+    }
+
+    .nova6-desk__trackers {
+        display: contents;
     }
 
     &__tab {

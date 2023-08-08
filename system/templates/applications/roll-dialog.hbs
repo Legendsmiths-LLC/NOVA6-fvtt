@@ -26,7 +26,7 @@
         <div class="nova6-js-tab-content nova6-u-contents">
             {{!--Base--}}
             <div class="nova6-desk__content tab" data-tab="base">
-                <div class="nova6-desk__grid {{#if (gt activeTrackers 1)}}nova6-desk__grid--columns{{/if}}">
+                <div class="nova6-desk__grid {{#if (gte activeTrackers 1)}}nova6-desk__grid--columns{{/if}}">
                     <div class="nova6-setting">
                         <header class="nova6-headline">
                             <h3 class="nova6-headline__text">{{localize "NOVA.Apps.Roll.Bonus"}}</h3>
@@ -101,12 +101,6 @@
                         </div>
                     {{/inline}}
 
-                    {{#each availableTrackers as |trackerMaxValue trackerName|}}
-                        {{#if (gt trackerMaxValue 0)}}
-                            {{> rollTrackerPartial name=trackerName maxValue=trackerMaxValue rollData=../rollData}}
-                        {{/if}}
-                    {{/each}}
-
                     <div class="nova6-setting">
                         <header class="nova6-headline">
                             <h3 class="nova6-headline__text">{{{localize "NOVA.Apps.Roll.FreeSP"}}}</h3>
@@ -129,6 +123,14 @@
                                 max="10"
                             />
                         </div>
+                    </div>
+
+                    <div class="nova6-desk__trackers">
+                        {{#each availableTrackers as |trackerMaxValue trackerName|}}
+                            {{#if (gt trackerMaxValue 0)}}
+                                {{> rollTrackerPartial name=trackerName maxValue=trackerMaxValue rollData=../rollData}}
+                            {{/if}}
+                        {{/each}}
                     </div>
                 </div>
 
