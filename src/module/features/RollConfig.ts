@@ -1,3 +1,5 @@
+import { reloadActorSheets } from "../helper/Settings";
+
 export class RollConfig {
     static hooks() {
         Hooks.once("init", () => {
@@ -8,6 +10,7 @@ export class RollConfig {
                 config: true,
                 default: false,
                 type: Boolean,
+                onChange: reloadActorSheets,
             });
 
             game.settings.register("nova6", "enableCourage", {
@@ -17,6 +20,7 @@ export class RollConfig {
                 config: true,
                 default: false,
                 type: Boolean,
+                onChange: reloadActorSheets,
             });
 
             game.settings.register("nova6", "enableUnrealInsight", {
@@ -26,6 +30,7 @@ export class RollConfig {
                 config: true,
                 default: false,
                 type: Boolean,
+                onChange: reloadActorSheets,
             });
         });
     }

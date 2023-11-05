@@ -79,4 +79,28 @@ export interface StressItemData {
     system: StressData;
 }
 
-export type NOVA6ItemData = AspectItemData | SkillItemData | TalentItemData | AssetItemData | StressItemData;
+interface StressPointsData {
+    numPhysicalStressPoints: number;
+    numMentalStressPoints: number;
+    status: {
+        physical: {
+            base: [];
+        };
+        mental: {
+            base: [];
+        };
+    };
+}
+
+export interface StressPointsItemData {
+    type: "stressPoints";
+    system: StressPointsData;
+}
+
+export type NOVA6ItemData =
+    | AspectItemData
+    | SkillItemData
+    | TalentItemData
+    | AssetItemData
+    | StressItemData
+    | StressPointsItemData;

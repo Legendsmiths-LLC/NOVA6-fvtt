@@ -1,0 +1,22 @@
+{{> "systems/nova6/templates/components/item-header.hbs" title="NOVA.Item.StressPoints.EditItem" item=item}}
+
+<div class="nova6-desk__content">
+    {{> "systems/nova6/templates/item/settings/setting-slider.hbs"
+        headline = "NOVA.Item.StressPoints.BoxCountPhysical"
+        fieldName = "system.numPhysical"
+        field = system.numPhysical
+        dtype = "Number"
+        min = 1
+        max = 20
+    }}
+
+    {{> "systems/nova6/templates/item/settings/setting-slider.hbs"
+        headline = "NOVA.Item.StressPoints.BoxCountMental"
+        fieldName = "system.numMental"
+        field = system.numMental
+        min = 1
+        max = 20
+    }}
+</div>
+
+{{> "systems/nova6/templates/components/item-footer.hbs"}}

@@ -18,6 +18,7 @@
             "Aspects": "Aspects",
             "Skills": "Skills",
             "Stress": "Stress",
+            "StressPoints": "Stress Points",
             "Assets": "Assets",
             "NoAssets": "No assets yet",
             "Load": "Load Level",
@@ -130,6 +131,11 @@
                     "E": "Enduring",
                     "P": "Permanent"
                 }
+            },
+            "StressPoints": {
+                "EditItem": "Edit Stress Points Settings",
+                "BoxCountPhysical": "Base number of boxes for physical stress",
+                "BoxCountMental": "Base number of boxes for mental stress"
             }
         },
         "Roll": {
@@ -206,6 +212,10 @@
             "enableUnrealInsight": {
                 "Name": "Enable Unreal Insight",
                 "Hint": "Enable Unreal Insight for character sheets and rolls"
+            },
+            "enableStressPointsDamageSystem": {
+                "Name": "Enable \"Stress Points\" damage system",
+                "Hint": "Enable an alternative to the standard damage system in all character sheets"
             }
         },
         "GmScreen": {

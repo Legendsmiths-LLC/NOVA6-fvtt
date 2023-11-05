@@ -62,13 +62,21 @@
                 {{!--Sidebar--}}
                 <section class="nova6-desk__sidebar">
                     {{!--Stress--}}
-                    <section class="nova6-desk__stress">
-                        <header class="nova6-headline">
-                            <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Stress"}}</h2>
-                        </header>
-
-                        {{> "systems/nova6/templates/components/stress.hbs"}}
-                    </section>
+                    {{#if useStressPointsDamageSystem}}
+                        <section class="nova6-desk__stress nova6-desk__stress--stressPoints">
+                            <header class="nova6-headline">
+                                <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.StressPoints"}}</h2>
+                            </header>
+                            {{> "systems/nova6/templates/components/stress-points.hbs"}}
+                        </section>
+                    {{else}}
+                        <section class="nova6-desk__stress">
+                            <header class="nova6-headline">
+                                <h2 class="nova6-headline__text">{{localize "NOVA.Sheet.Stress"}}</h2>
+                            </header>
+                            {{> "systems/nova6/templates/components/stress.hbs"}}
+                        </section>
+                    {{/if}}
 
                     {{!--Assets--}}
                     <section class="nova6-desk__assets">

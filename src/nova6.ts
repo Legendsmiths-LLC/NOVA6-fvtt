@@ -28,7 +28,9 @@ import { TalentSheet } from "./module/item/talent/TalentSheet";
 import { StressSheet } from "./module/item/stress/StressSheet";
 import { novaModifier } from "./module/applications/RollDialog";
 import { RollConfig } from "./module/features/RollConfig";
-import { Nova6GMScreen } from "./module/components/GMScreen/GMScreen"
+import { Nova6GMScreen } from "./module/components/GMScreen/GMScreen";
+import { StressPoints } from "./module/features/StressPoints";
+import { StressPointsSheet } from "./module/item/stress/StressPointsSheet";
 
 /* -------------------------------- */
 /*	System initialization			*/
@@ -90,7 +92,12 @@ Hooks.once("init", async () => {
         makeDefault: true,
     });
 
-    Nova6GMScreen.initialize()
+    Items.registerSheet("NOVA6", StressPointsSheet, {
+        types: ["stressPoints"],
+        makeDefault: true,
+    });
+
+    Nova6GMScreen.initialize();
 
     // Preload all needed templates
     await TemplatePreloader.preloadHandlebarsTemplates();
@@ -100,6 +107,7 @@ Hooks.once("init", async () => {
 /*	Register hooks      			*/
 /* -------------------------------- */
 RollConfig.hooks();
+StressPoints.hooks();
 
 /* -------------------------------- */
 /*	Webpack HMR                     */

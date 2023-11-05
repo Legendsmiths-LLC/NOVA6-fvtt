@@ -6,6 +6,12 @@
     grid-gap: $component-padding * 2;
     justify-items: center;
 
+    &.nova6-stress--stressPoints {
+        grid-template-columns: min-content auto;
+        grid-template-rows: min-content min-content;
+        justify-items: start;
+    }
+
     > .nova6-stress--contents {
         display: contents;
     }
@@ -13,6 +19,10 @@
     &__boxes {
         display: flex;
         gap: 2px;
+
+        &.nova6-stress__boxes--stressPoints {
+            flex-wrap: wrap;
+        }
     }
 
     &__extra {
@@ -30,6 +40,12 @@
         &:first-letter {
             font-size: 12px;
         }
+    }
+
+    .nova6-checkbox--break {
+        content: "";
+        flex-basis: 100%;
+        height: 0;
     }
 
     .nova6-checkbox:hover {

@@ -1,31 +1,19 @@
 {
     "name": "Default",
     "packs": {
-        "aspects": [
-            "High Concept",
-            "Background",
-            "Motivation",
-            "Trouble"
-        ],
-        "assets": [
-            "Instrument",
-            "Memento",
-            "Personal Item",
-            "Token"
-        ],
-        "skills": [
-            "Fight",
-            "Move",
-            "Interact",
-            "Physique",
-            "Wits",
-            "Resolve"
-        ]
+        "aspects": ["High Concept", "Background", "Motivation", "Trouble"],
+        "assets": ["Instrument", "Memento", "Personal Item", "Token"],
+        "skills": ["Fight", "Move", "Interact", "Physique", "Wits", "Resolve"]
     },
     "content": [
         {
             "name": "Stress",
             "type": "stress",
+            "data": {}
+        },
+        {
+            "name": "Stress Points",
+            "type": "stressPoints",
             "data": {}
         }
     ]

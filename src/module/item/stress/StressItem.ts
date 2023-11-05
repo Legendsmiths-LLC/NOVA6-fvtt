@@ -1,9 +1,9 @@
 import { BaseItem } from "../BaseItem";
 import { ItemData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/data.mjs";
 
-const stressTypes = ["Physical", "Mental"];
-const stressSeverities = ["Stressed", "Staggered", "Incapacitated"];
-const stressDurations = ["C", "B", "Q", "S", "T", "L", "LL", "E", "P"];
+export const stressTypes = ["Physical", "Mental"];
+export const stressSeverities = ["Stressed", "Staggered", "Incapacitated"];
+export const stressDurations = ["C", "B", "Q", "S", "T", "L", "LL", "E", "P"];
 
 export class StressItem extends BaseItem {
     static documentName = "stress";
@@ -91,6 +91,9 @@ export class StressItem extends BaseItem {
     }
 
     private static _updateConditions(item, sheet) {
+        //bypass when stress points are used
+        if (game.settings.get("nova6", "enableStressPointsDamageSystem")) return;
+
         const status = item.system.status;
 
         stressSeverities.forEach((severity) => {

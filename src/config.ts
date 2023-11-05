@@ -12,6 +12,7 @@ import { AssetItem } from "./module/item/asset/AssetItem";
 import { LoadLevel } from "./module/components/LoadLevel/LoadLevel";
 import { Counter } from "./module/components/Counter/Counter";
 import { GenericRoll } from "./module/components/GenericRoll/GenericRoll";
+import { StressPointsItem } from "./module/item/stress/StressPointsItem";
 
 export interface Nova6Config {
     itemClasses: {
@@ -36,6 +37,7 @@ export const NOVA6: Nova6Config = {
         aspect: AspectItem,
         skill: SkillItem,
         stress: StressItem,
+        stressPoints: StressPointsItem,
         talent: TalentItem,
         asset: AssetItem,
     },

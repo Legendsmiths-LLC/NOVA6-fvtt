@@ -49,17 +49,17 @@ export class CharacterSheet extends ActorSheet {
         }
 
         // @ts-ignore
-        game.socket?.on('system.nova6', (options) => {
-            switch(options?.type) {
-                case 'update':
-                    this.render()
-    
+        game.socket?.on("system.nova6", (options) => {
+            switch (options?.type) {
+                case "update":
+                    this.render();
+
                     break;
                 default:
-                    console.log('unidentified socket type')
+                    console.log("unidentified socket type");
                     break;
             }
-        })
+        });
     }
 
     /**
@@ -95,6 +95,8 @@ export class CharacterSheet extends ActorSheet {
         data.enrichedNotes = await TextEditor.enrichHTML(this.object.system.notes, { async: true });
         // @ts-ignore
         data.enrichedQuickNotes = await TextEditor.enrichHTML(this.object.system.quicknotes, { async: true });
+
+        data.useStressPointsDamageSystem = game.settings.get("nova6", "enableStressPointsDamageSystem");
 
         const availableTracker = [
             { name: "Setbacks", value: data.actor.system.setbacks, path: "system.setbacks", active: true },
@@ -200,7 +202,7 @@ export class CharacterSheet extends ActorSheet {
         }
 
         if (game?.socket) {
-            game?.socket.emit('system.nova6', { type: 'update' })
+            game?.socket.emit("system.nova6", { type: "update" });
         }
     }
 }

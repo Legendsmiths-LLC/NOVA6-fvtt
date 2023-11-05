@@ -24,7 +24,7 @@
         }
     },
     "Item": {
-        "types": ["aspect", "skill", "talent", "stress", "asset"],
+        "types": ["aspect", "skill", "talent", "stress", "stressPoints", "asset"],
         "templates": {
             "base": {
                 "description": ""
@@ -59,6 +59,11 @@
             "numMentalStressed": 3,
             "numMentalStaggered": 2,
             "numMentalIncapacitated": 1,
+            "status": {}
+        },
+        "stressPoints": {
+            "numPhysical": 12,
+            "numMental": 12,
             "status": {}
         },
         "talent": {
